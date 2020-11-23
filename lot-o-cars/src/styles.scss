@@ -6,27 +6,19 @@ $dark-gray:#666;
 
 body {
     padding:0;
-    margin:0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin:0
 }
-
-header {
-    background-color: $light-gray;
-    padding:10px 15px;
-    line-height: 35px;
-}
-header h1 {
-    float: left;
+mat-toolbar h1 {
     color: $secondary-color;
-    margin:0 50px 0 0
 }
-header ul:nth-child(2) {
-    position:absolute;
-    top:10px;
-    right:80px
+mat-toolbar div {
+    margin:0 50px
 }
-header li {
+mat-toolbar a {
     color: $primary-color
+}
+mat-toolbar a:hover {
+    color: $secondary-color
 }
 header img {
     width: 70px;
@@ -53,3 +45,5 @@ footer li, header li {
     float:left;
     margin-right:20px
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
