@@ -7,12 +7,14 @@ import { HeadermenuComponent } from './components/headermenu/headermenu.componen
 import { FootermenuComponent } from './components/footermenu/footermenu.component';
 import { MaterialModule } from './modules/material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TermsComponent } from './components/terms/terms.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeadermenuComponent,
-    FootermenuComponent
+    FootermenuComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
