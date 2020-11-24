@@ -3,14 +3,48 @@
         <mat-icon>menu</mat-icon>
     </button>
     <h1>lot-o-cars</h1>
-    <span class="menu-spacer"></span>
-    <div>
+    <span class="flexExpand"></span>
+    <span>
         <a mat-button [routerLink]="'/hire'"> hire </a>
         <a mat-button [routerLink]="'/rent'"> rent </a>
-    </div>
-    <div>
+    </span>
+    <span class="flexExpand"></span>
+    <span>
         <a mat-button href="#"> English </a>
         <a mat-button href="#"> aanmelden </a>
         <a mat-button href="#"> registreren </a>
-    </div>
+    </span>
+    <span>
+        <button mat-button class="mat-button-wrapper" [matMenuTriggerFor]="userMenu">
+            username
+            <span class="material-icons">account_circle</span>
+        </button>
+        <mat-menu #userMenu="matMenu" xPosition="before">
+            <button mat-menu-item>
+                <span class="material-icons">settings</span>
+                <span class="title">profiel</span>
+            </button>
+            <button mat-menu-item>
+                <span class="material-icons">directions_car</span>
+                <span class="title">auto's</span>
+            </button>
+            <button mat-menu-item>
+                <span class="material-icons">history</span>
+                <span class="title">huurhistorie</span>
+            </button>
+            <button mat-menu-item>
+                <span class="material-icons">settings_backup_restore</span>
+                <span class="title">verhuurhistorie</span>
+            </button>
+            <button mat-menu-item>
+                <span class="material-icons">speed</span>
+                <span class="title">dashboard</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item>
+                <span class="material-icons">power_settings_new</span>
+                <span class="title">afmelden</span>
+            </button>
+        </mat-menu>
+    </span>
 </mat-toolbar>
