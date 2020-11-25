@@ -10,6 +10,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingspageComponent } from './components/landingspage/landingspage.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { RouterModule } from '@angular/router';
+import { HireComponent } from './components/hire/hire.component';
+import { FilterComponent } from './components/filter/filter.component';
+import { ListComponent } from './components/list/list.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import { RouterModule } from '@angular/router';
     HeadermenuComponent,
     FootermenuComponent,
     LandingspageComponent,
-    ContactComponent
+    ContactComponent,
+    HireComponent,
+    FilterComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
