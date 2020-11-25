@@ -2,11 +2,17 @@
     <button mat-icon-button>
         <mat-icon>menu</mat-icon>
     </button>
-    <h1>lot-o-cars</h1>
+
+    <h1>
+        <a routerLink="/home">
+            lot-o-cars
+        </a>
+    </h1>
+   
     <span class="flexExpand"></span>
     <span>
-        <a mat-button [routerLink]="'/hire'"> hire </a>
-        <a mat-button [routerLink]="'/rent'"> rent </a>
+        <a mat-button routerLink="/hire"> hire </a>
+        <a mat-button href="#"> rent </a>
     </span>
     <span class="flexExpand"></span>
     <span>
