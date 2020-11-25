@@ -7,18 +7,26 @@ import { HeadermenuComponent } from './components/headermenu/headermenu.componen
 import { FootermenuComponent } from './components/footermenu/footermenu.component';
 import { MaterialModule } from './modules/material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LandingspageComponent } from './components/landingspage/landingspage.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeadermenuComponent,
-    FootermenuComponent
+    FootermenuComponent,
+    LandingspageComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule.forRoot([
+      {path: 'contact', component: ContactComponent},
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]
