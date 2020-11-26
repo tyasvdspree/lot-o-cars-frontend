@@ -29,10 +29,7 @@ import { ListComponent } from './components/list/list.component';
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule,
-    RouterModule.forRoot([
-      {path: 'contact', component: ContactComponent},
-    ]),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
