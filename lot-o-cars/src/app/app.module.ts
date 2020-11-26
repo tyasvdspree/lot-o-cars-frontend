@@ -9,7 +9,6 @@ import { MaterialModule } from './modules/material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingspageComponent } from './components/landingspage/landingspage.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { RouterModule } from '@angular/router';
 import { HireComponent } from './components/hire/hire.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ListComponent } from './components/list/list.component';

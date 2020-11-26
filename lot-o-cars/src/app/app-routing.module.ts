@@ -5,9 +5,10 @@ import { HireComponent } from './components/hire/hire.component';
 import { LandingspageComponent } from './components/landingspage/landingspage.component';
 
 const routes: Routes = [
+  { path: 'contact', component: ContactComponent },
   { path: 'hire', component: HireComponent },
   { path: 'home', component: LandingspageComponent },
-  { path: 'contact', component: ContactComponent }
+  { path: '**', component: LandingspageComponent }
 ];
 
 @NgModule({
