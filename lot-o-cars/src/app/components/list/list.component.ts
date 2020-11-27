@@ -3,6 +3,7 @@ import { Car } from 'src/app/models/car.model';
 import { CarSearchCriteria } from 'src/app/models/carSearchCriteria.model';
 import { CarsearchService } from 'src/app/services/carsearch.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -20,7 +21,9 @@ export class ListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private carSearch: CarsearchService) { }
+  constructor(
+    private carSearch: CarsearchService,
+    private router: Router) { }
 
   ngOnInit(): void {
     const searchCriteria = new CarSearchCriteria();
@@ -31,6 +34,11 @@ export class ListComponent implements OnInit {
     this.isRateLimitReached = false;
     this.resultsLength = this.cars.length;
     console.log(this.cars);
+  }
+
+  onRowClicked(car: Car): void {
+    console.log('Row clicked: ', car);
+    this.router.navigateByUrl(`/cardetails/${car.id}`);
   }
 
 }

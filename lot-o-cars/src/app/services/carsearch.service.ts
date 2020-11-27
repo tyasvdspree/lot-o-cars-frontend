@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Car } from '../models/car.model';
 import { CarSearchCriteria } from '../models/carSearchCriteria.model';
@@ -20,6 +19,10 @@ export class CarsearchService {
 
   find(searchCriteria: CarSearchCriteria): Car[] {
     return this.cars;
+  }
+
+  findById(carId: number): Car {
+    return this.cars.filter(x => x.id === carId)[0];
   }
 
 }

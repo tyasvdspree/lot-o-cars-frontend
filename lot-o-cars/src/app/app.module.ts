@@ -12,6 +12,9 @@ import { ContactComponent } from './components/contact/contact.component';
 import { HireComponent } from './components/hire/hire.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ListComponent } from './components/list/list.component';
+import { CardetailsComponent } from './components/cardetails/cardetails.component';
+import { CarsearchService } from './services/carsearch.service';
+import { ActivatedRoute } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import { ListComponent } from './components/list/list.component';
     ContactComponent,
     HireComponent,
     FilterComponent,
-    ListComponent
+    ListComponent,
+    CardetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,9 @@ import { ListComponent } from './components/list/list.component';
     MaterialModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    CarsearchService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
