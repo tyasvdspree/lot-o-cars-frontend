@@ -1,17 +1,59 @@
-<table #table mat-table [dataSource]="cars" class="mat-elevation-z8">
-    
-    <!-- Make Column -->
-    <ng-container matColumnDef="make">
-        <th mat-header-cell *matHeaderCellDef> Merk </th>
-        <td mat-cell *matCellDef="let element"> {{element.make}} </td>
-    </ng-container>
+<div class="example-container mat-elevation-z8">
+    <div class="example-loading-shade"
+         *ngIf="isLoadingResults || isRateLimitReached">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+      <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+        GitHub's API rate limit has been reached. It will be reset in one minute.
+      </div>
+    </div>
+  
+    <div class="example-table-container">
+        <mat-table #table [dataSource]="cars">
+            
+            <ng-container matColumnDef="make">
+                <th mat-header-cell *matHeaderCellDef> Merk </th>
+                <td mat-cell *matCellDef="let element"> {{element.make}} </td>
+            </ng-container>
 
-    <!-- Model Column -->
-    <ng-container matColumnDef="model">
-        <th mat-header-cell *matHeaderCellDef> Model </th>
-        <td mat-cell *matCellDef="let element"> {{element.model}} </td>
-    </ng-container>
+            <ng-container matColumnDef="model">
+                <th mat-header-cell *matHeaderCellDef> Model </th>
+                <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+            </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+            <ng-container matColumnDef="buildDate">
+                <th mat-header-cell *matHeaderCellDef> Bouwjaar </th>
+                <td mat-cell *matCellDef="let element"> {{element.buildDate}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="transmission">
+                <th mat-header-cell *matHeaderCellDef> Transmissie </th>
+                <td mat-cell *matCellDef="let element"> {{element.transmission}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fuel">
+                <th mat-header-cell *matHeaderCellDef> Brandstof </th>
+                <td mat-cell *matCellDef="let element"> {{element.fuel}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="body">
+                <th mat-header-cell *matHeaderCellDef> Carrosserie </th>
+                <td mat-cell *matCellDef="let element"> {{element.body}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="navigation">
+                <th mat-header-cell *matHeaderCellDef> Navigatie </th>
+                <td mat-cell *matCellDef="let element"> {{element.navigation ? 'ja' : 'nee'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="airco">
+                <th mat-header-cell *matHeaderCellDef> Airco </th>
+                <td mat-cell *matCellDef="let element"> {{element.airco ? 'ja' : 'nee'}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </mat-table>
+    </div>
+
+    <mat-paginator [length]="resultsLength" [pageSize]="10"></mat-paginator>
+  </div>
