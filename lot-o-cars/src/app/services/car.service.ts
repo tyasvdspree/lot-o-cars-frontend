@@ -5,7 +5,7 @@ import { CarSearchCriteria } from '../models/carSearchCriteria.model';
 @Injectable({
   providedIn: 'root'
 })
-export class CarsearchService {
+export class CarService {
 
   private cars: Car[] = [
     { id: 1, licensePlate: '51-RS-00', buildDate: '1977', make: 'BMW',  model: '528',    body: 'sedan',     transmission: 'automaat',       color: 'bruin',  fuel: 'benzine', passengers: 4, bootSpaceInLiters: 380, navigation: false, airco: false },

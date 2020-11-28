@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Car } from 'src/app/models/car.model';
 import { CarSearchCriteria } from 'src/app/models/carSearchCriteria.model';
-import { CarsearchService } from 'src/app/services/carsearch.service';
+import { CarService } from 'src/app/services/car.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 
@@ -22,7 +22,7 @@ export class ListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private carSearch: CarsearchService,
+    private carSearch: CarService,
     private router: Router) { }
 
   ngOnInit(): void {

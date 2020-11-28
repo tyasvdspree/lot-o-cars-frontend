@@ -13,7 +13,7 @@ import { HireComponent } from './components/hire/hire.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ListComponent } from './components/list/list.component';
 import { CardetailsComponent } from './components/cardetails/cardetails.component';
-import { CarsearchService } from './services/carsearch.service';
+import { CarService } from './services/car.service';
 import { ActivatedRoute } from '@angular/router';
 
 @NgModule({
@@ -35,7 +35,7 @@ import { ActivatedRoute } from '@angular/router';
     BrowserAnimationsModule
   ],
   providers: [
-    CarsearchService,
+    CarService,
   ],
   bootstrap: [AppComponent]
 })

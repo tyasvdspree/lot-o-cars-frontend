@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Car } from 'src/app/models/car.model';
-import { CarsearchService } from 'src/app/services/carsearch.service';
+import { CarService } from 'src/app/services/car.service';
 
 @Component({
   selector: 'app-cardetails',
@@ -14,7 +14,7 @@ export class CardetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute, 
-    private carService: CarsearchService) { }
+    private carService: CarService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(parameters => {
