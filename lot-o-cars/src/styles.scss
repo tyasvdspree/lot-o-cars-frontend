@@ -103,3 +103,36 @@ th {
 td {
     color: $dark-gray !important
 }
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: normal;
+    align-content: normal;
+  }
+  .flex-items {
+      margin: 5px;
+      width: 25%
+  }
+  .flex-items:nth-child(1) {
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+  }
+  .flex-items:nth-child(2) {
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+  }
+  #content {
+    height: calc(80vh);
+    overflow-y: auto;
+    transition: all 0.5s;
+  }

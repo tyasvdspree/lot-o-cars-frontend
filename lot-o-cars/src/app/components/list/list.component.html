@@ -11,42 +11,42 @@
         <mat-table #table [dataSource]="cars">
             
             <ng-container matColumnDef="make">
-                <th mat-header-cell *matHeaderCellDef> Merk </th>
+                <th id="makeHeader" mat-header-cell *matHeaderCellDef> Merk </th>
                 <td mat-cell *matCellDef="let element"> {{element.make}} </td>
             </ng-container>
 
             <ng-container matColumnDef="model">
-                <th mat-header-cell *matHeaderCellDef> Model </th>
+                <th id="modelHeader" mat-header-cell *matHeaderCellDef> Model </th>
                 <td mat-cell *matCellDef="let element"> {{element.model}} </td>
             </ng-container>
 
             <ng-container matColumnDef="modelYear">
-                <th mat-header-cell *matHeaderCellDef> Bouwjaar </th>
+                <th id="modelYearHeader" mat-header-cell *matHeaderCellDef> Bouwjaar </th>
                 <td mat-cell *matCellDef="let element"> {{element.modelYear}} </td>
             </ng-container>
 
             <ng-container matColumnDef="transmission">
-                <th mat-header-cell *matHeaderCellDef> Transmissie </th>
+                <th id="transmissionHeader" mat-header-cell *matHeaderCellDef> Transmissie </th>
                 <td mat-cell *matCellDef="let element"> {{element.transmission}} </td>
             </ng-container>
 
             <ng-container matColumnDef="fuel">
-                <th mat-header-cell *matHeaderCellDef> Brandstof </th>
+                <th id="fuelHeader" mat-header-cell *matHeaderCellDef> Brandstof </th>
                 <td mat-cell *matCellDef="let element"> {{element.fuel}} </td>
             </ng-container>
 
             <ng-container matColumnDef="body">
-                <th mat-header-cell *matHeaderCellDef> Carrosserie </th>
+                <th id="bodyHeader" mat-header-cell *matHeaderCellDef> Carrosserie </th>
                 <td mat-cell *matCellDef="let element"> {{element.body}} </td>
             </ng-container>
 
             <ng-container matColumnDef="navigation">
-                <th mat-header-cell *matHeaderCellDef> Navigatie </th>
+                <th id="navigationHeader" mat-header-cell *matHeaderCellDef> Navigatie </th>
                 <td mat-cell *matCellDef="let element"> {{element.navigation ? 'ja' : 'nee'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="airco">
-                <th mat-header-cell *matHeaderCellDef> Airco </th>
+                <th id="aircoHeader" mat-header-cell *matHeaderCellDef> Airco </th>
                 <td mat-cell *matCellDef="let element"> {{element.airco ? 'ja' : 'nee'}} </td>
             </ng-container>
 
