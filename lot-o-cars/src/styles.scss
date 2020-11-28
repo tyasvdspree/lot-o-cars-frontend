@@ -4,15 +4,17 @@ $light-gray:#dedede;
 $medium-gray:#a2a2a2;
 $dark-gray:#666;
 
+html, body { 
+    height: 100%; 
+}
 body {
     padding:0;
-    margin:0
+    margin:0;
+    font-family: Roboto, "Helvetica Neue", sans-serif
 }
-mat-toolbar h1 {
+mat-toolbar h1 a {
+    text-decoration: none;
     color: $secondary-color;
-}
-mat-toolbar div {
-    margin:0 50px
 }
 mat-toolbar a {
     color: $primary-color
@@ -20,16 +22,9 @@ mat-toolbar a {
 mat-toolbar a:hover {
     color: $secondary-color
 }
-header img {
-    width: 70px;
-    position:absolute;
-    top:5px;
-    right:10px
-}
 footer {
     background-color:$primary-color;
     color:white;
-    padding:10px;
     position:absolute;
     bottom:0;
     left:0;
@@ -41,9 +36,70 @@ footer, header {
 footer ul, header ul {
     list-style-type: none;
 }
-footer ul, header li {
-    float:left;
-    margin-right:20px
+.flexExpand {
+    flex: 1 1 auto;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.flexContainer {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.flexCol {
+    flex-direction: column;
+}
+.mr-5 {
+    margin-right: 25px
+}
+.p-5 {
+    padding: 25px
+}
+.h-100 {
+    height: 100%
+}
+h1 {
+    font-size: 3em;
+    color: $secondary-color
+}
+h2 {
+    color: $primary-color
+}
+a { 
+    color:$secondary-color;
+    text-decoration: none;
+}
+a:hover { 
+    color:$primary-color
+}
+footer a:hover { 
+    color:$secondary-color
+}
+.label, .labelw {
+    display: inline-block;
+    width:60px
+}
+.labelw {
+    width:100px
+}
+table, mat-table {
+    table-layout: fixed
+}
+tr {
+    vertical-align: middle;
+}
+tr:hover {
+    background-color: $light-gray;
+}
+tr:first-child:hover {
+    background-color: white;
+}
+th {
+    width: 10%;
+    font-weight: bold;
+    font-size: 1em;
+    color:$primary-color !important
+}
+td {
+    color: $dark-gray !important
+}
