@@ -27,7 +27,7 @@ export class CardetailsComponent implements OnInit {
         response => {
           console.log(response);
           response.forEach(c => {
-            if (c.id == this.carId) {
+            if (c.carId == this.carId) {
               this.car = c;
             }
           });

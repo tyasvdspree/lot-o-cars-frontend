@@ -1,15 +1,22 @@
 export class Car {
-    id: number;
+    carId: number;
+    userId: number;
+    locationId: number;
     licensePlate: string;
-    buildDate: string;
+    countryCode: string;
+    modelYear: string;
     make: string;
     model: string;
     body: string;
     transmission: string;
     color: string;
     fuel: string;
-    passengers: number;
+    fuelUsage: number;
+    doors: number;
+    seats: number;
     bootSpaceInLiters: number;
     navigation: boolean;
     airco: boolean;
+    smokingIsAllowed: boolean;
+    isActive: boolean;
 }

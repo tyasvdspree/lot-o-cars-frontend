@@ -16,7 +16,9 @@
         </div>
     </div>
     <div class="flex-items" style="padding-top:50px">
-        <h3>details {{ car.make + ' ' + car.model }}</h3>
-        {{ car.body }}
+        <ng-container *ngIf="car">
+            <h3>details {{ car.make + ' ' + car.model || '' }}</h3>
+            {{ car.body }}
+        </ng-container>
     </div>
  </div>
