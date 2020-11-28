@@ -18,7 +18,20 @@
     <div class="flex-items" style="padding-top:50px">
         <ng-container *ngIf="car">
             <h3>details {{ car.make + ' ' + car.model || '' }}</h3>
-            {{ car.body }}
+            <div><label class="labelw">merk</label>: {{ car.make }}</div>
+            <div><label class="labelw">model</label>: {{ car.model }}</div>
+            <div><label class="labelw">carrosserie</label>: {{ car.body }}</div>
+            <div><label class="labelw">brandstof</label>: {{ car.fuel }}</div>
+            <div><label class="labelw">transmissie</label>: {{ car.transmission }}</div>
+            <div><label class="labelw">bouwjaar</label>: {{ car.modelYear }}</div>
+            <div><label class="labelw">kleur</label>: {{ car.color }}</div>
+            <div><label class="labelw">kenteken</label>: {{ car.licensePlate }}</div>
+            <div><label class="labelw">deuren</label>: {{ car.doors }}</div>
+            <div><label class="labelw">zitplaatsen</label>: {{ car.seats }}</div>
+            <div><label class="labelw">bagageruimte</label>: {{ car.bootSpaceInLiters }} l</div>
+            <div><label class="labelw">navigatie</label>: {{ car.navigation ? 'ja' : 'nee' }}</div>
+            <div><label class="labelw">airco</label>: {{ car.airco ? 'ja' : 'nee' }}</div>
+            <div><label class="labelw">rookvrij</label>: {{ !car.smokingIsAllowed ? 'ja' : 'nee' }}</div>
         </ng-container>
     </div>
  </div>

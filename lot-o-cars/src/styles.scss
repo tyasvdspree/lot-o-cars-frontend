@@ -75,9 +75,12 @@ a:hover {
 footer a:hover { 
     color:$secondary-color
 }
-.label {
+.label, .labelw {
     display: inline-block;
     width:60px
+}
+.labelw {
+    width:100px
 }
 table, mat-table {
     table-layout: fixed
