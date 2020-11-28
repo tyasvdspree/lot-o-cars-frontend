@@ -24,9 +24,8 @@ export class CarService {
     return this.http.get("./assets/data/cars.json");
   }
 
-  findById(carId: number): Car {
-    //return this.cars.filter(x => x.id === carId)[0];
-    return new Car();
+  findById(carId: number): Observable<any> {
+    return this.http.get("./assets/data/cars.json");
   }
 
 }
