@@ -10,7 +10,8 @@ html, body {
 body {
     padding:0;
     margin:0;
-    font-family: Roboto, "Helvetica Neue", sans-serif
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    color: $dark-gray
 }
 mat-toolbar h1 a {
     text-decoration: none;
@@ -64,6 +65,10 @@ h1 {
 }
 h2 {
     color: $primary-color
+}
+h3 {
+    color: $primary-color;
+    margin: 0 !important
 }
 a { 
     color:$secondary-color;

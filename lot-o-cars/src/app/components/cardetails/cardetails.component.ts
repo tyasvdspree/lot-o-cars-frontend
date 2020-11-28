@@ -26,6 +26,7 @@ export class CardetailsComponent implements OnInit {
       this.carServiceSubscription = this.carService.findById(this.carId).subscribe(
         response => {
           console.log(response);
+          // TODO: remove loop when connected to the api
           response.forEach(c => {
             if (c.carId == this.carId) {
               this.car = c;
