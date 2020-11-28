@@ -4,12 +4,14 @@ import { CardetailsComponent } from './components/cardetails/cardetails.componen
 import { ContactComponent } from './components/contact/contact.component';
 import { HireComponent } from './components/hire/hire.component';
 import { LandingspageComponent } from './components/landingspage/landingspage.component';
+import { TermsComponent } from './components/terms/terms.component';
 
 const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'cardetails/:id', component: CardetailsComponent },
   { path: 'hire', component: HireComponent },
   { path: 'home', component: LandingspageComponent },
+  { path: 'terms', component: TermsComponent },
   { path: '**', component: LandingspageComponent }
 ];
 

@@ -15,6 +15,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { ListComponent } from './components/list/list.component';
 import { CardetailsComponent } from './components/cardetails/cardetails.component';
 import { CarService } from './services/car.service';
+import { TermsComponent } from './components/terms/terms.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { CarService } from './services/car.service';
     HireComponent,
     FilterComponent,
     ListComponent,
-    CardetailsComponent
+    CardetailsComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
