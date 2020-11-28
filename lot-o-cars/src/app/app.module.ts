@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,7 +15,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { ListComponent } from './components/list/list.component';
 import { CardetailsComponent } from './components/cardetails/cardetails.component';
 import { CarService } from './services/car.service';
-import { ActivatedRoute } from '@angular/router';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ActivatedRoute } from '@angular/router';
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [
     CarService,
