@@ -1,7 +1,22 @@
 <p>hier moet de inhoud komen om te filteren op: merk, model, kleur, datum ophalen, datum inleveren enz.</p>
 <div class="example-container mat-elevation-z8">
     <mat-card>
-        
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <input type="text"
+                     placeholder="Locatie"
+                     aria-label="Number"
+                     matInput
+                     [formControl]="formControl"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option.city}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+        </form>
+          
         <mat-form-field appearance="fill">
             <mat-label>Enter a date range</mat-label>
             <mat-date-range-input [rangePicker]="picker">
