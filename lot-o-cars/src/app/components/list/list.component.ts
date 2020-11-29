@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 export class ListComponent implements OnInit, OnDestroy {
   carServiceSubscription: Subscription;
   cars: Car[];
-  displayedColumns = ['make', 'model', 'buildDate', 'transmission', 'fuel', 'body', 'navigation', 'airco'];
+  displayedColumns = ['make', 'model', 'modelYear', 'transmission', 'fuel', 'body', 'navigation', 'airco'];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -50,7 +50,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   onRowClicked(car: Car): void {
     console.log('Row clicked: ', car);
-    this.router.navigateByUrl(`/cardetails/${car.id}`);
+    this.router.navigateByUrl(`/cardetails/${car.carId}`);
   }
 
 }

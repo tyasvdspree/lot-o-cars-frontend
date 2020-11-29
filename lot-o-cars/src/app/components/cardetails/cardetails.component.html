@@ -1,22 +1,47 @@
-
 <div class="flex-container">
     <div class="flex-items">
-        <div>
-            <a routerLink="/hire">
-                <span class="material-icons">
-                    arrow_back_ios
-                </span>
-                <span style="position:relative;top:-7px">
-                    terug naar de lijst
-                </span>
-            </a>
-        </div>
-        <div style="padding-top:20px">
-            <img src="assets/img/app/maincar.jpg" alt="car" width="80%">
-        </div>
+        <a routerLink="/hire">
+            <span class="material-icons">
+                arrow_back_ios
+            </span>
+            <span style="position:relative;top:-7px">
+                terug naar de lijst
+            </span>
+        </a>
     </div>
-    <div class="flex-items" style="padding-top:50px">
-        <h3>details {{ car.make + ' ' + car.model }}</h3>
-        {{ car.body }}
+    <div class="flex-items"></div>
+    <div class="flex-items"></div>
+    <div class="flex-items">
+        <img src="assets/img/app/maincar.jpg" alt="car" width="80%">
+    </div>
+    <div class="flex-items">
+        <ng-container *ngIf="car">
+            <h3>auto:</h3>
+            <div><label class="labelw">merk</label>: {{ car.make }}</div>
+            <div><label class="labelw">model</label>: {{ car.model }}</div>
+            <div><label class="labelw">carrosserie</label>: {{ car.body }}</div>
+            <div><label class="labelw">brandstof</label>: {{ car.fuel }}</div>
+            <div><label class="labelw">transmissie</label>: {{ car.transmission }}</div>
+            <div><label class="labelw">bouwjaar</label>: {{ car.modelYear }}</div>
+            <div><label class="labelw">kleur</label>: {{ car.color }}</div>
+            <div><label class="labelw">kenteken</label>: {{ car.licensePlate }}</div>
+            <div><label class="labelw">deuren</label>: {{ car.doors }}</div>
+            <div><label class="labelw">zitplaatsen</label>: {{ car.seats }}</div>
+            <div><label class="labelw">bagageruimte</label>: {{ car.bootSpaceInLiters }} l</div>
+            <div><label class="labelw">navigatie</label>: {{ car.navigation ? 'ja' : 'nee' }}</div>
+            <div><label class="labelw">airco</label>: {{ car.airco ? 'ja' : 'nee' }}</div>
+            <div><label class="labelw">rookvrij</label>: {{ !car.smokingIsAllowed ? 'ja' : 'nee' }}</div>
+        </ng-container>
+    </div>
+    <div class="flex-items">
+        <h3>verhuurder:</h3>
+        <div><label class="labelw">naam</label>: J. Doe</div>
+        <div><label class="labelw">telefoon</label>: +31-6-12345678</div>
+        <div><label class="labelw">e-mail</label>: j.doe@domain.nl</div>
+    </div>
+    <div class="flex-items">
+        <h3>huurprijs:</h3>
+        <span style="margin-right:20px">99,- euro per dag </span>
+        <button mat-flat-button color="primary"> deze auto huren </button>
     </div>
  </div>
