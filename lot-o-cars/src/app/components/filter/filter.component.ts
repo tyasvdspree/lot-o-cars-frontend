@@ -7,12 +7,22 @@ import { LocationService } from 'src/app/services/location.service';
 import { Subscription } from 'rxjs';
 import { Location } from 'src/app/models/location.model';
 
+export interface Color {
+  name: string;
+}
+
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit, OnDestroy {
+  panelOpenState = false;
+  options: Color[] = [
+    {name: 'Zwart'},
+    {name: 'Wit'},
+    {name: 'Rood'}
+  ];
   formControl = new FormControl();
   locations: Location[] =
     [
