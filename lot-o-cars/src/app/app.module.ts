@@ -16,6 +16,7 @@ import { ListComponent } from './components/list/list.component';
 import { CardetailsComponent } from './components/cardetails/cardetails.component';
 import { CarService } from './services/car.service';
 import { TermsComponent } from './components/terms/terms.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -36,7 +37,9 @@ import { TermsComponent } from './components/terms/terms.component';
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     CarService,
