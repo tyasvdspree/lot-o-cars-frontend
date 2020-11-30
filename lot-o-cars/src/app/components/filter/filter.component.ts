@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LocationSearchCriteria } from 'src/app/models/locationSearchCriteria.model';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { LocationService } from 'src/app/services/location.service';
 import { Subscription } from 'rxjs';
 import { Location } from 'src/app/models/location.model';
@@ -24,6 +24,8 @@ export class FilterComponent implements OnInit, OnDestroy {
     {name: 'Rood'}
   ];
   formControl = new FormControl();
+  startDate = new FormControl(new Date());
+  endDate = new FormControl(new Date());
   locations: Location[] =
     [
       {
