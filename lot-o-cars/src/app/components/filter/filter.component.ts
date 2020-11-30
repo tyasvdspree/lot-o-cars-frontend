@@ -14,14 +14,43 @@ import { Location } from 'src/app/models/location.model';
 })
 export class FilterComponent implements OnInit, OnDestroy {
   formControl = new FormControl();
-  locations: Location[] ;
+  locations: Location[] =
+    [
+      {
+        "locationId": 1,
+        "addressLine1": "Blaak 12",
+        "addressLine2": "",
+        "city": "Rotterdam",
+        "zipCode": "1234 AB",
+        "countryCode": "NL",
+        "municipality": "Rotterdam"
+      },
+      {
+        "locationId": 2,
+        "addressLine1": "Dam 34",
+        "addressLine2": "Achter",
+        "city": "Amsterdam",
+        "zipCode": "2345 AB",
+        "countryCode": "NL",
+        "municipality": "Amsterdam"
+      },
+      {
+        "locationId": 3,
+        "addressLine1": "Grote Markt 45",
+        "addressLine2": "(achter de kerk)",
+        "city": "Groningen",
+        "zipCode": "3456 AB",
+        "countryCode": "NL",
+        "municipality": "Groningen"
+      }
+    ];
   filteredOptions: Observable<Location[]>;
   locationServiceSubscription: Subscription;
 
   constructor(
     private locationService: LocationService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.filteredOptions = this.formControl.valueChanges
       .pipe(
         startWith(''),
@@ -29,8 +58,6 @@ export class FilterComponent implements OnInit, OnDestroy {
       );
 
     const locationSearchCriteria = new LocationSearchCriteria();
-    locationSearchCriteria.city = 'Rotterdam';
-
     this.locationServiceSubscription = this.locationService.find(locationSearchCriteria).subscribe(
       response => {
         this.locations = response;
@@ -39,7 +66,7 @@ export class FilterComponent implements OnInit, OnDestroy {
       error => {
         console.log(error);
       }
-    ); 
+    );
   }
 
   ngOnDestroy(): void {
@@ -48,7 +75,6 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   private _filter(value: string): Location[] {
     const filterValue = value.toLowerCase();
-    console.log(this.locations)
     return this.locations.filter(option => option.city.toLowerCase().includes(filterValue));
   }
 
