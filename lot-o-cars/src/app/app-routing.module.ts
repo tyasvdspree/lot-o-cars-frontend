@@ -5,6 +5,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { HireComponent } from './components/hire/hire.component';
 import { LandingspageComponent } from './components/landingspage/landingspage.component';
 import { TermsComponent } from './components/terms/terms.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   { path: 'contact', component: ContactComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'hire', component: HireComponent },
   { path: 'home', component: LandingspageComponent },
   { path: 'terms', component: TermsComponent },
+  { path: 'register', component: RegisterComponent },
   { path: '**', component: LandingspageComponent }
 ];
 

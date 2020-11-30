@@ -16,7 +16,9 @@ import { ListComponent } from './components/list/list.component';
 import { CardetailsComponent } from './components/cardetails/cardetails.component';
 import { CarService } from './services/car.service';
 import { TermsComponent } from './components/terms/terms.component';
+import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FilterComponent,
     ListComponent,
     CardetailsComponent,
-    TermsComponent
+    TermsComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCheckboxModule,
   ],
   providers: [
     CarService,
