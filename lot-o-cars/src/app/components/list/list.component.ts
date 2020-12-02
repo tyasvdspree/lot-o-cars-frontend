@@ -13,26 +13,47 @@ import { Subscription } from 'rxjs';
 })
 export class ListComponent implements OnInit, OnDestroy {
   carServiceSubscription: Subscription;
+  carSearchSubscription: Subscription;
   cars: Car[];
-  displayedColumns = ['make', 'model', 'modelYear', 'transmission', 'fuel', 'body', 'navigation', 'airco'];
+  displayedColumns = ['licensePlate', 'make', 'model', 'modelYear', 'transmission', 'fuel', 'body', 'navigation', 'airco'];
 
   resultsLength = 0;
-  isLoadingResults = true;
+  isLoadingResults = false;
   isRateLimitReached = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private carService: CarService,
-    private router: Router) { }
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    const searchCriteria = new CarSearchCriteria();
-    searchCriteria.make = 'BMW';
+    this.cars = this.carService.cars;
 
+    this.carSearchSubscription = this.carService.SearchEvent.subscribe(
+      criteria => {
+        this.isLoadingResults = true;
+        this.getCarsBySearchCriteria(criteria);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    if (this.carSearchSubscription) {
+      this.carSearchSubscription.unsubscribe();
+    }
+    if (this.carServiceSubscription) {
+      this.carServiceSubscription.unsubscribe();
+    }
+  }
+
+  getCarsBySearchCriteria(searchCriteria: CarSearchCriteria) {
+    console.log('getCarsBySearchCriteria: ' + JSON.stringify(searchCriteria));
     this.carServiceSubscription = this.carService.find(searchCriteria).subscribe(
       response => {
         this.cars = response;
+        this.carService.cars = response;
         this.isLoadingResults = false;
         this.isRateLimitReached = false;
         this.resultsLength = this.cars.length;
@@ -44,13 +65,9 @@ export class ListComponent implements OnInit, OnDestroy {
     );    
   }
 
-  ngOnDestroy(): void {
-    this.carServiceSubscription.unsubscribe();
-  }
-
   onRowClicked(car: Car): void {
     console.log('Row clicked: ', car);
-    this.router.navigateByUrl(`/cardetails/${car.carId}`);
+    this.router.navigateByUrl(`/cardetails/${car.licensePlate}`);
   }
 
 }

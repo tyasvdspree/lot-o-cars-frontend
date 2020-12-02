@@ -9,6 +9,11 @@
   
     <div class="example-table-container">
         <mat-table #table [dataSource]="cars">
+
+            <ng-container matColumnDef="licensePlate">
+                <th id="licensePlateHeader" mat-header-cell *matHeaderCellDef> Kenteken </th>
+                <td mat-cell *matCellDef="let element"> {{element.licensePlate}} </td>
+            </ng-container>
             
             <ng-container matColumnDef="make">
                 <th id="makeHeader" mat-header-cell *matHeaderCellDef> Merk </th>

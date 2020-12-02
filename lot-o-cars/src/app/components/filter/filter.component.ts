@@ -6,6 +6,8 @@ import { map, startWith } from 'rxjs/operators';
 import { LocationService } from 'src/app/services/location.service';
 import { Subscription } from 'rxjs';
 import { Location } from 'src/app/models/location.model';
+import { CarService } from 'src/app/services/car.service';
+import { CarSearchCriteria } from 'src/app/models/carSearchCriteria.model';
 
 export interface Color {
   name: string;
@@ -60,7 +62,9 @@ export class FilterComponent implements OnInit, OnDestroy {
   locationServiceSubscription: Subscription;
 
   constructor(
-    private locationService: LocationService) { }
+    private locationService: LocationService,
+    private carService: CarService
+  ) { }
 
   ngOnInit(): void {
     this.filteredOptions = this.formControl.valueChanges
@@ -88,6 +92,13 @@ export class FilterComponent implements OnInit, OnDestroy {
   private _filter(value: string): Location[] {
     const filterValue = value.toLowerCase();
     return this.locations.filter(option => option.city.toLowerCase().includes(filterValue));
+  }
+
+  searchClick() {
+    console.log('search clicked!');
+    const criteria = new CarSearchCriteria();
+    criteria.pickUpLocation = 'Rotterdam';
+    this.carService.SearchEvent.emit(criteria);
   }
 
 }
