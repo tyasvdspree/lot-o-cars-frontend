@@ -17,17 +17,17 @@ export class CarService {
 
   // TODO: implement backend api
   find(searchCriteria: CarSearchCriteria): Observable<any> {
-    return this.http.get("./assets/data/cars.json");
+    return this.http.get('./assets/data/cars.json');
   }
 
   // TODO: implement backend api
   findById(carId: number): Observable<any> {
-    return this.http.get("./assets/data/cars.json");
+    return this.http.get('./assets/data/cars.json');
   }
 
   // TODO: implement backend api
   findByLicensePlate(lp: string): Observable<any> {
-    return this.http.get("./assets/data/cars.json");
+    return this.http.get('./assets/data/cars.json');
   }
 
 }

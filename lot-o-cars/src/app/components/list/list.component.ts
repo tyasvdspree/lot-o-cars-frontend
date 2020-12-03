@@ -48,7 +48,7 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
-  getCarsBySearchCriteria(searchCriteria: CarSearchCriteria) {
+  getCarsBySearchCriteria(searchCriteria: CarSearchCriteria): void {
     console.log('getCarsBySearchCriteria: ' + JSON.stringify(searchCriteria));
     this.carServiceSubscription = this.carService.find(searchCriteria).subscribe(
       response => {
@@ -62,7 +62,7 @@ export class ListComponent implements OnInit, OnDestroy {
       error => {
         console.log(error);
       }
-    );    
+    );
   }
 
   onRowClicked(car: Car): void {

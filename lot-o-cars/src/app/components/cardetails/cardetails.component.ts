@@ -16,7 +16,7 @@ export class CardetailsComponent implements OnInit {
   car: Car;
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private carService: CarService) { }
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class CardetailsComponent implements OnInit {
           console.log(response);
           // TODO: remove loop when connected to the api
           response.forEach(c => {
-            //if (c.carId == this.carId) {
+            // if (c.carId == this.carId) {
             if (c.licensePlate === this.licensePlate) {
               this.car = c;
             }
@@ -38,8 +38,7 @@ export class CardetailsComponent implements OnInit {
         error => {
           console.log(error);
         }
-      );    
-    })
+      );
+    });
   }
-
 }
