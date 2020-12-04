@@ -1,30 +1,40 @@
-<div>
-    <img src="assets/img/app/maincar.jpg" alt="car" width="20%">
-</div>
 
-<div>
-    <h1>Registreren</h1>
-    <p>U bent nog niet bekend in ons systeem en wilt een auto huren of verhuren.</p>
-</div>
-
-<div>
-    <mat-form-field>
-        <input type="text" placeholder="E-mailadres" matInput>
-    </mat-form-field>
-</div>
-
-<div>
-    <mat-form-field>
-        <input type="text" placeholder="Wachtwoord" matInput>
-    </mat-form-field>
-</div>
+<div class="flexContainer flexCol p-5">
 
 
-<div>
-    <mat-checkbox>U gaat akkoord met onze voorwaarden</mat-checkbox>
-</div>
+        <div style="display:flex; margin-top: 5%;">
 
-<div>
-    <button style="float: left;">Registreren</button>
-    <p style="float: left;">of aanmelden als bestaande gebruiker</p>
+            <div style="width: 500px;">
+                <img src="assets/img/app/maincar.jpg" alt="car" width="90%">
+            </div>
+
+            <div style="width: 500px;">
+                <div>
+                    <h1>Registreren</h1>
+                    <p>U bent nog niet bekend in ons systeem en wilt een auto huren of verhuren.</p>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input required type="email" placeholder="E-mailadres" matInput ngModel email>
+
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input required type="text" placeholder="Wachtwoord" matInput ngModel>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-checkbox>U gaat akkoord met onze voorwaarden</mat-checkbox>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <button mat-flat-button color="primary" style="float: left;">Registreren</button>
+                    <p style="float: left; padding: 7px 7px;">of aanmelden als bestaande gebruiker</p>
+                </div>
+            </div>
+        </div>
 </div>
