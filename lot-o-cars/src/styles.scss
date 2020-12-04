@@ -18,7 +18,8 @@ mat-toolbar h1 a {
     color: $secondary-color;
 }
 mat-toolbar a {
-    color: $primary-color
+    color: $primary-color;
+    cursor: pointer
 }
 mat-toolbar a:hover {
     color: $secondary-color

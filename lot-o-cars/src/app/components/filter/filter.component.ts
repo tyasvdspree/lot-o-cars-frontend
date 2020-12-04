@@ -1,17 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LocationSearchCriteria } from 'src/app/models/locationSearchCriteria.model';
-import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { LocationService } from 'src/app/services/location.service';
-import { Subscription } from 'rxjs';
-import { Location } from 'src/app/models/location.model';
 import { CarService } from 'src/app/services/car.service';
 import { CarSearchCriteria } from 'src/app/models/carSearchCriteria.model';
+import { Subscription } from 'rxjs';
 
-export interface Color {
-  name: string;
-}
 
 @Component({
   selector: 'app-filter',
@@ -20,56 +11,71 @@ export interface Color {
 })
 export class FilterComponent implements OnInit, OnDestroy {
   panelOpenState = false;
-  options: Color[] = [
-    {name: 'Zwart'},
-    {name: 'Wit'},
-    {name: 'Rood'}
-  ];
-  formControl = new FormControl();
-  startDate = new FormControl(new Date());
-  endDate = new FormControl(new Date());
-  locations: Location[];
-  filteredOptions: Observable<Location[]>;
-  locationServiceSubscription: Subscription;
+  simpleSearchMode = true;
+
+  makes: string[] = [];
+  colors: string[] = [];
+  transmissions: string[] = [];
+  fuelTypes: string[] = [];
+
+  subscriptions: Subscription[] = [];
+  searchCriteria: CarSearchCriteria;
 
   constructor(
-    private locationService: LocationService,
     private carService: CarService
   ) { }
 
   ngOnInit(): void {
-    this.filteredOptions = this.formControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+    this.searchCriteria = new CarSearchCriteria();
+    this.loadData();
+    this.setDefaultData();
+  }
 
-    const locationSearchCriteria = new LocationSearchCriteria();
-    this.locationServiceSubscription = this.locationService.find(locationSearchCriteria).subscribe(
-      response => {
-        this.locations = response;
-        console.log(this.locations);
-      },
-      error => {
-        console.log(error);
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(
+      subscription => {
+        if (subscription) {
+          subscription.unsubscribe();
+        }
       }
     );
   }
 
-  ngOnDestroy(): void {
-    this.locationServiceSubscription.unsubscribe();
+  toggleMoreSearchFields(): void {
+    this.simpleSearchMode = !this.simpleSearchMode;
   }
 
-  private _filter(value: string): Location[] {
-    const filterValue = value.toLowerCase();
-    return this.locations.filter(option => option.city.toLowerCase().includes(filterValue));
+  private loadData(): void {
+    this.loadSelectionData(this.carService.getMakes, this.carService, 'makes');
+    this.loadSelectionData(this.carService.getColors, this.carService, 'colors');
+    this.loadSelectionData(this.carService.getTransmissions, this.carService, 'transmissions');
+    this.loadSelectionData(this.carService.getFuelTypes, this.carService, 'fuelTypes');
+  }
+
+  private loadSelectionData(serviceMethod: any, service: any, localProp: any): void {
+    this.subscriptions.push(
+      serviceMethod.call(service).subscribe(
+        values => {
+          this[localProp] = values;
+        }
+      )
+    );
+  }
+
+  private setDefaultData(): void {
+    // set pickup date to noon tomorrow
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(13, 0, 0, 0);
+    this.searchCriteria.pickUpDate = tomorrow.toISOString().slice(0, 16);
+    // set drop off date to noon a day after tomorrow
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    this.searchCriteria.dropOffDate = tomorrow.toISOString().slice(0, 16);
   }
 
   searchClick(): void {
-    console.log('search clicked!');
-    const criteria = new CarSearchCriteria();
-    criteria.pickUpLocation = 'Rotterdam';
-    this.carService.SearchEvent.emit(criteria);
+    console.log('search with the following criteria: ' + JSON.stringify(this.searchCriteria));
+    this.carService.SearchEvent.emit(this.searchCriteria);
   }
 
 }
