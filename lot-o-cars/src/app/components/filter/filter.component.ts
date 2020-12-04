@@ -19,14 +19,13 @@ export class FilterComponent implements OnInit, OnDestroy {
   fuelTypes: string[] = [];
 
   subscriptions: Subscription[] = [];
-  searchCriteria: CarSearchCriteria;
+  searchCriteria: CarSearchCriteria = new CarSearchCriteria();
 
   constructor(
     private carService: CarService
   ) { }
 
   ngOnInit(): void {
-    this.searchCriteria = new CarSearchCriteria();
     this.loadData();
     this.setDefaultData();
   }
@@ -46,13 +45,13 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   private loadData(): void {
-    this.loadSelectionData(this.carService.getMakes, this.carService, 'makes');
-    this.loadSelectionData(this.carService.getColors, this.carService, 'colors');
-    this.loadSelectionData(this.carService.getTransmissions, this.carService, 'transmissions');
-    this.loadSelectionData(this.carService.getFuelTypes, this.carService, 'fuelTypes');
+    this.loadSelectionList(this.carService.getMakes, this.carService, 'makes');
+    this.loadSelectionList(this.carService.getColors, this.carService, 'colors');
+    this.loadSelectionList(this.carService.getTransmissions, this.carService, 'transmissions');
+    this.loadSelectionList(this.carService.getFuelTypes, this.carService, 'fuelTypes');
   }
 
-  private loadSelectionData(serviceMethod: any, service: any, localProp: any): void {
+  private loadSelectionList(serviceMethod: any, service: any, localProp: any): void {
     this.subscriptions.push(
       serviceMethod.call(service).subscribe(
         values => {
@@ -74,7 +73,6 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   searchClick(): void {
-    console.log('search with the following criteria: ' + JSON.stringify(this.searchCriteria));
     this.carService.SearchEvent.emit(this.searchCriteria);
   }
 
