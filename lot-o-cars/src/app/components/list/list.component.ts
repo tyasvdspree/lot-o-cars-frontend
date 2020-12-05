@@ -15,7 +15,7 @@ export class ListComponent implements OnInit, OnDestroy {
   carServiceSubscription: Subscription;
   carSearchSubscription: Subscription;
   cars: Car[];
-  displayedColumns = ['licensePlate', 'make', 'model', 'modelYear', 'transmission', 'fuel', 'body', 'navigation', 'airco'];
+  displayedColumns = ['numberPlate', 'make', 'model', 'modelYear', 'transmission', 'fuel', 'body', 'navigation', 'airco'];
 
   resultsLength = 0;
   isLoadingResults = false;
@@ -53,7 +53,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.carServiceSubscription = this.carService.find(searchCriteria).subscribe(
       response => {
         this.cars = response;
-        this.carService.cars = response;
+        this.carService.cars = this.cars;
         this.isLoadingResults = false;
         this.isRateLimitReached = false;
         this.resultsLength = this.cars.length;
@@ -67,7 +67,8 @@ export class ListComponent implements OnInit, OnDestroy {
 
   onRowClicked(car: Car): void {
     console.log('Row clicked: ', car);
-    this.router.navigateByUrl(`/cardetails/${car.licensePlate}`);
+    this.router.navigateByUrl(`/cardetails/${car.numberPlate}`);
+    // this.router.navigateByUrl(`/cardetails/${car.id}`);
   }
 
 }

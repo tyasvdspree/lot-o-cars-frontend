@@ -24,16 +24,10 @@ export class CardetailsComponent implements OnInit {
       this.licensePlate = parameters.id;
       console.log('Details license plate: ' + this.licensePlate);
 
-      this.carServiceSubscription = this.carService.findByLicensePlate(this.licensePlate).subscribe(
+      this.carServiceSubscription = this.carService.findByNumberPlate(this.licensePlate).subscribe(
         response => {
           console.log(response);
-          // TODO: remove loop when connected to the api
-          response.forEach(c => {
-            // if (c.carId == this.carId) {
-            if (c.licensePlate === this.licensePlate) {
-              this.car = c;
-            }
-          });
+          this.car = response;
         },
         error => {
           console.log(error);

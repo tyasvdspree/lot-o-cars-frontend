@@ -10,9 +10,9 @@
     <div class="example-table-container">
         <mat-table #table [dataSource]="cars">
 
-            <ng-container matColumnDef="licensePlate">
-                <th id="licensePlateHeader" mat-header-cell *matHeaderCellDef> Kenteken </th>
-                <td mat-cell *matCellDef="let element"> {{element.licensePlate}} </td>
+            <ng-container matColumnDef="numberPlate">
+                <th id="numberPlateHeader" mat-header-cell *matHeaderCellDef> Kenteken </th>
+                <td mat-cell *matCellDef="let element"> {{element.numberPlate}} </td>
             </ng-container>
             
             <ng-container matColumnDef="make">
@@ -27,7 +27,7 @@
 
             <ng-container matColumnDef="modelYear">
                 <th id="modelYearHeader" mat-header-cell *matHeaderCellDef> Bouwjaar </th>
-                <td mat-cell *matCellDef="let element"> {{element.modelYear}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.modelYear | date:'yyyy'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="transmission">
