@@ -102,6 +102,13 @@
 
     </mat-toolbar-row>
 
+    <!-- Row 4-->
+    <mat-toolbar-row [ngStyle]="{'display':simpleSearchMode ? 'none' : 'block'}">
+        <div style="padding:20px;float:right">
+            <a (click)="setDefaultData()">reset zoekvelden</a>
+        </div>
+    </mat-toolbar-row>
+
 </mat-toolbar>
             
 

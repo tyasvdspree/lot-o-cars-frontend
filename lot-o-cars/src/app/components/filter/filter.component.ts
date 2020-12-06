@@ -61,7 +61,8 @@ export class FilterComponent implements OnInit, OnDestroy {
     );
   }
 
-  private setDefaultData(): void {
+  public setDefaultData(): void {
+    this.searchCriteria = new CarSearchCriteria();
     // set pickup date to noon tomorrow
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);

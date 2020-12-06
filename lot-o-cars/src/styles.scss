@@ -122,18 +122,8 @@ td {
   }
   .flex-items {
       margin: 5px;
-      width: 25%
-  }
-  .flex-items:nth-child(1) {
-    display: block;
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: auto;
-    align-self: auto;
-    order: 0;
-  }
-  .flex-items:nth-child(2) {
-    display: block;
+      width: 25%;
+      display: block;
     flex-grow: 0;
     flex-shrink: 1;
     flex-basis: auto;

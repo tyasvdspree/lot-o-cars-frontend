@@ -17,11 +17,14 @@ export class CarService {
   constructor(private http: HttpClient) { }
 
   getMakes(): Observable<string[]> {
-    return of(['Audi', 'BMW', 'Ford', 'Kia', 'Opel', 'Volkswagen', 'rood', 'zwart']);
+    return of(['Alfa Romeo', 'Aston Martin', 'Audi', 'Bentley', 'BMW', 'Buick', 'Cadillac', 'Chevrolet',
+      'Chrysler', 'Citroën', 'Ferrari', 'Fiat', 'Ford', 'Honda', 'Hyundai', 'Jaguar', 'Kia', 'Land Rover',
+      'Lexus', 'Mazda', 'Mercedes-Benz', 'Mitsubishi', 'Nissan', 'Opel', 'Peugeot', 'Porsche', 'Renault', 
+      'Saab', 'Seat', 'Subaru', 'Suzuki', 'Toyota', 'Volkswagen', 'Volvo']);
   }
 
   getColors(): Observable<string[]> {
-    return of(['blauw', 'geel', 'grijs', 'groen', 'oranje', 'rood', 'zwart']);
+    return of(['blauw', 'bruin', 'geel', 'grijs', 'groen', 'oranje', 'paars', 'rood', 'roze', 'wit', 'zwart']);
   }
 
   getTransmissions(): Observable<string[]> {
@@ -41,7 +44,14 @@ export class CarService {
     let url = environment.apiBaseUrl + '/renting/search' +
       '?city=' + searchCriteria.pickUpLocation +
       '&make=' + searchCriteria.make +
-      '&color=' + searchCriteria.color;
+      '&model=' + searchCriteria.model +
+      '&color=' + searchCriteria.color +
+      '&fuel=' + searchCriteria.fuel +
+      '&modelyear=' + searchCriteria.modelYear +
+      '&doors=' + searchCriteria.doors +
+      '&seats=' + searchCriteria.seats +
+      '&bootspace=' + searchCriteria.bootspaceInLiters +
+      '&nonsmoking=' + searchCriteria.nonSmoking;
     url = url.split('undefined').join('');
     console.log(url);
     return this.http.get(url);
