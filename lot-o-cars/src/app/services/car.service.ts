@@ -33,8 +33,18 @@ export class CarService {
   }
 
 
-  find(searchCriteria: CarSearchCriteria): Observable<any> {
+  getAll(): Observable<any> {
     return this.http.get(environment.apiBaseUrl + '/renting');
+  }
+
+  find(searchCriteria: CarSearchCriteria): Observable<any> {
+    let url = environment.apiBaseUrl + '/renting/search' +
+      '?city=' + searchCriteria.pickUpLocation +
+      '&make=' + searchCriteria.make +
+      '&color=' + searchCriteria.color;
+    url = url.split('undefined').join('');
+    console.log(url);
+    return this.http.get(url);
   }
 
   findByNumberPlate(plate: string): Observable<any> {
