@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user.model';
+import { RegisterService } from 'src/app/services/register.service';
 
 
 @Component({
@@ -8,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  user: User = new User("","");
+
+  constructor(private service: RegisterService) { }
 
   ngOnInit(): void {
   }
 
+  public register(){
+    let response = this.service.register(this.user);
+    response.subscribe()
+  }
 }

@@ -19,7 +19,7 @@ import { TermsComponent } from './components/terms/terms.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { RegisterService } from './services/register.service'
 
 @NgModule({
   declarations: [
@@ -47,6 +47,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   ],
   providers: [
     CarService,
+    RegisterService
   ],
   bootstrap: [AppComponent]
 })
