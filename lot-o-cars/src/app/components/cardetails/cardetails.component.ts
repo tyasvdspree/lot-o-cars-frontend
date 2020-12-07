@@ -11,33 +11,28 @@ import { CarService } from 'src/app/services/car.service';
 })
 export class CardetailsComponent implements OnInit {
   carServiceSubscription: Subscription;
+  licensePlate: string;
   carId: number;
   car: Car;
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private carService: CarService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(parameters => {
-      this.carId = parameters.id;
-      console.log('Details carId: ' + this.carId);
+      this.licensePlate = parameters.id;
+      console.log('Details license plate: ' + this.licensePlate);
 
-      this.carServiceSubscription = this.carService.findById(this.carId).subscribe(
+      this.carServiceSubscription = this.carService.findByNumberPlate(this.licensePlate).subscribe(
         response => {
           console.log(response);
-          // TODO: remove loop when connected to the api
-          response.forEach(c => {
-            if (c.carId == this.carId) {
-              this.car = c;
-            }
-          });
+          this.car = response;
         },
         error => {
           console.log(error);
         }
-      );    
-    })
+      );
+    });
   }
-
 }

@@ -15,16 +15,17 @@
         <img src="assets/img/app/maincar.jpg" alt="car" width="80%">
     </div>
     <div class="flex-items">
+        <h3>auto:</h3>
         <ng-container *ngIf="car">
-            <h3>auto:</h3>
             <div><label class="labelw">merk</label>: {{ car.make }}</div>
             <div><label class="labelw">model</label>: {{ car.model }}</div>
             <div><label class="labelw">carrosserie</label>: {{ car.body }}</div>
             <div><label class="labelw">brandstof</label>: {{ car.fuel }}</div>
-            <div><label class="labelw">transmissie</label>: {{ car.transmission }}</div>
-            <div><label class="labelw">bouwjaar</label>: {{ car.modelYear }}</div>
+            <div><label class="labelw">transmissie</label>: {{ car.transmission | lowercase }}</div>
+            <div><label class="labelw">verbruik</label>: {{ car.fuelUsage }} l/100km</div>
+            <div><label class="labelw">bouwjaar</label>: {{ car.modelYear | date:['yyyy']}}</div>
             <div><label class="labelw">kleur</label>: {{ car.color }}</div>
-            <div><label class="labelw">kenteken</label>: {{ car.licensePlate }}</div>
+            <div><label class="labelw">kenteken</label>: {{ car.numberPlate }}</div>
             <div><label class="labelw">deuren</label>: {{ car.doors }}</div>
             <div><label class="labelw">zitplaatsen</label>: {{ car.seats }}</div>
             <div><label class="labelw">bagageruimte</label>: {{ car.bootSpaceInLiters }} l</div>
@@ -34,14 +35,26 @@
         </ng-container>
     </div>
     <div class="flex-items">
-        <h3>verhuurder:</h3>
-        <div><label class="labelw">naam</label>: J. Doe</div>
-        <div><label class="labelw">telefoon</label>: +31-6-12345678</div>
-        <div><label class="labelw">e-mail</label>: j.doe@domain.nl</div>
+        <h3>ophaaladres:</h3>
+        <ng-container *ngIf="car">
+            <div><label class="labelw">straat</label>: {{ car.location.addressLine1 }}</div>
+            <div><label class="labelw">postcode</label>: {{ car.location.zipcode }}</div>
+            <div><label class="labelw">plaats</label>: {{ car.location.city }}</div>
+            <div><label class="labelw">gemeente</label>: {{ car.location.municipality }}</div>
+        </ng-container>
+
+        <h3 class="mt-5">verhuurder:</h3>
+        <ng-container *ngIf="car">
+            <div><label class="labelw">naam</label>: {{ car.user.firstname + ' ' + car.user.lastname }}</div>
+            <div><label class="labelw">telefoon</label>: {{ car.user.phonenumber }}</div>
+            <div><label class="labelw">e-mail</label>: <a href="mailto:{{ car.user.emailaddress }}">{{ car.user.emailaddress }}</a></div>
+        </ng-container>
     </div>
     <div class="flex-items">
         <h3>huurprijs:</h3>
-        <span style="margin-right:20px">99,- euro per dag </span>
-        <button mat-flat-button color="primary"> deze auto huren </button>
+        <ng-container *ngIf="car">
+            <span style="margin-right:20px">{{ car.rentPricePerHour | currency:'EUR' }} per uur </span>
+            <button mat-flat-button color="primary"> deze auto huren </button>
+        </ng-container>
     </div>
  </div>

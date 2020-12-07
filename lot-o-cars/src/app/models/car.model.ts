@@ -1,14 +1,18 @@
+import { User } from './user.model';
+import { Location } from './location.model';
+import { Transmission } from '../enums/transmission.enum';
+
 export class Car {
-    carId: number;
+    id: number;
     userId: number;
     locationId: number;
-    licensePlate: string;
+    numberPlate: string;
     countryCode: string;
     modelYear: string;
     make: string;
     model: string;
     body: string;
-    transmission: string;
+    transmission: Transmission;
     color: string;
     fuel: string;
     fuelUsage: number;
@@ -18,5 +22,8 @@ export class Car {
     navigation: boolean;
     airco: boolean;
     smokingIsAllowed: boolean;
+    rentPricePerHour: number;
     isActive: boolean;
+    location: Location;
+    user: User;
 }

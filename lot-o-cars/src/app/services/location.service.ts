@@ -12,12 +12,12 @@ export class LocationService {
 
   // TODO: implement backend api
   find(searchCriteria: LocationSearchCriteria): Observable<any> {
-    return this.http.get("./assets/data/locations.json");
+    return this.http.get('./assets/data/locations.json');
   }
 
   // TODO: implement backend api
   findById(locationId: number): Observable<any> {
-    return this.http.get("./assets/data/locations.json");
+    return this.http.get('./assets/data/locations.json');
   }
 
 }

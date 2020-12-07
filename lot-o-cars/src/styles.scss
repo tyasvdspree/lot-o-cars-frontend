@@ -18,7 +18,8 @@ mat-toolbar h1 a {
     color: $secondary-color;
 }
 mat-toolbar a {
-    color: $primary-color
+    color: $primary-color;
+    cursor: pointer
 }
 mat-toolbar a:hover {
     color: $secondary-color
@@ -53,6 +54,12 @@ footer ul, header ul {
 .mr-5 {
     margin-right: 25px
 }
+.mt-5 {
+    margin-top: 25px !important
+}
+.m-3 {
+    margin: 10px
+}
 .p-5 {
     padding: 25px
 }
@@ -80,6 +87,9 @@ a:hover {
 footer a:hover { 
     color:$secondary-color
 }
+button:hover {
+    background-color: $secondary-color !important;
+}
 .label, .labelw {
     display: inline-block;
     width:60px
@@ -87,9 +97,22 @@ footer a:hover {
 .labelw {
     width:100px
 }
-table, mat-table {
-    table-layout: fixed
+
+.mat-table__wrapper .mat-table {
+    min-width: auto !important;
+    width: 100% !important;
 }
+.mat-header-row {
+    width: 100%;
+}
+.mat-row {
+    width: 100%;
+}
+.mat-cell {
+    flex: 0 0 25% !important;
+    min-width: 104px !important;
+}
+
 tr {
     vertical-align: middle;
 }
@@ -118,18 +141,8 @@ td {
   }
   .flex-items {
       margin: 5px;
-      width: 25%
-  }
-  .flex-items:nth-child(1) {
-    display: block;
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: auto;
-    align-self: auto;
-    order: 0;
-  }
-  .flex-items:nth-child(2) {
-    display: block;
+      width: 25%;
+      display: block;
     flex-grow: 0;
     flex-shrink: 1;
     flex-basis: auto;
