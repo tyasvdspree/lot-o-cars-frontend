@@ -97,9 +97,22 @@ button:hover {
 .labelw {
     width:100px
 }
-table, mat-table {
-    table-layout: fixed
+
+.mat-table__wrapper .mat-table {
+    min-width: auto !important;
+    width: 100% !important;
 }
+.mat-header-row {
+    width: 100%;
+}
+.mat-row {
+    width: 100%;
+}
+.mat-cell {
+    flex: 0 0 25% !important;
+    min-width: 104px !important;
+}
+
 tr {
     vertical-align: middle;
 }
