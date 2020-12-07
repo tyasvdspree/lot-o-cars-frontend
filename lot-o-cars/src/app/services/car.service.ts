@@ -11,6 +11,8 @@ import { CarSearchCriteria } from '../models/carSearchCriteria.model';
 export class CarService {
 
   cars: Car[];
+  searchCriteria: CarSearchCriteria = new CarSearchCriteria();
+  simpleSearchMode = true;
 
   public SearchEvent: EventEmitter<CarSearchCriteria> = new EventEmitter<CarSearchCriteria>();
 

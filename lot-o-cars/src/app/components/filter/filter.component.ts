@@ -27,7 +27,12 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadData();
-    this.setDefaultData();
+    this.simpleSearchMode = this.carService.simpleSearchMode;
+    if (this.carService.searchCriteria) {
+      this.searchCriteria = this.carService.searchCriteria;
+    } else {
+      this.setDefaultData();
+    }
   }
 
   ngOnDestroy(): void {
@@ -74,6 +79,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   searchClick(): void {
+    this.carService.simpleSearchMode = this.simpleSearchMode;
     this.carService.SearchEvent.emit(this.searchCriteria);
   }
 
