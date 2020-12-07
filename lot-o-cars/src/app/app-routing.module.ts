@@ -13,7 +13,7 @@ import { RentComponent } from './components/rent/rent.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'cardetails/:id', component: CardetailsComponent, canActivate: [AuthGuard] },
+  { path: 'cardetails/:id', component: CardetailsComponent },
   { path: 'hire', component: HireComponent },
   { path: 'rent', component: RentComponent},
   { path: 'home', component: LandingspageComponent },
