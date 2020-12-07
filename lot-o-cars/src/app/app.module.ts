@@ -19,6 +19,8 @@ import { TermsComponent } from './components/terms/terms.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { LoginComponent } from './components/login/login.component';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ListComponent,
     CardetailsComponent,
     TermsComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     FormsModule,
     ReactiveFormsModule,
     MatCheckboxModule,
+    NgxWebstorageModule.forRoot()
   ],
   providers: [
     CarService,

@@ -6,8 +6,10 @@ import { HireComponent } from './components/hire/hire.component';
 import { LandingspageComponent } from './components/landingspage/landingspage.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'cardetails/:id', component: CardetailsComponent },
   { path: 'hire', component: HireComponent },
