@@ -17,12 +17,12 @@
     <span class="flexExpand"></span>
     <span>
         <a mat-button href="#"> English </a>
-        <a mat-button routerLink="/login"> aanmelden </a>
-        <a mat-button routerLink="/register"> registreren </a>
+        <a mat-button routerLink="/login" *ngIf="!isLoggedIn"> aanmelden </a>
+        <a mat-button routerLink="/register" *ngIf="!isLoggedIn"> registreren </a>
     </span>
     <span>
         <button mat-button class="mat-button-wrapper" [matMenuTriggerFor]="userMenu">
-            username
+            {{ username }}
             <span class="material-icons">account_circle</span>
         </button>
         <mat-menu #userMenu="matMenu" xPosition="before">
