@@ -17,6 +17,9 @@
         </mat-form-field>
 
         <span class="example-spacer"></span>
+        <a (click)="setDefaultData()">reset zoekvelden</a>
+
+        <span class="example-spacer"></span>
         <a (click)="toggleMoreSearchFields()">{{ simpleSearchMode ? 'meer zoekvelden' : 'minder zoekvelden'}}</a>
 
         <span class="example-spacer"></span>
@@ -100,13 +103,6 @@
             </mat-select>
         </mat-form-field>
 
-    </mat-toolbar-row>
-
-    <!-- Row 4-->
-    <mat-toolbar-row [ngStyle]="{'display':simpleSearchMode ? 'none' : 'block'}">
-        <div style="padding:20px;float:right">
-            <a (click)="setDefaultData()">reset zoekvelden</a>
-        </div>
     </mat-toolbar-row>
 
 </mat-toolbar>
