@@ -2,7 +2,7 @@ export class Car {
     carId: number;
     userId: number;
     locationId: number;
-    licensePlate: string;
+    numberPlate: string;
     countryCode: string;
     modelYear: string;
     make: string;
