@@ -7,14 +7,15 @@ import { LandingspageComponent } from './components/landingspage/landingspage.co
 import { TermsComponent } from './components/terms/terms.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './security/authguard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'cardetails/:id', component: CardetailsComponent },
+  { path: 'cardetails/:id', component: CardetailsComponent, canActivate: [AuthGuard] },
   { path: 'hire', component: HireComponent },
   { path: 'home', component: LandingspageComponent },
-  { path: 'terms', component: TermsComponent },
+  { path: 'terms', component: TermsComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
   { path: '**', component: LandingspageComponent }
 ];
