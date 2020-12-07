@@ -15,7 +15,10 @@ export class ListComponent implements OnInit, OnDestroy {
   carServiceSubscription: Subscription;
   carSearchSubscription: Subscription;
   cars: Car[];
-  displayedColumns = ['numberPlate', 'make', 'model', 'modelYear', 'transmission', 'fuel', 'body', 'navigation', 'airco'];
+  displayedColumns = [
+    'numberPlate', 'make', 'model', 'modelYear', 'transmission', 'fuel',
+    'body', 'navigation', 'airco', 'smokingIsAllowed'
+  ];
 
   resultsLength = 0;
   isLoadingResults = false;
@@ -54,7 +57,6 @@ export class ListComponent implements OnInit, OnDestroy {
       response => {
         this.cars = response;
         this.carService.cars = this.cars;
-        this.isLoadingResults = false;
         this.isRateLimitReached = false;
         this.resultsLength = this.cars.length;
         console.log(this.cars);
@@ -62,7 +64,9 @@ export class ListComponent implements OnInit, OnDestroy {
       error => {
         console.log(error);
       }
-    );
+    ).add(() => {
+      this.isLoadingResults = false;
+    });
   }
 
   onRowClicked(car: Car): void {
