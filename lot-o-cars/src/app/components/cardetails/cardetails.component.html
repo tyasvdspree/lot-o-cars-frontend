@@ -51,6 +51,9 @@
         </ng-container>
     </div>
     <div class="flex-items">
+        <app-calendar></app-calendar>
+    </div>
+    <div class="flex-items">
         <h3>huurprijs:</h3>
         <ng-container *ngIf="car">
             <span style="margin-right:20px">{{ car.rentPricePerHour | currency:'EUR' }} per uur </span>
