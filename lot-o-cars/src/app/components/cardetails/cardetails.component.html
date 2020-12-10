@@ -13,51 +13,87 @@
     <div class="flex-items"></div>
     <div class="flex-items"></div>
     <div class="flex-items">
-        <img src="assets/img/app/maincar.jpg" alt="car" width="100%">
-    </div>
-    <div class="flex-items pl-5">
-        <h3>auto:</h3>
-        <ng-container *ngIf="car">
-            <div><label class="labelw">merk</label>: {{ car.make }}</div>
-            <div><label class="labelw">model</label>: {{ car.model }}</div>
-            <div><label class="labelw">carrosserie</label>: {{ car.body }}</div>
-            <div><label class="labelw">brandstof</label>: {{ car.fuel }}</div>
-            <div><label class="labelw">transmissie</label>: {{ car.transmission | lowercase }}</div>
-            <div><label class="labelw">verbruik</label>: {{ car.fuelUsage }} l/100km</div>
-            <div><label class="labelw">bouwjaar</label>: {{ car.modelYear | date:['yyyy']}}</div>
-            <div><label class="labelw">kleur</label>: {{ car.color }}</div>
-            <div><label class="labelw">kenteken</label>: {{ car.numberPlate }}</div>
-            <div><label class="labelw">deuren</label>: {{ car.doors }}</div>
-            <div><label class="labelw">zitplaatsen</label>: {{ car.seats }}</div>
-            <div><label class="labelw">bagageruimte</label>: {{ car.bootSpaceInLiters }} l</div>
-            <div><label class="labelw">navigatie</label>: {{ car.navigation ? 'ja' : 'nee' }}</div>
-            <div><label class="labelw">airco</label>: {{ car.airco ? 'ja' : 'nee' }}</div>
-            <div><label class="labelw">rookvrij</label>: {{ !car.smokingIsAllowed ? 'ja' : 'nee' }}</div>
-        </ng-container>
+        <mat-card class="h1">
+            <mat-card-header>
+               <mat-card-title>foto</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <img src="assets/img/app/maincar.jpg" alt="car" width="100%">
+            </mat-card-content>
+        </mat-card>
     </div>
     <div class="flex-items">
-        <h3>ophaaladres:</h3>
-        <ng-container *ngIf="car">
-            <div><label class="labelw">straat</label>: {{ car.location.addressLine1 }}</div>
-            <div><label class="labelw">postcode</label>: {{ car.location.zipcode }}</div>
-            <div><label class="labelw">plaats</label>: {{ car.location.city }}</div>
-            <div><label class="labelw">gemeente</label>: {{ car.location.municipality }}</div>
-        </ng-container>
-
-        <h3 class="mt-5">verhuurder:</h3>
-        <ng-container *ngIf="car">
-            <div><label class="labelw">naam</label>: {{ car.user.firstname + ' ' + car.user.lastname }}</div>
-            <div><label class="labelw">telefoon</label>: {{ car.user.phonenumber }}</div>
-            <div><label class="labelw">e-mail</label>: <a href="mailto:{{ car.user.emailaddress }}">{{ car.user.emailaddress }}</a></div>
-        </ng-container>
-
-        <h3 class="mt-5">huurprijs:</h3>
-        <ng-container *ngIf="car">
-            <span style="margin-right:20px">{{ car.rentPricePerHour | currency:'EUR' }} per uur </span>
-            <button mat-flat-button color="primary"> deze auto huren </button>
-        </ng-container>
+        <mat-card class="h1">
+            <mat-card-header>
+               <mat-card-title>auto</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <ng-container *ngIf="car">
+                    <div><label class="label">merk</label> {{ car.make }}</div>
+                    <div><label class="label">model</label> {{ car.model }}</div>
+                    <div><label class="label">carrosserie</label> {{ car.body }}</div>
+                    <div><label class="label">brandstof</label> {{ car.fuel }}</div>
+                    <div><label class="label">transmissie</label> {{ car.transmission | lowercase }}</div>
+                    <div><label class="label">verbruik</label> {{ car.fuelUsage }} l/100km</div>
+                    <div><label class="label">bouwjaar</label> {{ car.modelYear | date:['yyyy']}}</div>
+                    <div><label class="label">kleur</label> {{ car.color }}</div>
+                    <div><label class="label">kenteken</label> {{ car.numberPlate }}</div>
+                    <div><label class="label">deuren</label> {{ car.doors }}</div>
+                    <div><label class="label">zitplaatsen</label> {{ car.seats }}</div>
+                    <div><label class="label">bagageruimte</label> {{ car.bootSpaceInLiters }} l</div>
+                    <div><label class="label">navigatie</label> {{ car.navigation ? 'ja' : 'nee' }}</div>
+                    <div><label class="label">airco</label> {{ car.airco ? 'ja' : 'nee' }}</div>
+                    <div><label class="label">rookvrij</label> {{ !car.smokingIsAllowed ? 'ja' : 'nee' }}</div>
+                </ng-container>
+            </mat-card-content>
+        </mat-card>
     </div>
     <div class="flex-items">
-        <app-calendar></app-calendar>
+        <mat-card class="h2">
+            <mat-card-header>
+               <mat-card-title>ophaaladres</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <ng-container *ngIf="car">
+                    <div><label class="label">straat</label> {{ car.location.addressLine1 }}</div>
+                    <div><label class="label">postcode</label> {{ car.location.zipcode }}</div>
+                    <div><label class="label">plaats</label> {{ car.location.city }}</div>
+                    <div><label class="label">gemeente</label> {{ car.location.municipality }}</div>
+                </ng-container>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="h2 mt-5">
+            <mat-card-header>
+               <mat-card-title>verhuurder</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <ng-container *ngIf="car">
+                    <div><label class="label">naam</label> {{ car.user.firstname + ' ' + car.user.lastname }}</div>
+                    <div><label class="label">telefoon</label> {{ car.user.phonenumber }}</div>
+                    <div><label class="label">e-mail</label> <a href="mailto:{{ car.user.emailaddress }}">{{ car.user.emailaddress }}</a></div>
+                </ng-container>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="flex-items">
+        <mat-card class="h1">
+            <mat-card-header>
+               <mat-card-title>beschikbaarheid</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <app-calendar></app-calendar>
+            </mat-card-content>
+            <mat-card-header>
+                <mat-card-title>
+                    huurprijs: 
+                    <ng-container *ngIf="car">
+                        {{ car.rentPricePerHour | currency:'EUR' }} <span style="font-size:12px"> per uur </span>
+                    </ng-container>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-actions style="text-align:center;">
+                <button mat-flat-button color="primary"> deze auto huren </button>
+             </mat-card-actions>
+         </mat-card>
     </div>
  </div>
