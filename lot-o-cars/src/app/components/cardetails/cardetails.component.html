@@ -11,10 +11,11 @@
     </div>
     <div class="flex-items"></div>
     <div class="flex-items"></div>
+    <div class="flex-items"></div>
     <div class="flex-items">
-        <img src="assets/img/app/maincar.jpg" alt="car" width="80%">
+        <img src="assets/img/app/maincar.jpg" alt="car" width="100%">
     </div>
-    <div class="flex-items">
+    <div class="flex-items pl-5">
         <h3>auto:</h3>
         <ng-container *ngIf="car">
             <div><label class="labelw">merk</label>: {{ car.make }}</div>
@@ -49,15 +50,14 @@
             <div><label class="labelw">telefoon</label>: {{ car.user.phonenumber }}</div>
             <div><label class="labelw">e-mail</label>: <a href="mailto:{{ car.user.emailaddress }}">{{ car.user.emailaddress }}</a></div>
         </ng-container>
-    </div>
-    <div class="flex-items">
-        <app-calendar></app-calendar>
-    </div>
-    <div class="flex-items">
-        <h3>huurprijs:</h3>
+
+        <h3 class="mt-5">huurprijs:</h3>
         <ng-container *ngIf="car">
             <span style="margin-right:20px">{{ car.rentPricePerHour | currency:'EUR' }} per uur </span>
             <button mat-flat-button color="primary"> deze auto huren </button>
         </ng-container>
+    </div>
+    <div class="flex-items">
+        <app-calendar></app-calendar>
     </div>
  </div>
