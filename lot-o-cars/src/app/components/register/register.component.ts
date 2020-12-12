@@ -23,7 +23,6 @@ export class RegisterComponent implements OnInit {
   }
 
   public register(){
-    debugger;
     let response = this.service.register(this.user);
 
     response.subscribe(
@@ -32,11 +31,8 @@ export class RegisterComponent implements OnInit {
         this.toastr.success('Geregistreerd', 'Success');
       },
       error => {
-        this.toastr.success('Registratie mislukt', 'Error');
+        this.toastr.error('Registratie mislukt', 'Error');
       }
     );   
-
-   
   }
-
 }
