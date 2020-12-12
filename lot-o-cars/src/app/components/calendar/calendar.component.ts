@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-calendar',
@@ -7,8 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
   minDate: Date;
-  selectedDate: Date;
+  selDate: Date;
   @Input() blockedDates: Date[];
+  @Output() selectedDate = new EventEmitter();
 
   constructor() { }
 
@@ -16,8 +17,8 @@ export class CalendarComponent implements OnInit {
     this.setMinCalendarDate();
   }
 
-  dateChanged(date): void {
-    console.log(`Selected: ${date}`);
+  dateChanged(date: Date): void {
+    this.selectedDate.emit(date);
   }
 
   // this function returns false if a date param d must be blocked on the calendar.

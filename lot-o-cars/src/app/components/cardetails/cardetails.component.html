@@ -81,7 +81,10 @@
                <mat-card-title>beschikbaarheid</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <app-calendar [blockedDates]="blockedDates"></app-calendar>
+                <app-calendar 
+                    [blockedDates]="blockedDates"
+                    (selectedDate)="onDateSelected($event)">
+                </app-calendar>
             </mat-card-content>
             <mat-card-header>
                 <mat-card-title>

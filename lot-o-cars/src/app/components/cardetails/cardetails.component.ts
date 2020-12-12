@@ -63,4 +63,8 @@ export class CardetailsComponent implements OnInit, OnDestroy {
       )
     );
   }
+
+  onDateSelected(selectedDate: Date): void {
+    console.log('selected date by child component: ' + selectedDate.toString());
+  }
 }
