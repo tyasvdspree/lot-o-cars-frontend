@@ -9,7 +9,10 @@ import { RegisterService } from 'src/app/services/register.service';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-
+  disabledAgreement: boolean = true;
+  changeCheck(event){
+    this.disabledAgreement = !event.checked;
+  }
   user: User = new User("","");
 
   constructor(private service: RegisterService) { }

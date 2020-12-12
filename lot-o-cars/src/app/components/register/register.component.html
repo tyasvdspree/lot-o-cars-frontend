@@ -28,12 +28,13 @@
                 </div>
 
                 <div>
-                    <mat-checkbox>U gaat akkoord met onze voorwaarden</mat-checkbox>
+                    <mat-checkbox (change)="changeCheck($event)">U gaat akkoord met onze voorwaarden</mat-checkbox>
                 </div>
 
                 <div style="margin-top: 10px;">
-                    <button mat-flat-button type="submit" color="primary" style="float: left;" (click)="register()" >Registreren</button>
-                    <p style="float: left; padding: 7px 7px;">of aanmelden als bestaande gebruiker</p>
+                    <button mat-flat-button type="submit" color="primary" style="float: left;"
+                        [disabled]="disabledAgreement || !user.password || !user.username" mat-button class="NxtBtnWrap"
+                        (click)="register()">Registreren</button>
                 </div>
             </div>
         </form>
