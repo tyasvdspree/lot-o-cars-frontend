@@ -21,6 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RegisterService } from './services/register.service'
 
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,11 +46,12 @@ import { RegisterService } from './services/register.service'
     FormsModule,
     ReactiveFormsModule,
     MatCheckboxModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     CarService,
     RegisterService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],  
 })
 export class AppModule { }
