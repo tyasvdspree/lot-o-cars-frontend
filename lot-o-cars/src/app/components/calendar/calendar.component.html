@@ -1,6 +1,10 @@
-<mat-calendar #calendar 
+<!-- <mat-calendar #calendar 
     [(selected)]="selDate"
-    (selectedChange)="dateChanged($event)" 
+    (selectedChange)="dateChanged($event)"
+    [dateFilter]="myDateFilter"
+    [minDate]="minDate">
+</mat-calendar> -->
+<mat-calendar #calendar 
     [dateFilter]="myDateFilter"
     [minDate]="minDate">
 </mat-calendar>
