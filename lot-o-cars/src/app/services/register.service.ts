@@ -9,6 +9,6 @@ export class RegisterService {
   constructor(private http:HttpClient) { }
 
   public register(user){
-    return this.http.post("http://localhost:8080/postUser", user);
+    return this.http.put("http://localhost:8080/user", user);
   }
 }
