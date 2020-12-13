@@ -19,4 +19,8 @@ export class HeadermenuComponent implements OnInit {
     this.username = this.authenticationService.getUserName();
   }
 
+  logout(): void {
+    this.authenticationService.logout();
+  }
+
 }
