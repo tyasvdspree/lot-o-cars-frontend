@@ -68,7 +68,7 @@ export class CarService {
 
   // TODO: connect with API to get all rented dates of this month and the future
   getBlockedDates(plate: string): Observable<any> {
-    return of([
+    /* return of([
       // december 2020 dates
       new Date(2020, 11, 5),
       new Date(2020, 11, 6),
@@ -76,7 +76,8 @@ export class CarService {
       // january 2021 dates
       new Date(2021, 0, 4),
       new Date(2021, 0, 5)
-    ]);
+    ]); */
+    return this.http.get(environment.apiBaseUrl + '/agreement/' + plate);
   }
 
 }

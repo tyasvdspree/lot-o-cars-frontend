@@ -4,7 +4,7 @@
     [dateFilter]="myDateFilter"
     [minDate]="minDate">
 </mat-calendar> -->
-<mat-calendar #calendar 
+<mat-calendar #calendar *ngIf="blockedDates"
     [dateFilter]="myDateFilter"
     [minDate]="minDate">
 </mat-calendar>

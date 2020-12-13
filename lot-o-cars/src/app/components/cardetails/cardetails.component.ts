@@ -40,8 +40,11 @@ export class CardetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.carService.getBlockedDates(this.licensePlate).subscribe(
         response => {
-          console.log(response);
-          this.blockedDates = response;
+          console.log('rented dates: ' + response);
+
+          if (response) {
+            this.blockedDates = response.map(x => new Date(x + ' 00:00:00'));
+          }
         },
         error => {
           console.log(error);
