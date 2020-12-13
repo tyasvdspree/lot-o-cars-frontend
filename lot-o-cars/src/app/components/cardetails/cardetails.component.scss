@@ -3,8 +3,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: normal;
-    align-content: normal;
+    align-items: start;
+    align-content: center;
   }
   .flex-items {
       width: 20%;
@@ -18,5 +18,3 @@
   .mat-card-content {
       padding-left: 17px
   }
-  .h1 {height:420px}
-  .h2 {height:182px}
