@@ -25,6 +25,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LoginComponent } from './components/login/login.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { from } from 'rxjs';
+import { AgreementComponent } from './components/agreement/agreement.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { from } from 'rxjs';
     CardetailsComponent,
     TermsComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    AgreementComponent,
   ],
   imports: [
     BrowserModule,
