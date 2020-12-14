@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'cardetails/:id', component: CardetailsComponent },
-  { path: 'agreement/:id', component: AgreementComponent },
+  { path: 'agreement/:id', component: AgreementComponent, canActivate: [AuthGuard] },
   { path: 'hire', component: HireComponent },
   { path: 'rent', component: RentComponent, canActivate: [AuthGuard]},
   { path: 'home', component: LandingspageComponent },

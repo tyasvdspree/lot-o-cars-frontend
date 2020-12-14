@@ -2,6 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Agreement} from '../../models/agreement.model';
 import {CarService} from '../../services/car.service';
+import {Car} from '../../models/car.model';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {AgreementService} from '../../services/agreement.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-agreement',
@@ -13,16 +18,33 @@ export class AgreementComponent implements OnInit {
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl()  });
-
   agreement: Agreement = new Agreement();
-
   numberOfDays = null;
-  private car: any;
+  carServiceSubscription: Subscription;
+  licensePlate: string;
+  carId: number;
+  car: Car;
 
-
-  constructor(private carService: CarService) { }
+  constructor(
+    private carService: CarService,
+    private agreementService: AgreementService,
+    private route: ActivatedRoute,
+    private toastr: ToastrService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(parameters => {
+      this.licensePlate = parameters.id;
+      this.carServiceSubscription = this.carService.findByNumberPlate(this.licensePlate).subscribe(
+        response => {
+          this.car = response;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    });
   }
 
 
@@ -46,19 +68,19 @@ export class AgreementComponent implements OnInit {
     return numberOfDays;
   }
 
-  get totalPrice(): number {
-    // this.daysBetween
-    this.carService.findByNumberPlate('123-ABC').subscribe(
-      response => {
-        console.log(response);
-        this.car = response;
-      },
-      error => {
-        console.log(error);
-      }
-    )
-    return 11;
+  get totalPrice() {
+    return this.numberOfDays * this.car.rentPricePerHour;
   }
 
+  createAgreement() {
+    // this.agreementService.createAgreement(this.agreement);
+    if (this.range.value.start == null){
+      this.toastr.error('Geen periode geselecteerd');
 
+    } else {
+      this.toastr.success('Overeenkomst gemaakt');
+      this.router.navigateByUrl(`/`);
+
+    }
+  }
 }

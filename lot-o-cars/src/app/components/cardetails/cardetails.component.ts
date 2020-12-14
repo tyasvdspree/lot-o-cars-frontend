@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
 import { CarService } from 'src/app/services/car.service';
@@ -18,7 +18,9 @@ export class CardetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private carService: CarService) { }
+    private carService: CarService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.subscriptions.push(
@@ -69,5 +71,9 @@ export class CardetailsComponent implements OnInit, OnDestroy {
 
   onDateSelected(selectedDate: Date): void {
     console.log('selected date by child component: ' + selectedDate.toString());
+  }
+
+  onButtonClicked(): void {
+    this.router.navigateByUrl(`/agreement/${this.car.numberPlate}`);
   }
 }
