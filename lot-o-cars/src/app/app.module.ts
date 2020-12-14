@@ -22,11 +22,11 @@ import { TermsComponent } from './components/terms/terms.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RegisterService } from './services/register.service'
 import { LoginComponent } from './components/login/login.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { from } from 'rxjs';
 import {ToastrModule} from 'ngx-toastr';
-
 
 @NgModule({
   declarations: [
@@ -58,7 +58,8 @@ import {ToastrModule} from 'ngx-toastr';
   ],
   providers: [
     CarService,
+    RegisterService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],  
 })
 export class AppModule { }
