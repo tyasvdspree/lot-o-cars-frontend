@@ -6,6 +6,7 @@ import { map, tap } from 'rxjs/operators';
 import { LoginRequestPayload } from '../components/login/login-request.payload';
 import { LoginResponse } from '../components/login/login-response.payload';
 import {ToastrService} from 'ngx-toastr';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AuthService {
   refreshTokenPayload = {
     refreshToken: this.getRefreshToken(),
     username: this.getUserName()
-  }
+  };
 
   constructor(
     private httpClient: HttpClient,
@@ -27,7 +28,7 @@ export class AuthService {
   ) { }
 
   login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
-    return this.httpClient.post<LoginResponse>('http://localhost:8080/login',
+    return this.httpClient.post<LoginResponse>(environment.apiBaseUrl + '/login',
       loginRequestPayload).pipe(map(data => {
         this.localStorage.store('authenticationToken', data.authenticationToken);
         this.localStorage.store('username', data.username);
@@ -40,12 +41,12 @@ export class AuthService {
       }));
   }
 
-  getJwtToken() {
+  getJwtToken(): any {
     return this.localStorage.retrieve('authenticationToken');
   }
 
-  refreshToken() {
-    return this.httpClient.post<LoginResponse>('http://localhost:8080/refresh/token',
+  refreshToken(): Observable<LoginResponse> {
+    return this.httpClient.post<LoginResponse>(environment.apiBaseUrl + '/refresh/token',
       this.refreshTokenPayload)
       .pipe(tap(response => {
         this.localStorage.clear('authenticationToken');
@@ -57,24 +58,24 @@ export class AuthService {
       }));
   }
 
-  logout() {
-    this.httpClient.post('http://localhost:8080/logout/', this.refreshTokenPayload,
+  logout(): void {
+    this.httpClient.post(environment.apiBaseUrl + '/logout/', this.refreshTokenPayload,
       { responseType: 'text' })
       .subscribe(data => {
-        this.toastr.success('Afgemeld');
+        this.toastr.info('Afgemeld');
       }, error => {
         throwError(error);
-      })
+      });
     this.localStorage.clear('authenticationToken');
     this.localStorage.clear('username');
     this.localStorage.clear('refreshToken');
     this.localStorage.clear('expiresAt');
   }
 
-  getUserName() {
+  getUserName(): any {
     return this.localStorage.retrieve('username');
   }
-  getRefreshToken() {
+  getRefreshToken(): any {
     return this.localStorage.retrieve('refreshToken');
   }
 
