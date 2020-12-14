@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { RegisterService } from 'src/app/services/register.service';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,30 +11,38 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./register.component.scss'],
 })
 
-export class RegisterComponent implements OnInit {
-  disabledAgreement: boolean = true;
-  changeCheck(event){
+export class RegisterComponent implements OnInit, OnDestroy {
+  disabledAgreement = true;
+  user: User = new User('', '');
+  subscription: Subscription;
+
+  constructor(
+    private registerService: RegisterService,
+    private toastr: ToastrService,
+    private router: Router) { }
+
+  ngOnInit(): void { }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  changeCheck(event): void {
     this.disabledAgreement = !event.checked;
   }
-  
-  user: User = new User("","");
 
-  constructor(private service: RegisterService, private toastr: ToastrService) { }
-
-  ngOnInit(): void {
-  }
-
-  public register(){
-    let response = this.service.register(this.user);
-
-    response.subscribe(
+  public register(): void {
+    this.subscription = this.registerService.register(this.user).subscribe(
       response => {
         console.log(response);
         this.toastr.success('Geregistreerd', 'Success');
+        this.router.navigate(['/login']);
       },
       error => {
         this.toastr.error('Registratie mislukt', 'Error');
       }
-    );   
+    );
   }
 }
