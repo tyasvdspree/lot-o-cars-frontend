@@ -13,4 +13,5 @@
 
 <p>Selected range: {{range.value | json}}</p>
 
-{{ daysBetween }}
+<p *ngIf="daysBetween">Aantal dagen geselecteerd: {{ daysBetween }}</p>
+<!--<p *ngIf="daysBetween">Totale prijs: {{ totalPrice }}</p>-->

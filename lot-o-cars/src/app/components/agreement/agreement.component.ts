@@ -17,6 +17,7 @@ export class AgreementComponent implements OnInit {
   agreement: Agreement = new Agreement();
 
   numberOfDays = null;
+  private car: any;
 
 
   constructor(private carService: CarService) { }
@@ -43,6 +44,20 @@ export class AgreementComponent implements OnInit {
     const numberOfDays = ((start - end) / oneDay) + 1;
     this.numberOfDays = numberOfDays;
     return numberOfDays;
+  }
+
+  get totalPrice(): number {
+    // this.daysBetween
+    this.carService.findByNumberPlate('123-ABC').subscribe(
+      response => {
+        console.log(response);
+        this.car = response;
+      },
+      error => {
+        console.log(error);
+      }
+    )
+    return 11;
   }
 
 
