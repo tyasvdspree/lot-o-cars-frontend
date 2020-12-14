@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { LoginRequestPayload } from '../components/login/login-request.payload';
 import { LoginResponse } from '../components/login/login-response.payload';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class AuthService {
 
   constructor(
     private httpClient: HttpClient,
-    private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
+    private toastr: ToastrService
   ) { }
 
   login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
@@ -59,7 +61,7 @@ export class AuthService {
     this.httpClient.post('http://localhost:8080/logout/', this.refreshTokenPayload,
       { responseType: 'text' })
       .subscribe(data => {
-        console.log(data);
+        this.toastr.success('Afgemeld');
       }, error => {
         throwError(error);
       })

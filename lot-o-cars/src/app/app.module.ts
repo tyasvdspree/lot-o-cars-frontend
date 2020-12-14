@@ -25,6 +25,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LoginComponent } from './components/login/login.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { from } from 'rxjs';
+import {ToastrModule} from 'ngx-toastr';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { from } from 'rxjs';
     FormsModule,
     ReactiveFormsModule,
     MatCheckboxModule,
-    NgxWebstorageModule.forRoot()
+    NgxWebstorageModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     CarService,

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginRequestPayload } from './login-request.payload';
 import { Router, ActivatedRoute } from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {
     this.loginRequestPayload = {
       username: '',
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     });
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
   login(): void {
@@ -40,8 +42,14 @@ export class LoginComponent implements OnInit {
     this.loginRequestPayload.password = this.loginForm.get('password').value;
 
     this.authService.login(this.loginRequestPayload).subscribe(data => {
-      console.log('Login successful');
-      this.router.navigateByUrl(this.returnUrl);
+      if (data){
+        this.isError = false;
+        this.toastr.success('Ingelogd');
+        this.router.navigateByUrl(this.returnUrl);
+
+      } else {
+        this.isError = true;
+      }
     });
   }
 
