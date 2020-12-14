@@ -22,11 +22,14 @@ import { TermsComponent } from './components/terms/terms.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RegisterService } from './services/register.service'
 import { LoginComponent } from './components/login/login.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { from } from 'rxjs';
 import { AgreementComponent } from './components/agreement/agreement.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,7 @@ import { AgreementComponent } from './components/agreement/agreement.component';
     TermsComponent,
     RegisterComponent,
     LoginComponent,
+    CalendarComponent,
     AgreementComponent,
   ],
   imports: [
@@ -54,11 +58,13 @@ import { AgreementComponent } from './components/agreement/agreement.component';
     FormsModule,
     ReactiveFormsModule,
     MatCheckboxModule,
-    NgxWebstorageModule.forRoot()
+    NgxWebstorageModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     CarService,
+    RegisterService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

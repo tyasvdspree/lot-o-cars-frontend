@@ -3,10 +3,18 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: normal;
-    align-content: normal;
+    align-items: start;
+    align-content: center;
   }
   .flex-items {
-      width: 25%;
+      width: 20%;
       margin: 10px;
+  }
+  .label {
+      color:#666;
+      font-size: 12px;
+      width:75px
+  }
+  .mat-card-content {
+      padding-left: 17px
   }

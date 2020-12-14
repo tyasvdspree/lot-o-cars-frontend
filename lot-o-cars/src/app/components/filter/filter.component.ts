@@ -28,7 +28,8 @@ export class FilterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadData();
     this.simpleSearchMode = this.carService.simpleSearchMode;
-    if (this.carService.searchCriteria) {
+
+    if (this.carService.searchCriteria.pickUpDate) {
       this.searchCriteria = this.carService.searchCriteria;
     } else {
       this.setDefaultData();
