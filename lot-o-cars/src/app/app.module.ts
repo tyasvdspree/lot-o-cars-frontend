@@ -22,11 +22,16 @@ import { TermsComponent } from './components/terms/terms.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RegisterService } from './services/register.service'
 import { LoginComponent } from './components/login/login.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { from } from 'rxjs';
+<<<<<<< HEAD
 import { CalendarComponent } from './components/calendar/calendar.component';
 
+=======
+import {ToastrModule} from 'ngx-toastr';
+>>>>>>> 578d4e31042c94301dbf9d0322ebad1c5f5a5f42
 
 @NgModule({
   declarations: [
@@ -54,11 +59,13 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     FormsModule,
     ReactiveFormsModule,
     MatCheckboxModule,
-    NgxWebstorageModule.forRoot()
+    NgxWebstorageModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     CarService,
+    RegisterService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],  
 })
 export class AppModule { }
