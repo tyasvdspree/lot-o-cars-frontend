@@ -9,11 +9,13 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './security/authguard';
 import { RentComponent } from './components/rent/rent.component';
+import {AgreementComponent} from './components/agreement/agreement.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'cardetails/:id', component: CardetailsComponent },
+  { path: 'agreement/:id', component: AgreementComponent, canActivate: [AuthGuard] },
   { path: 'hire', component: HireComponent },
   { path: 'rent', component: RentComponent, canActivate: [AuthGuard]},
   { path: 'home', component: LandingspageComponent },

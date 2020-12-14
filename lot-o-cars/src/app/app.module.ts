@@ -26,6 +26,7 @@ import { RegisterService } from './services/register.service'
 import { LoginComponent } from './components/login/login.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { from } from 'rxjs';
+import { AgreementComponent } from './components/agreement/agreement.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 
 import {ToastrModule} from 'ngx-toastr';
@@ -45,7 +46,8 @@ import {ToastrModule} from 'ngx-toastr';
     TermsComponent,
     RegisterComponent,
     LoginComponent,
-    CalendarComponent
+    CalendarComponent,
+    AgreementComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +65,6 @@ import {ToastrModule} from 'ngx-toastr';
     CarService,
     RegisterService
   ],
-  bootstrap: [AppComponent],  
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
