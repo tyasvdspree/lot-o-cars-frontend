@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 
 export class RegisterComponent implements OnInit, OnDestroy {
   disabledAgreement = true;
-  user: User = new User('', '');
+  user: User = new User('', '', '', '', '', '');
   subscription: Subscription;
 
   constructor(

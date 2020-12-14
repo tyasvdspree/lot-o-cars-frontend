@@ -1,14 +1,11 @@
 <div class="flexContainer flexCol p-5">
-
-
-    <div style="display:flex; margin-top: 5%;">
+    <div style="margin-top: 5%;">
         <form>
-
-            <div style="width: 500px;">
+            <div style="width: 500px; float:left; width:50%; margin-top: 15%;">
                 <img src="assets/img/app/maincar.jpg" alt="car" width="90%">
             </div>
 
-            <div style="width: 500px;">
+            <div style="width: 500px; float:left; width:50%">
                 <div>
                     <h1>Registreren</h1>
                     <p>U bent nog niet bekend in ons systeem en wilt een auto huren of verhuren.</p>
@@ -17,7 +14,6 @@
                 <div>
                     <mat-form-field>
                         <input required type="text" placeholder="Gebruiksernaam" matInput [(ngModel)]="user.username" name="username">
-
                     </mat-form-field>
                 </div>
 
@@ -28,12 +24,36 @@
                 </div>
 
                 <div>
+                    <mat-form-field>
+                        <input required type="text" placeholder="Voornaam" matInput [(ngModel)]="user.firstname"  name="firstname">
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input required type="text" placeholder="Achternaam" matInput [(ngModel)]="user.lastname"  name="lastname">
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input required type="text" placeholder="Telefoonnummer" matInput [(ngModel)]="user.phonenumber"  name="phonenumber">
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input #emailaddress required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" email="true" type="email" placeholder="E-mail" matInput [(ngModel)]="user.emailaddress"  name="emailaddress">
+                    </mat-form-field>
+                </div>
+
+                <div>
                     <mat-checkbox (change)="changeCheck($event)">U gaat akkoord met onze voorwaarden</mat-checkbox>
                 </div>
 
                 <div style="margin-top: 10px;">
                     <button mat-flat-button type="submit" color="primary" style="float: left;"
-                        [disabled]="disabledAgreement || !user.password || !user.username" mat-button class="NxtBtnWrap"
+                        [disabled]="disabledAgreement || !user.password || !user.username || !user.firstname || !user.lastname || !user.phonenumber || !emailaddress.validity.valid" mat-button class="NxtBtnWrap"
                         (click)="register()">Registreren</button>
                 </div>
             </div>
