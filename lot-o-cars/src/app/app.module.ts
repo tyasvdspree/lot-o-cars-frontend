@@ -26,7 +26,12 @@ import { RegisterService } from './services/register.service'
 import { LoginComponent } from './components/login/login.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { from } from 'rxjs';
+<<<<<<< HEAD
+import { CalendarComponent } from './components/calendar/calendar.component';
+
+=======
 import {ToastrModule} from 'ngx-toastr';
+>>>>>>> 578d4e31042c94301dbf9d0322ebad1c5f5a5f42
 
 @NgModule({
   declarations: [
@@ -42,7 +47,8 @@ import {ToastrModule} from 'ngx-toastr';
     CardetailsComponent,
     TermsComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
