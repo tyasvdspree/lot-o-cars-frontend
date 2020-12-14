@@ -4,32 +4,29 @@ $light-gray:#dedede;
 $medium-gray:#a2a2a2;
 $dark-gray:#666;
 
+html, body { 
+    height: 100%; 
+}
 body {
     padding:0;
-    margin:0
+    margin:0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    color: $dark-gray
 }
-mat-toolbar h1 {
+mat-toolbar h1 a {
+    text-decoration: none;
     color: $secondary-color;
 }
-mat-toolbar div {
-    margin:0 50px
-}
 mat-toolbar a {
-    color: $primary-color
+    color: $primary-color;
+    cursor: pointer
 }
 mat-toolbar a:hover {
     color: $secondary-color
 }
-header img {
-    width: 70px;
-    position:absolute;
-    top:5px;
-    right:10px
-}
 footer {
     background-color:$primary-color;
     color:white;
-    padding:10px;
     position:absolute;
     bottom:0;
     left:0;
@@ -41,12 +38,127 @@ footer, header {
 footer ul, header ul {
     list-style-type: none;
 }
-footer li, header li {
-    float:left;
-    margin-right:20px
+.flexExpand {
+    flex: 1 1 auto;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-body h2 {
-    color: $secondary-color;
+.flexContainer {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.flexCol {
+    flex-direction: column;
+}
+.mr-5 {
+    margin-right: 25px
+}
+.mt-5 {
+    margin-top: 25px !important
+}
+.m-3 {
+    margin: 10px
+}
+.p-5 {
+    padding: 25px
+}
+.pl-3 {padding-left: 15px}
+.pl-4 {padding-left: 20px}
+.pl-5 {padding-left: 25px}
+.h-100 {
+    height: 100%
+}
+h1 {
+    font-size: 3em;
+    color: $secondary-color
+}
+h2 {
+    color: $primary-color
+}
+h3 {
+    color: $primary-color;
+    margin: 0 !important
+}
+a { 
+    color:$secondary-color;
+    text-decoration: none;
+}
+a:hover { 
+    color:$primary-color
+}
+footer a:hover { 
+    color:$secondary-color
+}
+button:hover {
+    background-color: $secondary-color !important;
+}
+.label, .labelw {
+    display: inline-block;
+    width:60px
+}
+.labelw {
+    width:100px
+}
+
+.mat-table__wrapper .mat-table {
+    min-width: auto !important;
+    width: 100% !important;
+}
+.mat-header-row {
+    width: 100%;
+}
+.mat-row {
+    width: 100%;
+}
+.mat-cell {
+    flex: 0 0 25% !important;
+    min-width: 104px !important;
+}
+
+tr {
+    vertical-align: middle;
+}
+tr:hover {
+    background-color: $light-gray;
+}
+tr:first-child:hover {
+    background-color: white;
+}
+th {
+    width: 10%;
+    font-weight: bold;
+    font-size: 1em;
+    color:$primary-color !important
+}
+td {
+    color: $dark-gray !important
+}
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: normal;
+    align-content: normal;
+  }
+  .flex-items {
+      margin: 5px;
+      width: 25%;
+      display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+  }
+  #content {
+    height: calc(80vh);
+    overflow-y: auto;
+    transition: all 0.5s;
+  }
+/* style disabled dates on mat calendar */
+.mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+    background-color: #d14;
+    color: #fff;
 }

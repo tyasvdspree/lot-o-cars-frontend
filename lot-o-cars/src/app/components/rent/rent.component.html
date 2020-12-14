@@ -1,0 +1,98 @@
+<div class="flexContainer flexCol p-5">
+
+
+    <div style="display:flex; margin-top: 5%;">
+
+        <div style="width: 500px;">
+            <img src="assets/img/app/maincar.jpg" alt="car" width="90%">
+        </div>
+
+        <div style="width: 500px;">
+            <div>
+                <h1>Registreer een auto voor verhuur</h1>
+                <p>vul de gegevens van de auto in om deze te kunnen verhuren</p>
+            </div>
+            <form (ngSubmit)="onSubmit()">
+                <div>
+                    <mat-form-field>
+                        <input [value]="car.numberPlate" name="numberPlate" (input)="car.numberPlate = $event.target.value" required type="text" placeholder="nummer plaat" matInput ngModel>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input [value]="car.countryCode" name="countryCode" (input)="car.countryCode = $event.target.value" required type="text" placeholder="countryCode" matInput ngModel>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input [value]="car.modelYear" name="modelYear" (input)="car.modelYear = $event.target.value" required type="text" placeholder="modelYear" matInput ngModel>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input [value]="car.make" name="make" (input)="car.make = $event.target.value" required type="text" placeholder="make" matInput ngModel>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input [value]="car.model" name="model" (input)="car.model = $event.target.value" required type="text" placeholder="model" matInput ngModel>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input [value]="car.body" name="body" (input)="car.body = $event.target.value" required type="text" placeholder="body" matInput ngModel>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input [value]="car.transmission" name="transmission" (input)="car.transmission = $event.target.value" required type="text" placeholder="transmission" matInput ngModel>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input [value]="car.fuel" name="fuel" (input)="car.fuel = $event.target.value" required type="text" placeholder="fuel" matInput ngModel>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input [value]="car.fuelUsage" name="fuelUsage" (input)="car.fuelUsage = $event.target.value" required type="text" placeholder="fuelUsage" matInput ngModel>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input [value]="car.doors" name="doors" (input)="car.doors = $event.target.value" required type="text" placeholder="doors" matInput ngModel>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input [value]="car.seats" name="seats" (input)="car.seats = $event.target.value" required type="text" placeholder="seats" matInput ngModel>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input [value]="car.bootSpaceInLiters" name="bootSpaceInLiters" (input)="car.bootSpaceInLiters = $event.target.value" required type="text" placeholder="bootSpaceInLiters" matInput ngModel>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-checkbox>U gaat akkoord met onze voorwaarden</mat-checkbox>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <button mat-flat-button color="primary" type="submit" style="float: left;">Registreren</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
