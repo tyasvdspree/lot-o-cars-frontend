@@ -1,6 +1,7 @@
+import { Location } from './location.model';
+
 export class User {
-    public username: string;
-    public password: string
+
     constructor(
         username: string,
         password: string
@@ -8,5 +9,15 @@ export class User {
         this.username = username;
         this.password = password;
     }
-  
+
+    id: number;
+    username: string;
+    password: string;
+    firstname: string;
+    lastname: string;
+    phonenumber: string;
+    emailaddress: string;
+    location: Location;
+    roles: any[];
+    active: boolean;
 }

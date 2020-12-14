@@ -1,9 +1,11 @@
 export class Location {
-    locationId: number;
+    id: number;
     addressLine1: string;
     addressLine2: string;
     city: string;
-    zipCode: string;
+    zipcode: string;
     countryCode: string;
     municipality: string;
+    latitude: number;
+    longitude: number;
 }

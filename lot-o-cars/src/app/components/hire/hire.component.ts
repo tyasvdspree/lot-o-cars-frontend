@@ -7,8 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HireComponent implements OnInit {
 
-  
-
   constructor() { }
 
   ngOnInit(): void {

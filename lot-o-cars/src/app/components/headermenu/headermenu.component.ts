@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-headermenu',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./headermenu.component.scss']
 })
 export class HeadermenuComponent implements OnInit {
+  isLoggedIn: boolean;
+  username: string;
 
-  constructor() { }
+  constructor(
+    private authenticationService: AuthService
+  ) { }
 
   ngOnInit(): void {
+    this.isLoggedIn =  this.authenticationService.isLoggedIn();
+    this.username = this.authenticationService.getUserName();
   }
 
 }

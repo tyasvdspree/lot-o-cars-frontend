@@ -11,18 +11,18 @@
    
     <span class="flexExpand"></span>
     <span>
-        <a mat-button routerLink="/hire"> hire </a>
-        <a mat-button href="#"> rent </a>
+        <a mat-button routerLink="/hire"> huren </a>
+        <a mat-button href="/rent"> verhuren </a>
     </span>
     <span class="flexExpand"></span>
     <span>
         <a mat-button href="#"> English </a>
-        <a mat-button href="#"> aanmelden </a>
-        <a mat-button routerLink="/register"> registreren </a>
+        <a mat-button routerLink="/login" *ngIf="!isLoggedIn"> aanmelden </a>
+        <a mat-button routerLink="/register" *ngIf="!isLoggedIn"> registreren </a>
     </span>
     <span>
         <button mat-button class="mat-button-wrapper" [matMenuTriggerFor]="userMenu">
-            username
+            {{ username }}
             <span class="material-icons">account_circle</span>
         </button>
         <mat-menu #userMenu="matMenu" xPosition="before">
