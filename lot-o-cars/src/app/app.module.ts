@@ -30,6 +30,7 @@ import { AgreementComponent } from './components/agreement/agreement.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 
 import {ToastrModule} from 'ngx-toastr';
+import { UserpageComponent } from './components/userpage/userpage.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {ToastrModule} from 'ngx-toastr';
     LoginComponent,
     CalendarComponent,
     AgreementComponent,
+    UserpageComponent,
   ],
   imports: [
     BrowserModule,
