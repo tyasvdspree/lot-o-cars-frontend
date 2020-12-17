@@ -41,7 +41,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.router.navigate(['/login']);
       },
       error => {
-        error.
         this.toastr.error('Registratie mislukt', 'Error');
       }
     );
