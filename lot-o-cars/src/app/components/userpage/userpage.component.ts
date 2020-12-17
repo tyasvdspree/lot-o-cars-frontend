@@ -15,7 +15,10 @@ export class UserpageComponent implements OnInit {
 
   ngOnInit(): void {
     this._userService.getUser()
-      .subscribe(data => this.user = data);
+      .subscribe(data => {
+        this.user = data;
+        console.log(data);
+      }
+      );
   }
-
 }
