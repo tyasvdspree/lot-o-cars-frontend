@@ -10,7 +10,7 @@
                     </td>
                     <td>
                         <mat-form-field>
-                            <input type="text" placeholder="Gebruikersnaam" matInput name="username">
+                            <input type="text" placeholder="Gebruikersnaam" matInput name="usernameInput" [(ngModel)]="usernameInput">
                         </mat-form-field>
                     </td>
                 </tr>
@@ -22,7 +22,7 @@
                     </td>
                     <td>
                         <mat-form-field>
-                            <input type="text" placeholder="Voornaam" matInput name="firstname">
+                            <input type="text" placeholder="Voornaam" matInput name="firstnameInput" [(ngModel)]="firstnameInput">
                         </mat-form-field>
                     </td>
                 </tr>
@@ -34,7 +34,7 @@
                     </td>
                     <td>
                         <mat-form-field>
-                            <input type="text" placeholder="Achternaam" matInput name="lastname">
+                            <input type="text" placeholder="Achternaam" matInput name="lastnameInput" [(ngModel)]="lastnameInput">
                         </mat-form-field>
                     </td>
                 </tr>
@@ -46,7 +46,7 @@
                     </td>
                     <td>
                         <mat-form-field>
-                            <input type="text" placeholder="Telefoonnummer" matInput name="phonenumber">
+                            <input type="text" placeholder="Telefoonnummer" matInput name="phonenumberInput" [(ngModel)]="phonenumberInput">
                         </mat-form-field>
                     </td>
                 </tr>
@@ -59,7 +59,7 @@
                     <td>
                         <mat-form-field>
                             <input #emailaddress pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" email="true"
-                                type="email" placeholder="Emailaddres" matInput name="emailaddress">
+                                type="email" placeholder="Emailaddres" matInput name="emailaddressInput" [(ngModel)]="emailaddressInput">
                         </mat-form-field>
                     </td>
                 </tr>
@@ -71,7 +71,7 @@
                     </td>
                     <td>
                         <mat-form-field>
-                            <input type="password" placeholder="Wachtwoord" matInput name="password">
+                            <input type="password" placeholder="Wachtwoord" matInput name="passwordInput" [(ngModel)]="passwordInput">
                         </mat-form-field>
                     </td>
                 </tr>
@@ -81,7 +81,7 @@
                     <td>
                         <div style="margin-top: 10px;">
                             <button mat-flat-button type="submit" color="primary" style="float: right;"
-                                mat-button class="NxtBtnWrap">Opslaan</button>
+                            (click)="register()" mat-button class="NxtBtnWrap">Opslaan</button>
                          </div>
                     </td>
                 </tr>

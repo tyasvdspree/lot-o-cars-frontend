@@ -14,4 +14,9 @@ export class UserService {
   getUser(): Observable<User>{
     return this.http.get<User>(environment.apiBaseUrl + "/user/me");
   }
+
+  editUser(user){
+    console.log("service")
+    return this.http.put(environment.apiBaseUrl + "/user/editme", user);
+  }
 }
