@@ -73,14 +73,22 @@ export class AgreementComponent implements OnInit {
   }
 
   createAgreement() {
-    // this.agreementService.createAgreement(this.agreement);
     if (this.range.value.start == null){
       this.toastr.error('Geen periode geselecteerd');
-
     } else {
-      this.toastr.success('Overeenkomst gemaakt');
-      this.router.navigateByUrl(`/`);
-
+      this.agreement.carId = this.car.id;
+      this.agreement.car = this.car;
+      this.agreement.renterId = 1;
+      // this.agreement.renteeId = 1; ben je zelf, backend?
+      this.agreement.startDate = this.range.value.start;
+      this.agreement.endDate = this.range.value.end;
+      this.agreementService.createAgreement(this.agreement).subscribe(
+        response => {
+          console.log(response)
+          this.toastr.success('Overeenkomst gemaakt');  // todo: alleen bij goede response
+          // this.router.navigateByUrl(`/`);
+        }
+      )
     }
   }
 }

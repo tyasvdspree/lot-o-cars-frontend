@@ -9,11 +9,9 @@ import {environment} from '../../environments/environment';
 })
 export class AgreementService {
 
-  agreement: Agreement = new Agreement();
-
   constructor(private http: HttpClient) { }
 
   createAgreement(agreement: Agreement): Observable<any> {
-    return this.http.post(environment.apiBaseUrl + '/agreement', agreement);
+    return this.http.put(environment.apiBaseUrl + '/agreement', agreement);
   }
 }
