@@ -26,7 +26,6 @@ export class UserpageComponent implements OnInit {
     this._userService.getUser()
       .subscribe(data => {
         this.user = data;
-        console.log(data);
       }
       );
   }
