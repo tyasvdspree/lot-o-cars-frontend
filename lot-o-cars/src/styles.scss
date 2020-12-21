@@ -26,6 +26,12 @@ mat-toolbar a {
 mat-toolbar a:hover {
     color: $secondary-color
 }
+.mat-menu-item {
+    padding-top:6px !important
+}
+.mat-menu-item:hover {
+    color: white
+}
 footer {
     background-color:$primary-color;
     color:white;

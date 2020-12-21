@@ -25,7 +25,4 @@ export class UploadFileService {
     return this.http.request(req);
   }
 
-  getCarImages(): Observable<any> {
-    return this.http.get(environment.apiBaseUrl + this.controller);
-  }
 }
