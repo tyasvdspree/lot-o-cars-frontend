@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
@@ -68,7 +68,6 @@ export class CardetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.carService.findByNumberPlate(this.licensePlate).subscribe(
         response => {
-          console.log(response);
           this.car = response;
         },
         error => {
@@ -78,11 +77,11 @@ export class CardetailsComponent implements OnInit, OnDestroy {
     );
   }
 
+  // first load the id's of the images
   getCarImageIds(): void {
     this.subscriptions.push(
       this.carService.getCarImageIds(this.licensePlate).subscribe(
         response => {
-          console.log('image ids: ' + response);
           this.carImageIds = response;
           if (this.carImageIds) {
             this.getCarImages();
@@ -95,19 +94,13 @@ export class CardetailsComponent implements OnInit, OnDestroy {
     );
   }
 
+  // after id's are loaded, load each image one by one (async)
   getCarImages(): void {
     this.carImageIds.forEach(id => 
       this.subscriptions.push(
         this.carService.getCarImage(this.licensePlate, id).subscribe(
           response => {
-            // make image from received byte array
-            let TYPED_ARRAY = new Uint8Array(response.carImage);
-            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
-              return data + String.fromCharCode(byte);
-              }, '');
-            let base64String = btoa(STRING_CHAR);
-            const image = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String);
-            // add image to the images array for the carousel
+            const image = this.convertByteArrayToImage(response.carImage);
             this.carImages.push(image);
           },
           error => {
@@ -116,6 +109,16 @@ export class CardetailsComponent implements OnInit, OnDestroy {
         )
       )
     );
+  }
+
+  convertByteArrayToImage(byteArray: any): SafeUrl {
+    let TYPED_ARRAY = new Uint8Array(byteArray);
+    const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+      return data + String.fromCharCode(byte);
+      }, '');
+    let base64String = btoa(STRING_CHAR);
+    const image = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String);
+    return image;
   }
 
   onDateSelected(selectedDate: Date): void {
