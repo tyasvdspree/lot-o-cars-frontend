@@ -66,18 +66,17 @@ export class CarService {
     return this.http.get(environment.apiBaseUrl + '/renting/' + plate);
   }
 
-  // TODO: connect with API to get all rented dates of this month and the future
+  // get the dates the specified car is not available
   getBlockedDates(plate: string): Observable<any> {
-    /* return of([
-      // december 2020 dates
-      new Date(2020, 11, 5),
-      new Date(2020, 11, 6),
-      new Date(2020, 11, 7),
-      // january 2021 dates
-      new Date(2021, 0, 4),
-      new Date(2021, 0, 5)
-    ]); */
     return this.http.get(environment.apiBaseUrl + '/agreement/' + plate);
+  }
+
+  getCarImageIds(plate: string): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + '/carimage/' + plate);
+  }
+
+  getCarImage(plate: string, imageid: number): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + '/carimage/' + plate + '/' + imageid);
   }
 
 }
