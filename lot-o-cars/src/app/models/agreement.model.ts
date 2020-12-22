@@ -4,16 +4,16 @@ import { User } from "./user.model";
 export class Agreement {
   id: number;
   carId: number;
-  car: Car;
+  // car: Car;
   renterId: number;
-  renter: User;
+  // renter: User;
   renteeId: number;
-  rentee: User;
+  // rentee: User;
   startDate: Date;
   endDate: Date;
-  rentPricePerHour: number;
-  brokerFee: number;
-  isPayed: boolean;
+  // rentPricePerHour: number;
+  // brokerFee: number;
+  // isPayed: boolean;
 }
 
 

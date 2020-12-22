@@ -38,7 +38,7 @@ export class AgreementComponent implements OnInit {
       this.licensePlate = parameters.id;
       this.carServiceSubscription = this.carService.findByNumberPlate(this.licensePlate).subscribe(
         response => {
-          this.car = response;
+          this.car.id = response.id;
         },
         error => {
           console.log(error);
@@ -56,12 +56,9 @@ export class AgreementComponent implements OnInit {
     }
     // The number of milliseconds in all UTC days (no DST)
     const oneDay = 1000 * 60 * 60 * 24;
-
     // A day in UTC always lasts 24 hours (unlike in other time formats)
     const start = Date.UTC(EndDate.getFullYear(), EndDate.getMonth(), EndDate.getDate());
     const end = Date.UTC(StartDate.getFullYear(), StartDate.getMonth(), StartDate.getDate());
-
-
     // so it's safe to divide by 24 hours
     const numberOfDays = ((start - end) / oneDay) + 1;
     this.numberOfDays = numberOfDays;
@@ -77,7 +74,7 @@ export class AgreementComponent implements OnInit {
       this.toastr.error('Geen periode geselecteerd');
     } else {
       this.agreement.carId = this.car.id;
-      this.agreement.car = this.car;
+      // this.agreement.car = this.car;
       this.agreement.renterId = 1;
       // this.agreement.renteeId = 1; ben je zelf, backend?
       this.agreement.startDate = this.range.value.start;
