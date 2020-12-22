@@ -22,9 +22,8 @@
                         <img src="assets/img/app/maincar.jpg" alt="car" width="100%" />
                         <p class="text-center">Geen foto's van deze auto beschikbaar</p>
                     </ng-container>
-                    <div *ngFor="let carImage of carImages">
-                        <img [src]="carImage" alt="car" class="mb-3" />
-                    </div>
+                    <carousel objectFit="contain" [images]="carImages" cellsToShow="1" dots="true" *ngIf="carImages.length > 0">
+                    </carousel>
                 </mat-card-content>
             </mat-card>
             <mat-card class="mt-3" *ngIf="isLoggedIn">
@@ -97,15 +96,16 @@
                         [blockedDates]="blockedDates"
                         (selectedDate)="onDateSelected($event)">
                     </app-calendar>
-                </mat-card-content>
-                <mat-card-header>
-                    <mat-card-title style="text-align:center !important">
+                
+                    <hr>
+                    <div class="mt-4 text-center font-weight-bold" style='font-size:18px'>
                         huurprijs:
                         <ng-container *ngIf="car">
-                            {{ car.rentPricePerHour | currency:'EUR' }} <span style="font-size:12px"> per dag </span>
-                        </ng-container>
-                    </mat-card-title>
-                </mat-card-header>
+                            {{ car.rentPricePerHour | currency:'EUR' }} 
+                            <span style="font-size:12px"> per dag </span>
+                        </ng-container> 
+                    </div>
+                </mat-card-content>
                 <mat-card-actions style="text-align:center">
                     <button mat-flat-button color="primary" (click)="onButtonClicked()"> deze auto huren </button>
                 </mat-card-actions>

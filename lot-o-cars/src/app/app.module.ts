@@ -26,6 +26,7 @@ import { AgreementComponent } from './components/agreement/agreement.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ImageuploadComponent } from './components/imageupload/imageupload.component';
+import {IvyCarouselModule} from 'angular-responsive-carousel';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { ImageuploadComponent } from './components/imageupload/imageupload.compo
     ReactiveFormsModule,
     MatCheckboxModule,
     NgxWebstorageModule.forRoot(),
-    ToastrModule.forRoot({positionClass: 'toast-bottom-right'})
+    ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),
+    IvyCarouselModule
   ],
   providers: [
     CarService,

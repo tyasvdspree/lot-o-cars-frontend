@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CarService } from 'src/app/services/car.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cardetails',
@@ -25,8 +25,7 @@ export class CardetailsComponent implements OnInit, OnDestroy {
     private authenticationService: AuthService,
     private route: ActivatedRoute,
     private carService: CarService,
-    private router: Router,
-    private domSanitizer: DomSanitizer
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +35,7 @@ export class CardetailsComponent implements OnInit, OnDestroy {
         this.licensePlate = parameters.id;
         this.getRentedDatesOfCar();
         this.getCarDetails();
-        this.getCarImageIds();
+        this.getCarImages();
       })
     );
   }
@@ -77,48 +76,21 @@ export class CardetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  // first load the id's of the images
-  getCarImageIds(): void {
+  getCarImages(): void {
     this.subscriptions.push(
       this.carService.getCarImageIds(this.licensePlate).subscribe(
         response => {
           this.carImageIds = response;
-          if (this.carImageIds) {
-            this.getCarImages();
-          }
+
+          this.carImageIds.forEach(imageId => 
+            this.carImages.push({path: this.carService.getCarImageUrl(this.licensePlate, imageId)})
+          );
         },
         error => {
           console.log(error);
         }
       )
     );
-  }
-
-  // after id's are loaded, load each image one by one (async)
-  getCarImages(): void {
-    this.carImageIds.forEach(id => 
-      this.subscriptions.push(
-        this.carService.getCarImage(this.licensePlate, id).subscribe(
-          response => {
-            const image = this.convertByteArrayToImage(response.carImage);
-            this.carImages.push(image);
-          },
-          error => {
-            console.log(error);
-          }
-        )
-      )
-    );
-  }
-
-  convertByteArrayToImage(byteArray: any): SafeUrl {
-    let TYPED_ARRAY = new Uint8Array(byteArray);
-    const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
-      return data + String.fromCharCode(byte);
-      }, '');
-    let base64String = btoa(STRING_CHAR);
-    const image = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String);
-    return image;
   }
 
   onDateSelected(selectedDate: Date): void {

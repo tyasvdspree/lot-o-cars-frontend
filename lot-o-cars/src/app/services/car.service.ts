@@ -75,8 +75,8 @@ export class CarService {
     return this.http.get(environment.apiBaseUrl + '/carimage/' + plate);
   }
 
-  getCarImage(plate: string, imageid: number): Observable<any> {
-    return this.http.get(environment.apiBaseUrl + '/carimage/' + plate + '/' + imageid);
+  getCarImageUrl(plate: string, imageid: number): string {
+    return environment.apiBaseUrl + '/carimage/' + plate + '/' + imageid;
   }
 
 }

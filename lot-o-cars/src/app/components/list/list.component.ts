@@ -15,7 +15,7 @@ export class ListComponent implements OnInit, OnDestroy {
   carServiceSubscription: Subscription;
   carSearchSubscription: Subscription;
   cars: Car[];
-  displayedColumns = [
+  displayedColumns = ['image',
     'numberPlate', 'make', 'model', 'modelYear', 'transmission', 'fuel',
     'body', 'navigation', 'airco', 'smokingIsAllowed'
   ];
@@ -55,7 +55,8 @@ export class ListComponent implements OnInit, OnDestroy {
     console.log('getCarsBySearchCriteria: ' + JSON.stringify(searchCriteria));
     this.carServiceSubscription = this.carService.find(searchCriteria).subscribe(
       response => {
-        this.cars = response;
+        // this.cars = response;
+        this.cars = response.map(x =>  ({ ...x, imageUrl: this.getImageUrl(x.numberPlate, x.mainCarImageId) }) );
         this.carService.cars = this.cars;
         this.isRateLimitReached = false;
         this.resultsLength = this.cars.length;
@@ -69,10 +70,16 @@ export class ListComponent implements OnInit, OnDestroy {
     });
   }
 
+  getImageUrl(numberPlate: string, carImageId: number): string {
+    if (carImageId > 0)
+      return this.carService.getCarImageUrl(numberPlate, carImageId)
+    else
+      return "assets/img/app/maincar.jpg"
+  }
+
   onRowClicked(car: Car): void {
     console.log('Row clicked: ', car);
     this.router.navigateByUrl(`/cardetails/${car.numberPlate}`);
-    // this.router.navigateByUrl(`/cardetails/${car.id}`);
   }
 
 }

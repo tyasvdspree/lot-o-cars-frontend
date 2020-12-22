@@ -1,9 +1,3 @@
-<!-- <mat-calendar #calendar 
-    [(selected)]="selDate"
-    (selectedChange)="dateChanged($event)"
-    [dateFilter]="myDateFilter"
-    [minDate]="minDate">
-</mat-calendar> -->
 <mat-calendar #calendar *ngIf="blockedDates"
     [dateFilter]="myDateFilter"
     [minDate]="minDate">
