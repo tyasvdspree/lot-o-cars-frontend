@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Agreement} from '../../models/agreement.model';
 import {CarService} from '../../services/car.service';
@@ -38,7 +38,7 @@ export class AgreementComponent implements OnInit {
       this.licensePlate = parameters.id;
       this.carServiceSubscription = this.carService.findByNumberPlate(this.licensePlate).subscribe(
         response => {
-          this.car.id = response.id;
+          this.car = response;
         },
         error => {
           console.log(error);
@@ -65,27 +65,24 @@ export class AgreementComponent implements OnInit {
     return numberOfDays;
   }
 
-  get totalPrice() {
+  get totalPrice(): number {
     return this.numberOfDays * this.car.rentPricePerHour;
   }
 
-  createAgreement() {
+  createAgreement(): void {
     if (this.range.value.start == null){
       this.toastr.error('Geen periode geselecteerd');
     } else {
       this.agreement.carId = this.car.id;
-      // this.agreement.car = this.car;
-      this.agreement.renterId = 1;
-      // this.agreement.renteeId = 1; ben je zelf, backend?
       this.agreement.startDate = this.range.value.start;
       this.agreement.endDate = this.range.value.end;
       this.agreementService.createAgreement(this.agreement).subscribe(
         response => {
-          console.log(response)
+          console.log(response);
           this.toastr.success('Overeenkomst gemaakt');  // todo: alleen bij goede response
-          // this.router.navigateByUrl(`/`);
+          this.router.navigateByUrl(`/`);
         }
-      )
+      );
     }
   }
 }
