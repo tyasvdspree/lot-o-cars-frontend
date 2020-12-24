@@ -30,6 +30,9 @@ export class AuthService {
   login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
     return this.httpClient.post<LoginResponse>(environment.apiBaseUrl + '/login',
       loginRequestPayload).pipe(map(data => {
+        if (!data.authenticationToken) {
+          return false;
+        }
         this.localStorage.store('authenticationToken', data.authenticationToken);
         this.localStorage.store('username', data.username);
         this.localStorage.store('refreshToken', data.refreshToken);
