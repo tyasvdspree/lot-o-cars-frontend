@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Agreement} from '../../models/agreement.model';
 import {CarService} from '../../services/car.service';
@@ -17,13 +17,16 @@ export class AgreementComponent implements OnInit {
 
   range = new FormGroup({
     start: new FormControl(),
-    end: new FormControl()  });
+    end: new FormControl()
+  });
   agreement: Agreement = new Agreement();
   numberOfDays = null;
   carServiceSubscription: Subscription;
   licensePlate: string;
   carId: number;
   car: Car;
+  minDate: Date;
+  blockedDates: Date[];
 
   constructor(
     private carService: CarService,
@@ -45,6 +48,18 @@ export class AgreementComponent implements OnInit {
         }
       );
     });
+    this.carService.getBlockedDates(this.licensePlate).subscribe(
+      response => {
+        console.log('rented dates: ' + response);
+
+        if (response) {
+          this.blockedDates = response.map(x => new Date(x + ' 00:00:00'));
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
 
@@ -76,6 +91,7 @@ export class AgreementComponent implements OnInit {
       this.agreement.carId = this.car.id;
       this.agreement.startDate = this.range.value.start;
       this.agreement.endDate = this.range.value.end;
+      console.log(this.agreement.endDate)
       this.agreementService.createAgreement(this.agreement).subscribe(
         response => {
           console.log(response);
@@ -84,5 +100,14 @@ export class AgreementComponent implements OnInit {
         }
       );
     }
+  }
+
+  setMinCalendarDate(): void {
+    const today = new Date();
+    this.minDate = new Date(today.getFullYear(), today.getMonth(), 1);
+  }
+
+  myDateFilter = (d: Date): boolean => {
+    return this.blockedDates.map(Number).indexOf(+d) === -1;
   }
 }
