@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   loginRequestPayload: LoginRequestPayload;
-  isError: boolean;
   returnUrl: string;
 
   constructor(
@@ -43,12 +42,13 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.loginRequestPayload).subscribe(data => {
       if (data){
-        this.isError = false;
         this.toastr.success('Ingelogd');
         this.router.navigateByUrl(this.returnUrl);
 
       } else {
-        this.isError = true;
+        this.toastr.error('Inloggegevens incorrect')
+        this.loginForm.get('username').setValue('');
+        this.loginForm.get('password').setValue('');
       }
     });
   }
