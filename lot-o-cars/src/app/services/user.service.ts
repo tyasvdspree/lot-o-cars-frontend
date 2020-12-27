@@ -16,7 +16,6 @@ export class UserService {
   }
 
   editUser(user){
-    console.log("service")
     return this.http.put(environment.apiBaseUrl + "/user/editme", user);
   }
 }

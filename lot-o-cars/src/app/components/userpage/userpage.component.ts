@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-userpage',
@@ -18,6 +20,8 @@ export class UserpageComponent implements OnInit {
   emailaddressInput: string;
   passwordInput: string;
 
+  subscription: Subscription;
+
   constructor(
     private _userService: UserService, 
     private toastr: ToastrService) { }
@@ -30,15 +34,23 @@ export class UserpageComponent implements OnInit {
       );
   }
 
-  public register(): void {
+  public editUser(): void {
     this.user.username = this.usernameInput;
-    this.user.firstname = this.usernameInput;
+    this.user.firstname = this.firstnameInput;
     this.user.lastname = this.lastnameInput;
     this.user.phonenumber = this.phonenumberInput;
     this.user.emailaddress = this.emailaddressInput;
     this.user.password = this.passwordInput;
 
-    this._userService.editUser(this.user).subscribe();
-    this.toastr.success('Gewijzigd', 'Success');
+    this.subscription = this._userService.editUser(this.user).subscribe(
+      response => {      
+        this._userService.editUser(this.user).subscribe();
+        this.toastr.success('Gewijzigd', 'Success');
+        //window.location.reload();
+      },
+      error => {
+        this.toastr.error('Registratie mislukt', 'Error');
+      }
+    )
   }
 }
