@@ -5,19 +5,7 @@
                 <tr>
                     <td>
                         <label>
-                            {{user.username}}
-                        </label>
-                    </td>
-                    <td>
-                        <mat-form-field>
-                            <input type="text" placeholder="Gebruikersnaam" matInput name="usernameInput" [(ngModel)]="usernameInput">
-                        </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>
-                            {{user.firstname}}
+                            {{user?.firstname}}
                         </label>
                     </td>
                     <td>
@@ -29,7 +17,7 @@
                 <tr>
                     <td>
                         <label>
-                            {{user.lastname}}
+                            {{user?.lastname}}
                         </label>
                     </td>
                     <td>
@@ -41,7 +29,7 @@
                 <tr>
                     <td>
                         <label>
-                            {{user.phonenumber}}
+                            {{user?.phonenumber}}
                         </label>
                     </td>
                     <td>
@@ -53,7 +41,7 @@
                 <tr>
                     <td>
                         <label>
-                            {{user.emailaddress}}
+                            {{user?.emailaddress}}
                         </label>
                     </td>
                     <td>

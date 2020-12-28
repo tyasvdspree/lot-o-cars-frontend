@@ -13,7 +13,6 @@ import { error } from 'protractor';
 export class UserpageComponent implements OnInit {
 
   user:User;
-  usernameInput: string;
   firstnameInput: string;
   lastnameInput: string;
   phonenumberInput: string;
@@ -35,7 +34,6 @@ export class UserpageComponent implements OnInit {
   }
 
   public editUser(): void {
-    this.user.username = this.usernameInput;
     this.user.firstname = this.firstnameInput;
     this.user.lastname = this.lastnameInput;
     this.user.phonenumber = this.phonenumberInput;
