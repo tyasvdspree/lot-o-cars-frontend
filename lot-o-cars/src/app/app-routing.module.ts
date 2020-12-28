@@ -10,8 +10,10 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './security/authguard';
 import { RentComponent } from './components/rent/rent.component';
 import {AgreementComponent} from './components/agreement/agreement.component';
+import { MyCarsComponent } from './components/my-cars/my-cars.component';
 
 const routes: Routes = [
+  { path: 'my-cars', component: MyCarsComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'cardetails/:id', component: CardetailsComponent },

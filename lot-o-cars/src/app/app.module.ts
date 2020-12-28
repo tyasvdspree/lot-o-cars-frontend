@@ -31,6 +31,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 
 import {ToastrModule} from 'ngx-toastr';
 import { TokenInterceptor } from './token-interceptor';
+import { MyCarsComponent } from './components/my-cars/my-cars.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { TokenInterceptor } from './token-interceptor';
     LoginComponent,
     CalendarComponent,
     AgreementComponent,
+    MyCarsComponent,
   ],
   imports: [
     BrowserModule,

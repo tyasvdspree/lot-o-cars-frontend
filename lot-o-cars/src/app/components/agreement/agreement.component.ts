@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Agreement} from '../../models/agreement.model';
 import {CarService} from '../../services/car.service';
@@ -13,8 +13,8 @@ import {ToastrService} from 'ngx-toastr';
   templateUrl: './agreement.component.html',
   styleUrls: ['./agreement.component.scss']
 })
-export class AgreementComponent implements OnInit {
-
+export class AgreementComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
@@ -37,29 +37,36 @@ export class AgreementComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(parameters => {
-      this.licensePlate = parameters.id;
-      this.carServiceSubscription = this.carService.findByNumberPlate(this.licensePlate).subscribe(
+    this.subscriptions.push(
+      this.route.params.subscribe(parameters => {
+        this.licensePlate = parameters.id;
+        this.carServiceSubscription = this.carService.findByNumberPlate(this.licensePlate).subscribe(
+          response => {
+            this.car = response;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }));
+    this.subscriptions.push(
+      this.carService.getBlockedDates(this.licensePlate).subscribe(
         response => {
-          this.car = response;
+          if (response) {
+            this.blockedDates = response.map(x => new Date(x + ' 00:00:00'));
+          }
         },
         error => {
           console.log(error);
         }
-      );
-    });
-    this.carService.getBlockedDates(this.licensePlate).subscribe(
-      response => {
-        if (response) {
-          this.blockedDates = response.map(x => new Date(x + ' 00:00:00'));
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    )
+      ));
   }
 
+  ngOnDestroy(): void {
+    if (this.subscriptions) {
+      this.subscriptions.forEach(x => x.unsubscribe());
+    }
+  }
 
   get daysBetween(): number {
     const StartDate = this.range.value.start;
