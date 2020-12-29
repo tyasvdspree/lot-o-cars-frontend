@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Car } from 'src/app/models/car.model';
 import { CarSearchCriteria } from 'src/app/models/carSearchCriteria.model';
 import { CarService } from 'src/app/services/car.service';
@@ -14,8 +14,8 @@ import { Subscription } from 'rxjs';
 export class ListComponent implements OnInit, OnDestroy {
   carServiceSubscription: Subscription;
   carSearchSubscription: Subscription;
-  cars: Car[];
-  displayedColumns = [
+  @Input() cars: Car[];
+  @Input() displayedColumns = [
     'numberPlate', 'make', 'model', 'modelYear', 'transmission', 'fuel',
     'body', 'navigation', 'airco', 'smokingIsAllowed'
   ];
@@ -32,8 +32,7 @@ export class ListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.cars = this.carService.cars;
-
+    // this.cars = this.carService.cars;
     this.carSearchSubscription = this.carService.SearchEvent.subscribe(
       criteria => {
         this.isLoadingResults = true;
