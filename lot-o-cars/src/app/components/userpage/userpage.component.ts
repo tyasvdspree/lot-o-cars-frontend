@@ -34,14 +34,16 @@ export class UserpageComponent implements OnInit {
   }
 
   public editUser(): void {
-    this.user.firstname = this.firstnameInput;
-    this.user.lastname = this.lastnameInput;
-    this.user.phonenumber = this.phonenumberInput;
-    this.user.emailaddress = this.emailaddressInput;
-    this.user.password = this.passwordInput;
+
 
     this.subscription = this._userService.editUser(this.user).subscribe(
       response => {      
+        this.user.firstname = this.firstnameInput;
+        this.user.lastname = this.lastnameInput;
+        this.user.phonenumber = this.phonenumberInput;
+        this.user.emailaddress = this.emailaddressInput;
+        this.user.password = this.passwordInput;
+        
         this._userService.editUser(this.user).subscribe();
         this.toastr.success('Gewijzigd', 'Success');
         //window.location.reload();
