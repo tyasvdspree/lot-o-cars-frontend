@@ -1,14 +1,13 @@
-<div *ngIf="currentFileUpload" class="progress">
-  <div class="progress-bar progress-bar-info progress-bar-striped"
-    role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
-    aria-valuemin="0" aria-valuemax="100"
-    [ngStyle]="{width:progress.percentage+'%'}">
-    {{progress.percentage}}%</div>
+<div class="mt-2 mb-2">
+  <input type="file" #file multiple
+    style="display:none" 
+    (change)="selectFiles($event)">
+  <button type="button" mat-flat-button 
+    color="primary" 
+    (click)="onSelectFilesClicked()">
+      selecteer foto's van de auto
+  </button>
+  <div class="p-3">
+    {{fileInfo}}
+  </div>
 </div>
- 
-<label class="btn btn-default">
-  <input type="file" (change)="selectFile($event)">
-</label>
- 
-<button class="btn btn-success" [disabled]="!selectedFiles"
-  (click)="upload()">Bestand Uploaden</button>

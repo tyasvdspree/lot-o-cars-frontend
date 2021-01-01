@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Car } from 'src/app/models/car.model';
+import { CarService } from 'src/app/services/car.service';
 
 @Component({
   selector: 'app-rent',
@@ -9,24 +9,34 @@ import { Car } from 'src/app/models/car.model';
 })
 export class RentComponent implements OnInit {
 
-    SERVER_URL = "http://localhost:8080/car";
-    car:Car;
+  car: Car;
+  imageFiles: FileList;
 
-    constructor(private httpClient: HttpClient) {
-
-    }
+  constructor(private carService: CarService) { }
 
   ngOnInit(): void {
       this.car = new Car();
   }
 
+  receiveSelectedImageFiles(images: FileList) {
+    this.imageFiles = images;
+  }
+
   onSubmit() {
     console.log(this.car);
+    console.log('num of images: ' + this.imageFiles.length);
 
-    this.httpClient.put<Car>(this.SERVER_URL, this.car).subscribe(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );
+    // set defaults for non nullable values
+    this.car.airco = false;
+    this.car.color = 'blauw';
+    this.car.isActive = 1;
+    this.car.navigation = false;
+    this.car.rentPricePerHour = 5;
+    this.car.smokingIsAllowed = false;
+    this.car.userId = 3;
+    this.car.locationId = 3;
+
+    this.carService.createNewCar(this.car, this.imageFiles);
   }
 
 }

@@ -23,7 +23,7 @@ export class Car {
     airco: boolean;
     smokingIsAllowed: boolean;
     rentPricePerHour: number;
-    isActive: boolean;
+    isActive: number;
     location: Location;
     user: User;
 }

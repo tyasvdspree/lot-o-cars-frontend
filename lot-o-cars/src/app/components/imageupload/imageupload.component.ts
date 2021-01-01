@@ -1,6 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { HttpResponse, HttpEventType } from '@angular/common/http';
-import { UploadFileService } from 'src/app/services/uploadfile.service';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-imageupload',
@@ -8,39 +6,29 @@ import { UploadFileService } from 'src/app/services/uploadfile.service';
   styleUrls: ['./imageupload.component.scss']
 })
 export class ImageuploadComponent implements OnInit {
-
-  selectedFiles: FileList
-  currentFileUpload: File
-  progress: { percentage: number } = { percentage: 0 }
+  @ViewChild('file') file;
   @Input() entityId: string;
+  @Output() onFilesSelected = new EventEmitter<FileList>();
+  fileInfo = 'geen foto\'s geselecteerd';
 
-  constructor(private uploadFileService: UploadFileService) { }
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  onSelectFilesClicked(): void {
+    // open dialog of file input
+    this.file.nativeElement.click();
   }
 
-  selectFile(event) {
-    const file = event.target.files.item(0)
+  selectFiles(event) {
+    const file = event.target.files.item(0);
  
     if (file.type.match('image.*')) {
-      this.selectedFiles = event.target.files;
+      this.onFilesSelected.emit(event.target.files);
+      this.fileInfo = "aantal geselecteerde foto's: " + event.target.files.length;
     } else {
-      alert('invalid format!');
+      alert('selecteer een fotobestand (.jpg, .png, .gif)!');
     }
   }
  
-  upload() {
-    this.progress.percentage = 0;
- 
-    this.currentFileUpload = this.selectedFiles.item(0)
-    this.uploadFileService.addImageFileToCar(this.entityId, this.currentFileUpload).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress.percentage = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        console.log('File is completely uploaded!');
-      }
-    })
- 
-    this.selectedFiles = undefined
-  }
 }

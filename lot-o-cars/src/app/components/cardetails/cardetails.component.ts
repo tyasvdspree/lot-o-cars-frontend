@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CarService } from 'src/app/services/car.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cardetails',

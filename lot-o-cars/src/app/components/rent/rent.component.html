@@ -86,6 +86,10 @@
                 </div>
 
                 <div>
+                    <app-imageupload #imageFiles (onFilesSelected)="receiveSelectedImageFiles($event)"></app-imageupload>
+                </div>
+
+                <div>
                     <mat-checkbox>U gaat akkoord met onze voorwaarden</mat-checkbox>
                 </div>
 
