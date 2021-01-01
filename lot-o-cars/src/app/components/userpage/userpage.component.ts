@@ -49,7 +49,6 @@ export class UserpageComponent implements OnInit {
         this.user.phonenumber = this.phonenumberInput;
         this.user.emailaddress = this.emailaddressInput;
         this.user.password = this.passwordInput;
-        this._userService.editUser(this.user).subscribe();
         this.toastr.success('Gewijzigd', 'Success');
         this.redirectTo(this.returnUrl);
       },
