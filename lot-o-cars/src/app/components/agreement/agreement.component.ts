@@ -15,18 +15,14 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class AgreementComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl()
-  });
   agreement: Agreement = new Agreement();
   numberOfDays = null;
   carServiceSubscription: Subscription;
   licensePlate: string;
-  carId: number;
   car: Car;
-  minDate: Date = new Date();
   blockedDates: Date[];
+  startDate: Date = new Date();
+  endDate: Date = new Date();
 
   constructor(
     private carService: CarService,
@@ -69,18 +65,13 @@ export class AgreementComponent implements OnInit, OnDestroy {
   }
 
   get daysBetween(): number {
-    const StartDate = this.range.value.start;
-    const EndDate = this.range.value.end;
-    if (StartDate === null || EndDate === null) {
-      return null;
-    }
     // The number of milliseconds in all UTC days (no DST)
     const oneDay = 1000 * 60 * 60 * 24;
     // A day in UTC always lasts 24 hours (unlike in other time formats)
-    const start = Date.UTC(EndDate.getFullYear(), EndDate.getMonth(), EndDate.getDate());
-    const end = Date.UTC(StartDate.getFullYear(), StartDate.getMonth(), StartDate.getDate());
+    const end = Date.UTC(this.endDate.getFullYear(), this.endDate.getMonth(), this.endDate.getDate());
+    const start = Date.UTC(this.startDate.getFullYear(), this.startDate.getMonth(), this.startDate.getDate());
     // so it's safe to divide by 24 hours
-    const numberOfDays = ((start - end) / oneDay) + 1;
+    const numberOfDays = ((end - start) / oneDay) + 1;
     this.numberOfDays = numberOfDays;
     return numberOfDays;
   }
@@ -90,12 +81,12 @@ export class AgreementComponent implements OnInit, OnDestroy {
   }
 
   createAgreement(): void {
-    if (!this.range.value.start || !this.range.value.end){
+    if (!this.startDate || !this.endDate){
       this.toastr.error('Geen periode geselecteerd');
     } else {
       this.agreement.carId = this.car.id;
-      this.agreement.startDate = this.range.value.start;
-      this.agreement.endDate = this.range.value.end;
+      this.agreement.startDate = this.startDate;
+      this.agreement.endDate = this.endDate;
       this.agreementService.createAgreement(this.agreement).subscribe(
         response => {
           this.toastr.success('Overeenkomst gemaakt');
@@ -105,7 +96,11 @@ export class AgreementComponent implements OnInit, OnDestroy {
     }
   }
 
-  myDateFilter = (d: Date): boolean => {
-    return this.blockedDates.map(Number).indexOf(+d) === -1;
+  onStartDateChanged(startDate): void {
+    this.startDate = new Date(startDate.value);
+  }
+
+  onEndDateChanged(endDate): void {
+    this.endDate = new Date(endDate.value);
   }
 }
