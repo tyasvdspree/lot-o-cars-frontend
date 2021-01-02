@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Car } from 'src/app/models/car.model';
 import { CarSearchCriteria } from 'src/app/models/carSearchCriteria.model';
 import { CarService } from 'src/app/services/car.service';
@@ -19,7 +19,7 @@ export class ListComponent implements OnInit, OnDestroy {
     'numberPlate', 'make', 'model', 'modelYear', 'transmission', 'fuel',
     'body', 'navigation', 'airco', 'smokingIsAllowed'
   ];
-
+  @Output() deactivateCarEvent = new EventEmitter<Car>();
   resultsLength = 0;
   isLoadingResults = false;
   isRateLimitReached = false;
@@ -74,4 +74,7 @@ export class ListComponent implements OnInit, OnDestroy {
     // this.router.navigateByUrl(`/cardetails/${car.id}`);
   }
 
+  deactivateCar(car: Car): void {
+    this.deactivateCarEvent.emit(car)
+  }
 }

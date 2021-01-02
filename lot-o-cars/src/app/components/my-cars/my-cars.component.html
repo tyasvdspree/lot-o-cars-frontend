@@ -1,4 +1,4 @@
 <div class="p-5">
     <!-- <app-filter></app-filter> -->
-    <app-list [displayedColumns]="displayedColumns" [cars]="ownCars"></app-list>
+    <app-list [displayedColumns]="displayedColumns" [cars]="ownCars" (deactivateCarEvent)="deactivateCar($event)"></app-list>
 </div>

@@ -32,6 +32,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import {ToastrModule} from 'ngx-toastr';
 import { TokenInterceptor } from './token-interceptor';
 import { MyCarsComponent } from './components/my-cars/my-cars.component';
+import { DeactivateCarDialogComponent } from './components/deactivate-car-dialog/deactivate-car-dialog.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { MyCarsComponent } from './components/my-cars/my-cars.component';
     CalendarComponent,
     AgreementComponent,
     MyCarsComponent,
+    DeactivateCarDialogComponent,
   ],
   imports: [
     BrowserModule,
