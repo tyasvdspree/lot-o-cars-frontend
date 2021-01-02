@@ -25,7 +25,7 @@ export class AgreementComponent implements OnInit {
   licensePlate: string;
   carId: number;
   car: Car;
-  minDate: Date;
+  minDate: Date = new Date();
   blockedDates: Date[];
 
   constructor(
@@ -50,8 +50,6 @@ export class AgreementComponent implements OnInit {
     });
     this.carService.getBlockedDates(this.licensePlate).subscribe(
       response => {
-        console.log('rented dates: ' + response);
-
         if (response) {
           this.blockedDates = response.map(x => new Date(x + ' 00:00:00'));
         }
@@ -85,26 +83,19 @@ export class AgreementComponent implements OnInit {
   }
 
   createAgreement(): void {
-    if (this.range.value.start == null){
+    if (!this.range.value.start || !this.range.value.end){
       this.toastr.error('Geen periode geselecteerd');
     } else {
       this.agreement.carId = this.car.id;
       this.agreement.startDate = this.range.value.start;
       this.agreement.endDate = this.range.value.end;
-      console.log(this.agreement.endDate)
       this.agreementService.createAgreement(this.agreement).subscribe(
         response => {
-          console.log(response);
-          this.toastr.success('Overeenkomst gemaakt');  // todo: alleen bij goede response
+          this.toastr.success('Overeenkomst gemaakt');
           this.router.navigateByUrl(`/`);
         }
       );
     }
-  }
-
-  setMinCalendarDate(): void {
-    const today = new Date();
-    this.minDate = new Date(today.getFullYear(), today.getMonth(), 1);
   }
 
   myDateFilter = (d: Date): boolean => {
