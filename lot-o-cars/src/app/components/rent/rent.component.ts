@@ -29,7 +29,7 @@ export class RentComponent implements OnInit {
     // set defaults for non nullable values
     this.car.airco = false;
     this.car.color = 'blauw';
-    this.car.isActive = 1;
+    this.car.isActive = true;
     this.car.navigation = false;
     this.car.rentPricePerHour = 5;
     this.car.smokingIsAllowed = false;
