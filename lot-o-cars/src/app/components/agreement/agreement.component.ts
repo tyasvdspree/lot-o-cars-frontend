@@ -21,8 +21,8 @@ export class AgreementComponent implements OnInit, OnDestroy {
   licensePlate: string;
   car: Car;
   blockedDates: Date[];
-  startDate: Date = new Date();
-  endDate: Date = new Date();
+  startDate: Date = null;
+  endDate: Date = null;
 
   constructor(
     private carService: CarService,
@@ -65,6 +65,9 @@ export class AgreementComponent implements OnInit, OnDestroy {
   }
 
   get daysBetween(): number {
+    if (!this.startDate || !this.endDate) {
+      return;
+    }
     // The number of milliseconds in all UTC days (no DST)
     const oneDay = 1000 * 60 * 60 * 24;
     // A day in UTC always lasts 24 hours (unlike in other time formats)
