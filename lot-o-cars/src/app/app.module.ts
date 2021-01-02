@@ -33,6 +33,7 @@ import {ToastrModule} from 'ngx-toastr';
 import { TokenInterceptor } from './token-interceptor';
 import { MyCarsComponent } from './components/my-cars/my-cars.component';
 import { DeactivateCarDialogComponent } from './components/deactivate-car-dialog/deactivate-car-dialog.component';
+import { DaterangepickerComponent } from './components/daterangepicker/daterangepicker.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { DeactivateCarDialogComponent } from './components/deactivate-car-dialog
     AgreementComponent,
     MyCarsComponent,
     DeactivateCarDialogComponent,
+    DaterangepickerComponent,
   ],
   imports: [
     BrowserModule,
