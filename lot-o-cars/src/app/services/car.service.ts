@@ -18,17 +18,14 @@ export class CarService {
   cars: Car[];
   searchCriteria: CarSearchCriteria = new CarSearchCriteria();
   simpleSearchMode = true;
-<<<<<<< Updated upstream
   carController = '/car';
   carImageController = '/carimage';
 
-=======
   transmission:Transmission[] = [];
   fuel:Fuel[] = [];
   make:Make[] = [];
   color:Color[] = [];
   carBody:CarBody[] = [];
->>>>>>> Stashed changes
 
   public SearchEvent: EventEmitter<CarSearchCriteria> = new EventEmitter<CarSearchCriteria>();
 
