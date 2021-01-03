@@ -26,9 +26,10 @@ import { LoginComponent } from './components/login/login.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AgreementComponent } from './components/agreement/agreement.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { UserpageComponent } from './components/userpage/userpage.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ImageuploadComponent } from './components/imageupload/imageupload.component';
-import {IvyCarouselModule} from 'angular-responsive-carousel';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { TokenInterceptor } from './token-interceptor';
 
 @NgModule({
@@ -48,6 +49,7 @@ import { TokenInterceptor } from './token-interceptor';
     LoginComponent,
     CalendarComponent,
     AgreementComponent,
+    UserpageComponent,
     ImageuploadComponent,
   ],
   imports: [

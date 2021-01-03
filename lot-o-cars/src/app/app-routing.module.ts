@@ -10,6 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './security/authguard';
 import { RentComponent } from './components/rent/rent.component';
 import {AgreementComponent} from './components/agreement/agreement.component';
+import { UserpageComponent } from './components/userpage/userpage.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'home', component: LandingspageComponent },
   { path: 'terms', component: TermsComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'userpage', component: UserpageComponent },
   { path: '**', component: LandingspageComponent }
 ];
 
