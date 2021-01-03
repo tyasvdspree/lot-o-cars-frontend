@@ -12,7 +12,6 @@ export class AgreementService {
   constructor(private http: HttpClient) { }
 
   createAgreement(agreement: Agreement): Observable<any> {
-    console.log(agreement)
     return this.http.post(environment.apiBaseUrl + '/agreement', agreement);
   }
 }

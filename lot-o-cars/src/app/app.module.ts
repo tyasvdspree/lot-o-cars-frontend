@@ -31,6 +31,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { ImageuploadComponent } from './components/imageupload/imageupload.component';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { TokenInterceptor } from './token-interceptor';
+import { MyCarsComponent } from './components/my-cars/my-cars.component';
+import { DeactivateCarDialogComponent } from './components/deactivate-car-dialog/deactivate-car-dialog.component';
+import { DaterangepickerComponent } from './components/daterangepicker/daterangepicker.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,9 @@ import { TokenInterceptor } from './token-interceptor';
     LoginComponent,
     CalendarComponent,
     AgreementComponent,
+    MyCarsComponent,
+    DeactivateCarDialogComponent,
+    DaterangepickerComponent,
     UserpageComponent,
     ImageuploadComponent,
   ],

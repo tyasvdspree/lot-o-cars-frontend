@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Car } from 'src/app/models/car.model';
 import { CarSearchCriteria } from 'src/app/models/carSearchCriteria.model';
 import { CarService } from 'src/app/services/car.service';
@@ -14,12 +14,12 @@ import { Subscription } from 'rxjs';
 export class ListComponent implements OnInit, OnDestroy {
   carServiceSubscription: Subscription;
   carSearchSubscription: Subscription;
-  cars: Car[];
-  displayedColumns = ['image',
+  @Input() cars: Car[];
+  @Input() displayedColumns = [
     'numberPlate', 'make', 'model', 'modelYear', 'transmission', 'fuel',
     'body', 'navigation', 'airco', 'smokingIsAllowed'
   ];
-
+  @Output() deactivateCarEvent = new EventEmitter<Car>();
   resultsLength = 0;
   isLoadingResults = false;
   isRateLimitReached = false;
@@ -32,8 +32,7 @@ export class ListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.cars = this.carService.cars;
-
+    // this.cars = this.carService.cars;
     this.carSearchSubscription = this.carService.SearchEvent.subscribe(
       criteria => {
         this.isLoadingResults = true;
@@ -82,4 +81,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(`/cardetails/${car.numberPlate}`);
   }
 
+  deactivateCar(car: Car): void {
+    this.deactivateCarEvent.emit(car)
+  }
 }

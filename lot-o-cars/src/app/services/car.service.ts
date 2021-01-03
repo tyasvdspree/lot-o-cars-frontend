@@ -112,4 +112,9 @@ export class CarService {
     
   }
 
+  // get own cars stored in the database
+  getOwn(): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + '/car');
+  }
+
 }
