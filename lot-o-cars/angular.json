@@ -125,6 +125,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "lot-o-cars"
+    }
+  },
+  "defaultProject": "lot-o-cars",
+  "cli": {
+    "analytics": false
+  }
 }

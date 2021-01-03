@@ -1,9 +1,14 @@
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Car } from '../models/car.model';
 import { CarSearchCriteria } from '../models/carSearchCriteria.model';
+import { Transmission} from 'src/app/enums/transmission.enum';
+import { Fuel} from 'src/app/enums/fuel.enum';
+import { Make } from 'src/app/enums/make.enum';
+import { Color } from 'src/app/enums/color.enum';
+import { CarBody } from 'src/app/enums/carBody.enum'
 
 @Injectable({
   providedIn: 'root'
@@ -16,30 +21,42 @@ export class CarService {
   carController = '/car';
   carImageController = '/carimage';
 
+  transmission:Transmission[] = [];
+  fuel:Fuel[] = [];
+  make:Make[] = [];
+  color:Color[] = [];
+  carBody:CarBody[] = [];
 
   public SearchEvent: EventEmitter<CarSearchCriteria> = new EventEmitter<CarSearchCriteria>();
 
-  constructor(private http: HttpClient) { }
-
-  getMakes(): Observable<string[]> {
-    return of(['Alfa Romeo', 'Aston Martin', 'Audi', 'Bentley', 'BMW', 'Buick', 'Cadillac', 'Chevrolet',
-      'Chrysler', 'Citroën', 'Ferrari', 'Fiat', 'Ford', 'Honda', 'Hyundai', 'Jaguar', 'Kia', 'Land Rover',
-      'Lexus', 'Mazda', 'Mercedes-Benz', 'Mitsubishi', 'Nissan', 'Opel', 'Peugeot', 'Porsche', 'Renault',
-      'Saab', 'Seat', 'Subaru', 'Suzuki', 'Toyota', 'Volkswagen', 'Volvo']);
+  constructor(private http: HttpClient) {
+    this.transmission = Object.values(Transmission);
+    this.fuel = Object.values(Fuel);
+    this.make = Object.values(Make);
+    this.color = Object.values(Color);
+    this.carBody = Object.values(CarBody);
   }
 
-  getColors(): Observable<string[]> {
-    return of(['blauw', 'bruin', 'geel', 'grijs', 'groen', 'oranje', 'paars', 'rood', 'roze', 'wit', 'zwart']);
+
+  getMakes(): Observable<Make[]> {
+    return of(this.make);
   }
 
-  getTransmissions(): Observable<string[]> {
-    return of(['automaat', 'handgeschakeld', 'semi-automaat']);
+  getColors(): Observable<Color[]> {
+    return of(this.color);
   }
 
-  getFuelTypes(): Observable<string[]> {
-    return of(['benzine', 'diesel', 'elektrisch']);
+  getTransmissions(): Observable<Transmission[]> {
+    return of(this.transmission);
   }
 
+  getFuelTypes(): Observable<Fuel[]> {
+    return of(this.fuel);
+  }
+
+  getCarBody(): Observable<CarBody[]>{
+    return of(this.carBody);
+  }
 
   // get all cars stored in the database
   getAll(): Observable<any> {
