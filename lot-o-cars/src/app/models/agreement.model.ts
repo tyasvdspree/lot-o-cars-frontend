@@ -1,7 +1,6 @@
 export class Agreement {
+  id: number;
   carId: number;
-  renterId: number;
-  renteeId: number;
   startDate: Date;
   endDate: Date;
 }

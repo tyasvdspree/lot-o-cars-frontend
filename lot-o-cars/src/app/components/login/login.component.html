@@ -9,9 +9,6 @@
         <mat-card-content>
           <form [formGroup]="loginForm" (ngSubmit)="login()">
             <h2>Log In</h2>
-            <mat-error *ngIf="isError">
-              De gebruikersnaam en wachtwoord zijn incorrect
-            </mat-error>
             <mat-form-field class="full-width-input">
               <input matInput placeholder="Gebruikersnaam" formControlName="username" required>
               <mat-error>
@@ -31,31 +28,5 @@
           </form>
         </mat-card-content>
       </mat-card>
-
-<!--        <form [formGroup]="loginForm" (ngSubmit)="login()">-->
-<!--            <div class="form-group row">-->
-<!--                <label for="user_name" class="col-md-4 col-form-label text-md-right">Username</label>-->
-<!--                <div class="col-md-6">-->
-<!--                    <input type="text" id="user_name" class="form-control" [formControlName]="'username'" name="user_name" required-->
-<!--                        autofocus>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            <div class="form-group row">-->
-<!--                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>-->
-<!--                <div class="col-md-6">-->
-<!--                    <input type="password" id="password" class="form-control" [formControlName]="'password'" name="password" required>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            <span class="col-md-6 offset-md-4">-->
-<!--                <button type="submit" class="login">-->
-<!--                    Login-->
-<!--                </button>-->
-<!--            </span>   -->
-<!--            <div class="login-failed" *ngIf='this.isError'>-->
-<!--                 <p class="login-failed-text">Login Failed. Please check your credentials and try again.</p>   -->
-<!--            </div>                     -->
-<!--        </form>-->
     </div>
 </div>
