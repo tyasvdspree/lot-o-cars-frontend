@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { CarService } from 'src/app/services/car.service';
 
 @Component({
@@ -10,24 +11,30 @@ import { CarService } from 'src/app/services/car.service';
   styleUrls: ['./cardetails.component.scss']
 })
 export class CardetailsComponent implements OnInit, OnDestroy {
+  isLoggedIn: boolean;
   subscriptions: Subscription[] = [];
   licensePlate: string;
   carId: number;
   car: Car;
   blockedDates: Date[];
+  carImageIds = [];
+  carImages = [];
 
   constructor(
+    private authenticationService: AuthService,
     private route: ActivatedRoute,
     private carService: CarService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.isLoggedIn =  this.authenticationService.isLoggedIn();
     this.subscriptions.push(
       this.route.params.subscribe(parameters => {
         this.licensePlate = parameters.id;
         this.getRentedDatesOfCar();
         this.getCarDetails();
+        this.getCarImages();
       })
     );
   }
@@ -59,8 +66,24 @@ export class CardetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.carService.findByNumberPlate(this.licensePlate).subscribe(
         response => {
-          console.log(response);
           this.car = response;
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
+  }
+
+  getCarImages(): void {
+    this.subscriptions.push(
+      this.carService.getCarImageIds(this.licensePlate).subscribe(
+        response => {
+          this.carImageIds = response;
+
+          this.carImageIds.forEach(imageId => 
+            this.carImages.push({path: this.carService.getCarImageUrl(this.licensePlate, imageId)})
+          );
         },
         error => {
           console.log(error);
