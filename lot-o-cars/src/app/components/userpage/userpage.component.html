@@ -1,0 +1,55 @@
+<div class="flexContainer flexCol p-5">
+    <div style="margin-top: 30px;">
+        <form>
+            <table style="border-spacing: 50px 15px;">
+                <h1>Mijn Gegevens</h1>
+                <tr>
+                    <td>
+                        <mat-form-field>
+                            <input type="text" placeholder="Voornaam" matInput name="firstnameInput" [(ngModel)]="user.firstname">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field>
+                            <input type="text" placeholder="Achternaam" matInput name="lastnameInput" [(ngModel)]="user.lastname">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field>
+                            <input type="text" placeholder="Telefoonnummer" matInput name="phonenumberInput" [(ngModel)]="user.phonenumber">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field>
+                            <input #emailaddress pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" email="true"
+                                type="email" placeholder="Emailaddres" matInput name="emailaddressInput" [(ngModel)]="user.emailaddress">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field>
+                            <input type="password" placeholder="Wachtwoord" matInput name="passwordInput" [(ngModel)]="user.password">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="margin-top: 10px;">
+                            <button mat-flat-button type="submit" color="primary" style="float: right;"
+                            (click)="editUser()" mat-button class="NxtBtnWrap"
+                            [disabled]="!emailaddress.validity.valid"
+                            >Wijzig</button>
+                         </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

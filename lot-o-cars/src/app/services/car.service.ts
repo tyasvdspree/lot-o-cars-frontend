@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,6 +13,9 @@ export class CarService {
   cars: Car[];
   searchCriteria: CarSearchCriteria = new CarSearchCriteria();
   simpleSearchMode = true;
+  carController = '/car';
+  carImageController = '/carimage';
+
 
   public SearchEvent: EventEmitter<CarSearchCriteria> = new EventEmitter<CarSearchCriteria>();
 
@@ -66,18 +69,47 @@ export class CarService {
     return this.http.get(environment.apiBaseUrl + '/renting/' + plate);
   }
 
-  // TODO: connect with API to get all rented dates of this month and the future
+  // get the dates the specified car is not available
   getBlockedDates(plate: string): Observable<any> {
-    /* return of([
-      // december 2020 dates
-      new Date(2020, 11, 5),
-      new Date(2020, 11, 6),
-      new Date(2020, 11, 7),
-      // january 2021 dates
-      new Date(2021, 0, 4),
-      new Date(2021, 0, 5)
-    ]); */
     return this.http.get(environment.apiBaseUrl + '/agreement/' + plate);
+  }
+
+  getCarImageIds(plate: string): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + '/carimage/' + plate);
+  }
+
+  getCarImageUrl(plate: string, imageid: number): string {
+    return environment.apiBaseUrl + '/carimage/' + plate + '/' + imageid;
+  }
+
+
+  createNewCar(newCar: Car, newCarImages: FileList): void {
+    const url = environment.apiBaseUrl + this.carController;
+
+    this.http.post<any>(url, newCar).subscribe(
+        (res) => {
+          console.log(res);
+          // add selected images to the just registered car
+          Array.from(newCarImages).forEach(carImageFile => {
+            this.addImageFileToCar(res.numberPlate, carImageFile);
+          });
+        },
+        (err) => console.log(err)
+    )
+  }
+
+  addImageFileToCar(entityId: string, imageFile: File): void 
+  {
+    const formData: FormData = new FormData();
+    formData.append('imagefile', imageFile);
+    const url = environment.apiBaseUrl + this.carImageController + '/' + entityId;
+    // console.log(url);
+
+    this.http.post<any>(url, formData).subscribe(
+      (res) => console.log(res),
+      (err) => console.log(err)
+    );
+    
   }
 
   // get own cars stored in the database
