@@ -1,3 +1,5 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
 $primary-color: #1D0E4C;
 $secondary-color:#FD6666;
 $light-gray:#dedede;
@@ -23,6 +25,12 @@ mat-toolbar a {
 }
 mat-toolbar a:hover {
     color: $secondary-color
+}
+.mat-menu-item {
+    padding-top:6px !important
+}
+.mat-menu-item:hover {
+    color: white
 }
 footer {
     background-color:$primary-color;

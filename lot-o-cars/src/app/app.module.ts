@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeadermenuComponent } from './components/headermenu/headermenu.component';
@@ -25,11 +24,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RegisterService } from './services/register.service'
 import { LoginComponent } from './components/login/login.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { from } from 'rxjs';
 import { AgreementComponent } from './components/agreement/agreement.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
-
-import {ToastrModule} from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
+import { ImageuploadComponent } from './components/imageupload/imageupload.component';
+import {IvyCarouselModule} from 'angular-responsive-carousel';
 import { TokenInterceptor } from './token-interceptor';
 
 @NgModule({
@@ -49,6 +48,7 @@ import { TokenInterceptor } from './token-interceptor';
     LoginComponent,
     CalendarComponent,
     AgreementComponent,
+    ImageuploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +60,8 @@ import { TokenInterceptor } from './token-interceptor';
     ReactiveFormsModule,
     MatCheckboxModule,
     NgxWebstorageModule.forRoot(),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),
+    IvyCarouselModule
   ],
   providers: [
     CarService,

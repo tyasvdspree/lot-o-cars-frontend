@@ -11,6 +11,11 @@
         <ng-container *ngIf="cars">
             <mat-table #table [dataSource]="cars">
 
+                <ng-container matColumnDef="image">
+                    <th id="imageHeader" mat-header-cell *matHeaderCellDef> Foto </th>
+                    <td mat-cell *matCellDef="let element"><img [src]="element.imageUrl" alt="car" /></td>
+                </ng-container>
+
                 <ng-container matColumnDef="numberPlate">
                     <th id="numberPlateHeader" mat-header-cell *matHeaderCellDef> Kenteken </th>
                     <td mat-cell *matCellDef="let element"> {{element.numberPlate}} </td>

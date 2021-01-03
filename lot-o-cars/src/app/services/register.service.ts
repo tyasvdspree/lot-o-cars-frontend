@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -7,9 +8,9 @@ import {environment} from '../../environments/environment';
 })
 export class RegisterService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  public register(user){
-    return this.http.put(environment.apiBaseUrl + "/user", user);
+  public register(user): Observable<any> {
+    return this.http.put(environment.apiBaseUrl + '/user', user);
   }
 }
