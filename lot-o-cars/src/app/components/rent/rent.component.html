@@ -21,20 +21,23 @@
 
                 <div>
                     <mat-form-field>
-                        <input [value]="car.countryCode" name="countryCode" (input)="car.countryCode = $event.target.value" required type="text" placeholder="countryCode" matInput ngModel>
+                        <input [value]="car.countryCode" name="countryCode" (input)="car.countryCode = $event.target.value" required type="text" placeholder="countryCode" type="number" min="1900" max="2022" matInput ngModel>
                     </mat-form-field>
                 </div>
 
                 <div>
                     <mat-form-field>
-                        <input [value]="car.modelYear" name="modelYear" (input)="car.modelYear = $event.target.value" required type="text" placeholder="modelYear" matInput ngModel>
+                        <input [value]="car.modelYear" name="modelYear" (input)="car.modelYear = $event.target.value" required type="text" placeholder="Bouwjaar" type="number" min="1900" max="2022" matInput ngModel>
                     </mat-form-field>
                 </div>
 
                 <div>
-                    <mat-form-field>
-                        <input [value]="car.make" name="make" (input)="car.make = $event.target.value" required type="text" placeholder="make" matInput ngModel>
-                    </mat-form-field>
+                    <mat-label>Merk</mat-label>
+                    <mat-select [(ngModel)]='car.make' name="make">
+                        <mat-option *ngFor="let make of makes" value={{make.key}}>
+                            {{make.value}}
+                        </mat-option>
+                    </mat-select>
                 </div>
 
                 <div>
@@ -44,44 +47,62 @@
                 </div>
 
                 <div>
+                    <mat-label>Carrosserie</mat-label>
+                    <mat-select [(ngModel)]='car.body' name="body">
+                        <mat-option *ngFor="let body of carBodies" value={{body.key}}>
+                            {{body.value}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+
+                <div>
+                    <mat-label>Kleur</mat-label>
+                    <mat-select [(ngModel)]='car.color' name="color">
+                        <mat-option *ngFor="let color of colors" value={{color.key}}>
+                            {{color.value}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+
+                <div> 
+                    <mat-label>Transmissie</mat-label>
+                    <mat-select [(ngModel)]='car.transmission' name="transmission">
+                        <mat-option *ngFor="let transmission of transmissions" value={{transmission.key}}>
+                            {{transmission.value}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+
+                <div>
+                    <mat-label>Brandstof</mat-label>
+                    <mat-select [(ngModel)]='car.fuel' name="fuel">
+                        <mat-option *ngFor="let fuel of fuelTypes" value={{fuel.key}}>
+                            {{fuel.value}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+
+                <div>
                     <mat-form-field>
-                        <input [value]="car.body" name="body" (input)="car.body = $event.target.value" required type="text" placeholder="body" matInput ngModel>
+                        <input [value]="car.fuelUsage" name="fuelUsage" (input)="car.fuelUsage = $event.target.value" required type="text" placeholder="Brandstof verbruik" matInput type="number" min="1900" max="2022" ngModel>
                     </mat-form-field>
                 </div>
 
                 <div>
                     <mat-form-field>
-                        <input [value]="car.transmission" name="transmission" (input)="car.transmission = $event.target.value" required type="text" placeholder="transmission" matInput ngModel>
+                        <input [value]="car.doors" name="doors" (input)="car.doors = $event.target.value" required type="text" placeholder="Aantal deuren" matInput type="number" min="1900" max="2022" ngModel>
                     </mat-form-field>
                 </div>
 
                 <div>
                     <mat-form-field>
-                        <input [value]="car.fuel" name="fuel" (input)="car.fuel = $event.target.value" required type="text" placeholder="fuel" matInput ngModel>
+                        <input [value]="car.seats" name="seats" (input)="car.seats = $event.target.value" required type="text" placeholder="Aantal zitplaatsen" matInput type="number" min="1900" max="2022" ngModel>
                     </mat-form-field>
                 </div>
 
                 <div>
                     <mat-form-field>
-                        <input [value]="car.fuelUsage" name="fuelUsage" (input)="car.fuelUsage = $event.target.value" required type="text" placeholder="fuelUsage" matInput ngModel>
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-form-field>
-                        <input [value]="car.doors" name="doors" (input)="car.doors = $event.target.value" required type="text" placeholder="doors" matInput ngModel>
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-form-field>
-                        <input [value]="car.seats" name="seats" (input)="car.seats = $event.target.value" required type="text" placeholder="seats" matInput ngModel>
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-form-field>
-                        <input [value]="car.bootSpaceInLiters" name="bootSpaceInLiters" (input)="car.bootSpaceInLiters = $event.target.value" required type="text" placeholder="bootSpaceInLiters" matInput ngModel>
+                        <input [value]="car.bootSpaceInLiters" name="bootSpaceInLiters" (input)="car.bootSpaceInLiters = $event.target.value" required type="text" placeholder="Bagageruimte" type="number" min="1900" max="2022" matInput ngModel>
                     </mat-form-field>
                 </div>
 

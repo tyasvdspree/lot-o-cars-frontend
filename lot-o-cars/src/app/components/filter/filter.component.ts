@@ -1,6 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CarService } from 'src/app/services/car.service';
 import { CarSearchCriteria } from 'src/app/models/carSearchCriteria.model';
+import { Make } from 'src/app/enums/make.enum';
+import { Color } from 'src/app/enums/color.enum';
+import { Transmission } from 'src/app/enums/transmission.enum';
+import { Fuel } from 'src/app/enums/fuel.enum';
+import { CarBody } from 'src/app/enums/carBody.enum';
 import { Subscription } from 'rxjs';
 
 
@@ -13,10 +18,12 @@ export class FilterComponent implements OnInit, OnDestroy {
   panelOpenState = false;
   simpleSearchMode = true;
 
-  makes: string[] = [];
-  colors: string[] = [];
-  transmissions: string[] = [];
-  fuelTypes: string[] = [];
+  makes: Object[] = [];
+  colors: Object[] = [];
+  transmissions: Object[] = [];
+  fuelTypes: Object[] = [];
+  carBodies:Object[]= [];
+
 
   subscriptions: Subscription[] = [];
   searchCriteria: CarSearchCriteria = new CarSearchCriteria();
@@ -27,6 +34,23 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadData();
+    this.makes = this.makes.map(function(make) {
+      return {key:Object.keys(Make).filter(x => Make[x] == make), value:make}
+    });
+    this.colors = this.colors.map(function(color) {
+      return {key:Object.keys(Color).filter(x => Color[x] == color), value:color}
+    });
+    this.transmissions = this.transmissions.map(function(transmission) {
+      return {key:Object.keys(Transmission).filter(x => Transmission[x] == transmission), value:transmission}
+    });
+    this.fuelTypes = this.fuelTypes.map(function(fuel) {
+      return {key:Object.keys(Fuel).filter(x => Fuel[x] == fuel), value:fuel}
+    });
+    this.carBodies = this.carBodies.map(function(body) {
+      return {key:Object.keys(CarBody).filter(x => CarBody[x] == body), value:body}
+    });
+
+
     this.simpleSearchMode = this.carService.simpleSearchMode;
 
     if (this.carService.searchCriteria.pickUpDate) {
@@ -55,6 +79,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.loadSelectionList(this.carService.getColors, this.carService, 'colors');
     this.loadSelectionList(this.carService.getTransmissions, this.carService, 'transmissions');
     this.loadSelectionList(this.carService.getFuelTypes, this.carService, 'fuelTypes');
+    this.loadSelectionList(this.carService.getCarBody, this.carService, 'carBodies');
   }
 
   private loadSelectionList(serviceMethod: any, service: any, localProp: any): void {

@@ -32,8 +32,8 @@
         <mat-form-field >
             <mat-label>Merk</mat-label>
             <mat-select [(ngModel)]='searchCriteria.make'>
-                <mat-option *ngFor="let make of makes" [value]="make">
-                    {{make}}
+                <mat-option *ngFor="let make of makes" [value]="make.key">
+                    {{make.value}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -46,8 +46,8 @@
         <mat-form-field >
             <mat-label>Kleur</mat-label>
             <mat-select [(ngModel)]='searchCriteria.color'>
-                <mat-option *ngFor="let color of colors" [value]="color">
-                    {{color}}
+                <mat-option *ngFor="let color of colors" [value]="color.key">
+                    {{color.value}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -55,8 +55,8 @@
         <mat-form-field >
             <mat-label>Transmissie</mat-label>
             <mat-select [(ngModel)]='searchCriteria.transmission'>
-                <mat-option *ngFor="let transmission of transmissions" [value]="transmission">
-                    {{transmission}}
+                <mat-option *ngFor="let transmission of transmissions" [value]="transmission.key">
+                    {{transmission.value}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -64,8 +64,8 @@
         <mat-form-field >
             <mat-label>Brandstof</mat-label>
             <mat-select [(ngModel)]='searchCriteria.fuel'>
-                <mat-option *ngFor="let fuel of fuelTypes" [value]="fuel">
-                    {{fuel}}
+                <mat-option *ngFor="let fuel of fuelTypes" [value]="fuel.key">
+                    {{fuel.value}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
