@@ -8,6 +8,8 @@ import { Color } from 'src/app/enums/color.enum';
 import { Transmission } from 'src/app/enums/transmission.enum';
 import { Fuel } from 'src/app/enums/fuel.enum';
 import { CarBody } from 'src/app/enums/carBody.enum';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-rent',
@@ -29,7 +31,7 @@ export class RentComponent implements OnInit {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private httpClient: HttpClient, private carService: CarService) { }
+  constructor(private httpClient: HttpClient, private carService: CarService, private router: Router) { }
 
   ngOnInit(): void {
     this.car = new Car();
@@ -87,6 +89,9 @@ export class RentComponent implements OnInit {
     this.car.locationId = 3;
 
     this.carService.createNewCar(this.car, this.imageFiles);
+
+    setTimeout(() => {  this.router.navigateByUrl(`/cardetails/${this.car.numberPlate}`); }, 2000);
+    
   }
 
 }

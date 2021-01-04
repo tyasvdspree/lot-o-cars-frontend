@@ -8,7 +8,8 @@ import { Transmission} from 'src/app/enums/transmission.enum';
 import { Fuel} from 'src/app/enums/fuel.enum';
 import { Make } from 'src/app/enums/make.enum';
 import { Color } from 'src/app/enums/color.enum';
-import { CarBody } from 'src/app/enums/carBody.enum'
+import { CarBody } from 'src/app/enums/carBody.enum';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class CarService {
 
   public SearchEvent: EventEmitter<CarSearchCriteria> = new EventEmitter<CarSearchCriteria>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastr: ToastrService) {
     this.transmission = Object.values(Transmission);
     this.fuel = Object.values(Fuel);
     this.make = Object.values(Make);
@@ -112,6 +113,7 @@ export class CarService {
               this.addImageFileToCar(res.numberPlate, carImageFile);
             });
           }
+          this.toastr.success('Auto succesvol toegevoegd', 'Success');
         },
         (err) => console.log(err)
     )
