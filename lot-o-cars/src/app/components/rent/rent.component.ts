@@ -75,7 +75,6 @@ export class RentComponent implements OnInit {
 
   onSubmit() {
     console.log(this.car);
-    console.log('num of images: ' + this.imageFiles.length);
 
     // set defaults for non nullable values
     this.car.airco = false;

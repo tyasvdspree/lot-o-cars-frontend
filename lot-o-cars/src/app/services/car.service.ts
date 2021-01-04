@@ -107,9 +107,11 @@ export class CarService {
         (res) => {
           console.log(res);
           // add selected images to the just registered car
-          Array.from(newCarImages).forEach(carImageFile => {
-            this.addImageFileToCar(res.numberPlate, carImageFile);
-          });
+          if (newCarImages) {
+            Array.from(newCarImages).forEach(carImageFile => {
+              this.addImageFileToCar(res.numberPlate, carImageFile);
+            });
+          }
         },
         (err) => console.log(err)
     )
