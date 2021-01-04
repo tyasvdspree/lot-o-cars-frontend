@@ -16,7 +16,7 @@ export class ListComponent implements OnInit, OnDestroy {
   carSearchSubscription: Subscription;
   @Input() cars: Car[];
   @Input() displayedColumns = [
-    'numberPlate', 'make', 'model', 'modelYear', 'transmission', 'fuel',
+    'image', 'numberPlate', 'make', 'model', 'modelYear', 'transmission', 'fuel',
     'body', 'navigation', 'airco', 'smokingIsAllowed'
   ];
   @Output() deactivateCarEvent = new EventEmitter<Car>();
