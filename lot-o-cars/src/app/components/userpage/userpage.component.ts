@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-userpage',
@@ -12,6 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class UserpageComponent implements OnInit {
+  isLoggedIn: boolean;
   user:User;
   firstnameInput: string;
   lastnameInput: string;
@@ -22,12 +24,17 @@ export class UserpageComponent implements OnInit {
   returnUrl: string;
 
   constructor(
+    private authenticationService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private _userService: UserService, 
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    if (this.authenticationService.isLoggedIn() == false){
+      this.redirectTo('/');
+    };
+
     this._userService.getUser()
       .subscribe(data => {
         this.user = data;
