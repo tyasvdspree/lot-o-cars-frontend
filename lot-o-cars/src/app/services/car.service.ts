@@ -68,6 +68,8 @@ export class CarService {
   find(searchCriteria: CarSearchCriteria): Observable<any> {
     let url = environment.apiBaseUrl + '/renting/search' +
       '?city=' + searchCriteria.pickUpLocation +
+      '&pickupdate=' + searchCriteria.pickUpDate.toISOString().slice(0, 10) +
+      '&dropoffdate=' + searchCriteria.dropOffDate.toISOString().slice(0, 10) +
       '&make=' + searchCriteria.make +
       '&model=' + searchCriteria.model +
       '&color=' + searchCriteria.color +

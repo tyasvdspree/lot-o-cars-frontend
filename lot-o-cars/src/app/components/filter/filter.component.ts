@@ -18,12 +18,11 @@ export class FilterComponent implements OnInit, OnDestroy {
   panelOpenState = false;
   simpleSearchMode = true;
 
-  makes: Object[] = [];
-  colors: Object[] = [];
-  transmissions: Object[] = [];
-  fuelTypes: Object[] = [];
-  carBodies:Object[]= [];
-
+  makes: any[] = [];
+  colors: any[] = [];
+  transmissions: any[] = [];
+  fuelTypes: any[] = [];
+  carBodies: any[]= [];
 
   subscriptions: Subscription[] = [];
   searchCriteria: CarSearchCriteria = new CarSearchCriteria();
@@ -96,12 +95,15 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.searchCriteria = new CarSearchCriteria();
     // set pickup date to noon tomorrow
     const tomorrow = new Date();
+    const dayAfterTomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(13, 0, 0, 0);
-    this.searchCriteria.pickUpDate = tomorrow.toISOString().slice(0, 16);
+    // tomorrow.setHours(13, 0, 0, 0);
+    // this.searchCriteria.pickUpDate = tomorrow.toISOString().slice(0, 16);
+    this.searchCriteria.pickUpDate = tomorrow;
     // set drop off date to noon a day after tomorrow
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    this.searchCriteria.dropOffDate = tomorrow.toISOString().slice(0, 16);
+    dayAfterTomorrow.setDate(tomorrow.getDate() + 2);
+    // this.searchCriteria.dropOffDate = tomorrow.toISOString().slice(0, 16);
+    this.searchCriteria.dropOffDate = dayAfterTomorrow;
   }
 
   searchClick(): void {
