@@ -1,0 +1,42 @@
+<p>agreementlist works!</p> renterPerspective = {{ this.renterPerspective }} {{ this.agreements }}
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults || isRateLimitReached">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+      GitHub's API rate limit has been reached. It will be reset in one minute.
+    </div>
+  </div>
+
+  <div class="example-table-container">
+    <ng-container *ngIf="agreements">
+      <mat-table #table [dataSource]="agreements">
+
+        <ng-container matColumnDef="carId">
+          <th id="carId" mat-header-cell *matHeaderCellDef> carId </th>
+          <td mat-cell *matCellDef="let element"> {{ element.carId }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="startDate">
+          <th id="startDate" mat-header-cell *matHeaderCellDef> startDate </th>
+          <td mat-cell *matCellDef="let element"> {{ element.startDate }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate">
+          <th id="endDate" mat-header-cell *matHeaderCellDef> endDate </th>
+          <td mat-cell *matCellDef="let element"> {{ element.endDate }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"
+            (click)="onRowClicked(row)">
+        </tr>
+      </mat-table>
+
+      <div class="m-3" *ngIf="agreements.length === 0">Geen overeenkomsten gevonden</div>
+    </ng-container>
+  </div>
+
+  <mat-paginator [length]="resultsLength" [pageSize]="5"></mat-paginator>
+</div>

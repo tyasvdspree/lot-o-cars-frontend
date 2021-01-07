@@ -34,6 +34,9 @@ import { TokenInterceptor } from './token-interceptor';
 import { MyCarsComponent } from './components/my-cars/my-cars.component';
 import { DeactivateCarDialogComponent } from './components/deactivate-car-dialog/deactivate-car-dialog.component';
 import { DaterangepickerComponent } from './components/daterangepicker/daterangepicker.component';
+import { AgreementlistComponent } from './components/agreementlist/agreementlist.component';
+import { HirehistoryComponent } from './components/hirehistory/hirehistory.component';
+import { RenthistoryComponent } from './components/renthistory/renthistory.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +60,9 @@ import { DaterangepickerComponent } from './components/daterangepicker/daterange
     DaterangepickerComponent,
     UserpageComponent,
     ImageuploadComponent,
+    AgreementlistComponent,
+    HirehistoryComponent,
+    RenthistoryComponent,
   ],
   imports: [
     BrowserModule,

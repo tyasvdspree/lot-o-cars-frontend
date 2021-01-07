@@ -14,4 +14,9 @@ export class AgreementService {
   createAgreement(agreement: Agreement): Observable<any> {
     return this.http.post(environment.apiBaseUrl + '/agreement', agreement);
   }
+
+  getAgreements(renterPerspective: boolean): Observable<any> {
+    const path = renterPerspective ? '/agreement?renter=' + renterPerspective : '/agreement';
+    return this.http.get(environment.apiBaseUrl + path);
+  }
 }
