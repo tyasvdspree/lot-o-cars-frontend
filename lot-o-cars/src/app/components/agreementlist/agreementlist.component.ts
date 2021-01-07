@@ -11,12 +11,12 @@ import {Agreement} from '../../models/agreement.model';
 })
 export class AgreementlistComponent implements OnInit {
   agreementSubscription: Subscription;
-  displayedColumns = ['id', 'carId', 'startDate', 'endDate'];
+  displayedColumns = ['carId', 'numberPlate', 'startDate', 'endDate'];
   resultsLength = 0;
   isLoadingResults = false;
   isRateLimitReached = false;
   @Input() renterPerspective = false;
-  agreements = [];
+  agreements: Agreement[];
 
   constructor(
     private agreementService: AgreementService,
@@ -26,8 +26,8 @@ export class AgreementlistComponent implements OnInit {
   ngOnInit(): void {
     this.agreementSubscription = this.agreementService.getAgreements(this.renterPerspective).subscribe(
       response => {
-        console.log(response);
         this.agreements = response;
+
       },
       error => {
         console.log(error);

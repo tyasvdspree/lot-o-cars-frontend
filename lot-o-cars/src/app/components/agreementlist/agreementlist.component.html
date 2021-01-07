@@ -1,4 +1,3 @@
-<p>agreementlist works!</p> renterPerspective = {{ this.renterPerspective }} {{ this.agreements }}
 <div class="example-container mat-elevation-z8">
   <div class="example-loading-shade"
        *ngIf="isLoadingResults || isRateLimitReached">
@@ -13,17 +12,22 @@
       <mat-table #table [dataSource]="agreements">
 
         <ng-container matColumnDef="carId">
-          <th id="carId" mat-header-cell *matHeaderCellDef> carId </th>
-          <td mat-cell *matCellDef="let element"> {{ element.carId }} </td>
+          <th id="carId" mat-header-cell *matHeaderCellDef> Auto </th>
+          <td mat-cell *matCellDef="let element"> {{ element.car.make }} {{ element.car.model }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="numberPlate">
+          <th id="numberPlate" mat-header-cell *matHeaderCellDef> Kenteken </th>
+          <td mat-cell *matCellDef="let element"> {{ element.car.numberPlate }} </td>
         </ng-container>
 
         <ng-container matColumnDef="startDate">
-          <th id="startDate" mat-header-cell *matHeaderCellDef> startDate </th>
+          <th id="startDate" mat-header-cell *matHeaderCellDef> Start datum </th>
           <td mat-cell *matCellDef="let element"> {{ element.startDate }} </td>
         </ng-container>
 
         <ng-container matColumnDef="endDate">
-          <th id="endDate" mat-header-cell *matHeaderCellDef> endDate </th>
+          <th id="endDate" mat-header-cell *matHeaderCellDef> Eind datum </th>
           <td mat-cell *matCellDef="let element"> {{ element.endDate }} </td>
         </ng-container>
 
