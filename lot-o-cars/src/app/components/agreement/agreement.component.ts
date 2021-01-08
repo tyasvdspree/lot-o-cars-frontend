@@ -86,6 +86,11 @@ export class AgreementComponent implements OnInit, OnDestroy {
   createAgreement(): void {
     if (!this.startDate || !this.endDate){
       this.toastr.error('Geen periode geselecteerd');
+    }
+    const today = new Date();
+    today.setDate(today.getDate() - 1);
+    if (this.startDate < today) {
+      this.toastr.error('Ongeldige start datum');
     } else {
       this.agreement.car = this.car;
       this.agreement.startDate = this.startDate;
@@ -93,7 +98,7 @@ export class AgreementComponent implements OnInit, OnDestroy {
       this.agreementService.createAgreement(this.agreement).subscribe(
         response => {
           this.toastr.success('Overeenkomst gemaakt');
-          this.router.navigateByUrl(`/`);
+          this.router.navigateByUrl(`/hirehistory`); // TODO: navigate to agreement detail
         }
       );
     }
