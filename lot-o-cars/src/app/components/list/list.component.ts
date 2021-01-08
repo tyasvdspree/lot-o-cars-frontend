@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } 
 import { Car } from 'src/app/models/car.model';
 import { CarSearchCriteria } from 'src/app/models/carSearchCriteria.model';
 import { CarService } from 'src/app/services/car.service';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list',
@@ -12,31 +13,43 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit, OnDestroy {
+
   carServiceSubscription: Subscription;
   carSearchSubscription: Subscription;
+
+  pageOfCars: Car[];
+
   @Input() cars: Car[];
   @Input() displayedColumns = [
     'image', 'numberPlate', 'make', 'model', 'modelYear', 'transmission', 'fuel',
     'body', 'navigation', 'airco', 'smokingIsAllowed'
   ];
+
   @Output() deactivateCarEvent = new EventEmitter<Car>();
-  resultsLength = 0;
   isLoadingResults = false;
-  isRateLimitReached = false;
+
+  // MatPaginator Inputs
+  length = 0;
+  pageSize = 5;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  // MatPaginator Output
+  pageEvent: PageEvent;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private carService: CarService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
-    // this.cars = this.carService.cars;
     this.carSearchSubscription = this.carService.SearchEvent.subscribe(
       criteria => {
-        this.isLoadingResults = true;
         this.getCarsBySearchCriteria(criteria);
+      },
+      error => {
+
       }
     );
   }
@@ -52,28 +65,38 @@ export class ListComponent implements OnInit, OnDestroy {
 
   getCarsBySearchCriteria(searchCriteria: CarSearchCriteria): void {
     console.log('getCarsBySearchCriteria: ' + JSON.stringify(searchCriteria));
+    this.isLoadingResults = true;
     this.carServiceSubscription = this.carService.find(searchCriteria).subscribe(
       response => {
-        // this.cars = response;
         this.cars = response.map(x =>  ({ ...x, imageUrl: this.getImageUrl(x.numberPlate, x.mainCarImageId) }) );
-        this.carService.cars = this.cars;
-        this.isRateLimitReached = false;
-        this.resultsLength = this.cars.length;
-        console.log(this.cars);
+        this.initPageItems();
       },
       error => {
         console.log(error);
+        this.toastr.error('Er gaat iets fout met het ophalen van de autogegevens.')
       }
     ).add(() => {
       this.isLoadingResults = false;
     });
   }
 
+  initPageItems() {
+    this.length = this.cars.length;
+    this.pageOfCars = this.cars.slice(0, this.pageSize);
+  }
+
+  loadPageItems(pageEvent) {
+    this.pageSize = pageEvent.pageSize;
+    const startIndex = (pageEvent.pageIndex) * this.pageSize;
+    const endIndex = Math.min(startIndex + this.pageSize, this.length);
+    this.pageOfCars = this.cars.slice(startIndex, endIndex);
+  }
+
   getImageUrl(numberPlate: string, carImageId: number): string {
     if (carImageId > 0)
-      return this.carService.getCarImageUrl(numberPlate, carImageId)
+      return this.carService.getCarImageUrl(numberPlate, carImageId);
     else
-      return "assets/img/app/maincar.jpg"
+      return "assets/img/app/maincar.jpg";
   }
 
   onRowClicked(car: Car): void {
@@ -82,6 +105,6 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   deactivateCar(car: Car): void {
-    this.deactivateCarEvent.emit(car)
+    this.deactivateCarEvent.emit(car);
   }
 }

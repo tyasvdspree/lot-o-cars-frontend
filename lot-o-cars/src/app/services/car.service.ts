@@ -73,6 +73,7 @@ export class CarService {
       '&make=' + searchCriteria.make +
       '&model=' + searchCriteria.model +
       '&color=' + searchCriteria.color +
+      '&transmission=' + searchCriteria.transmission +
       '&fuel=' + searchCriteria.fuel +
       '&modelyear=' + searchCriteria.modelYear +
       '&doors=' + searchCriteria.doors +

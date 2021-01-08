@@ -7,12 +7,29 @@ import { Transmission } from 'src/app/enums/transmission.enum';
 import { Fuel } from 'src/app/enums/fuel.enum';
 import { CarBody } from 'src/app/enums/carBody.enum';
 import { Subscription } from 'rxjs';
+import { DateAdapter, MatDateFormats, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS } from '@angular/material/core';
+
+
+export const GRI_DATE_FORMATS: MatDateFormats = {
+  ...MAT_NATIVE_DATE_FORMATS,
+  display: {
+    ...MAT_NATIVE_DATE_FORMATS.display,
+    dateInput: {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    } as Intl.DateTimeFormatOptions,
+  }
+};
 
 
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss']
+  styleUrls: ['./filter.component.scss'],
+  providers: [
+    { provide: MAT_DATE_FORMATS, useValue: GRI_DATE_FORMATS },
+  ]
 })
 export class FilterComponent implements OnInit, OnDestroy {
   panelOpenState = false;
@@ -28,10 +45,13 @@ export class FilterComponent implements OnInit, OnDestroy {
   searchCriteria: CarSearchCriteria = new CarSearchCriteria();
 
   constructor(
-    private carService: CarService
+    private carService: CarService,
+    private readonly adapter: DateAdapter<Date>
   ) { }
 
+
   ngOnInit(): void {
+    this.adapter.setLocale('nl-NL');
     this.loadData();
     this.makes = this.makes.map(function(make) {
       return {key:Object.keys(Make).filter(x => Make[x] == make), value:make}
@@ -108,6 +128,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   searchClick(): void {
     this.carService.simpleSearchMode = this.simpleSearchMode;
+    console.log(this.searchCriteria);
     this.carService.SearchEvent.emit(this.searchCriteria);
   }
 
