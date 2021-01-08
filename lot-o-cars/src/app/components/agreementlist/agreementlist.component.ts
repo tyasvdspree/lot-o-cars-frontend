@@ -17,6 +17,7 @@ export class AgreementlistComponent implements OnInit {
   isRateLimitReached = false;
   @Input() renterPerspective = false;
   agreements: Agreement[];
+  searchText = '';
 
   constructor(
     private agreementService: AgreementService,

@@ -87,7 +87,7 @@ export class AgreementComponent implements OnInit, OnDestroy {
     if (!this.startDate || !this.endDate){
       this.toastr.error('Geen periode geselecteerd');
     } else {
-      this.agreement.carId = this.car.id;
+      this.agreement.car = this.car;
       this.agreement.startDate = this.startDate;
       this.agreement.endDate = this.endDate;
       this.agreementService.createAgreement(this.agreement).subscribe(
