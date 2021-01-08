@@ -14,12 +14,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export class UserpageComponent implements OnInit {
   isLoggedIn: boolean;
-  user:User;
-  firstnameInput: string;
-  lastnameInput: string;
-  phonenumberInput: string;
-  emailaddressInput: string;
-  passwordInput: string;
+  user: User;
   subscription: Subscription;
   returnUrl: string;
 
@@ -51,11 +46,6 @@ export class UserpageComponent implements OnInit {
   public editUser(): void {
     this.subscription = this._userService.editUser(this.user).subscribe(
       response => {      
-        this.user.firstname = this.firstnameInput;
-        this.user.lastname = this.lastnameInput;
-        this.user.phonenumber = this.phonenumberInput;
-        this.user.emailaddress = this.emailaddressInput;
-        this.user.password = this.passwordInput;
         this.toastr.success('Gewijzigd', 'Success');
         this.redirectTo(this.returnUrl);
       },
