@@ -16,7 +16,7 @@ export class AgreementlistComponent implements OnInit {
   isLoadingResults = false;
   isRateLimitReached = false;
   @Input() renterPerspective = false;
-  agreements: Agreement[];
+  agreements = [];
   searchText = '';
 
   constructor(
@@ -28,7 +28,7 @@ export class AgreementlistComponent implements OnInit {
     this.agreementSubscription = this.agreementService.getAgreements(this.renterPerspective).subscribe(
       response => {
         this.agreements = response;
-
+        console.log(this.agreements);
       },
       error => {
         console.log(error);
