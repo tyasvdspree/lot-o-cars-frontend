@@ -28,7 +28,7 @@
                     <td>
                         <mat-form-field>
                             <input #emailaddress pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" email="true"
-                                type="email" placeholder="Emailaddres" matInput name="emailaddressInput" [(ngModel)]="user.emailaddress">
+                                type="email" placeholder="Emailaddres" matInput name="emailaddressInput" [(ngModel)]="user.emailaddress" required>
                         </mat-form-field>
                     </td>
                 </tr>

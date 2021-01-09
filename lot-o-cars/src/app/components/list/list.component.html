@@ -1,15 +1,11 @@
 <div class="example-container mat-elevation-z8">
-    <div class="example-loading-shade"
-         *ngIf="isLoadingResults || isRateLimitReached">
+    <div class="example-loading-shade" *ngIf="isLoadingResults">
       <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-      <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
-        GitHub's API rate limit has been reached. It will be reset in one minute.
-      </div>
     </div>
 
     <div class="example-table-container">
         <ng-container *ngIf="cars">
-            <mat-table #table [dataSource]="cars">
+            <mat-table #table [dataSource]="pageOfCars">
 
                 <ng-container matColumnDef="image">
                     <th id="imageHeader" mat-header-cell *matHeaderCellDef> Foto </th>
@@ -43,12 +39,12 @@
 
                 <ng-container matColumnDef="fuel">
                     <th id="fuelHeader" mat-header-cell *matHeaderCellDef> Brandstof </th>
-                    <td mat-cell *matCellDef="let element"> {{element.fuel}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.fuel | lowercase}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="body">
                     <th id="bodyHeader" mat-header-cell *matHeaderCellDef> Carrosserie </th>
-                    <td mat-cell *matCellDef="let element"> {{element.body}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.body | lowercase}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="navigation">
@@ -84,5 +80,9 @@
         </ng-container>
     </div>
 
-    <mat-paginator [length]="resultsLength" [pageSize]="5"></mat-paginator>
+    <mat-paginator [length]="length"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="loadPageItems($event)">
+    </mat-paginator>
   </div>

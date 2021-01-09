@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-userpage',
@@ -12,22 +13,23 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class UserpageComponent implements OnInit {
-  user:User;
-  firstnameInput: string;
-  lastnameInput: string;
-  phonenumberInput: string;
-  emailaddressInput: string;
-  passwordInput: string;
+  isLoggedIn: boolean;
+  user: User;
   subscription: Subscription;
   returnUrl: string;
 
   constructor(
+    private authenticationService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private _userService: UserService, 
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    if (this.authenticationService.isLoggedIn() == false){
+      this.redirectTo('/');
+    };
+
     this._userService.getUser()
       .subscribe(data => {
         this.user = data;
@@ -44,11 +46,6 @@ export class UserpageComponent implements OnInit {
   public editUser(): void {
     this.subscription = this._userService.editUser(this.user).subscribe(
       response => {      
-        this.user.firstname = this.firstnameInput;
-        this.user.lastname = this.lastnameInput;
-        this.user.phonenumber = this.phonenumberInput;
-        this.user.emailaddress = this.emailaddressInput;
-        this.user.password = this.passwordInput;
         this.toastr.success('Gewijzigd', 'Success');
         this.redirectTo(this.returnUrl);
       },

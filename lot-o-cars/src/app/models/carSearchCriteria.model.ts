@@ -1,7 +1,7 @@
 export class CarSearchCriteria {
     pickUpLocation: string;
-    pickUpDate: string;
-    dropOffDate: string;
+    pickUpDate: Date;
+    dropOffDate: Date;
     make: string;
     model: string;
     color: string;
