@@ -23,11 +23,11 @@ export class RentComponent implements OnInit {
 
   SERVER_URL = "http://localhost:8080/car";
 
-  makes: Object[] = [];
-  colors: Object[] = [];
-  transmissions: Object[] = [];
-  fuelTypes: Object[] = [];
-  carBodies: Object[] = [];
+  makes: any[] = [];
+  colors: any[] = [];
+  transmissions: any[] = [];
+  fuelTypes: any[] = [];
+  carBodies: any[] = [];
 
   subscriptions: Subscription[] = [];
 
@@ -79,14 +79,13 @@ export class RentComponent implements OnInit {
     console.log(this.car);
 
     // set defaults for non nullable values
-    this.car.airco = false;
-    this.car.color = 'blauw';
+    // this.car.airco = false;
     this.car.isActive = true;
-    this.car.navigation = false;
-    this.car.rentPricePerHour = 5;
-    this.car.smokingIsAllowed = false;
-    this.car.userId = 3;
-    this.car.locationId = 3;
+    // this.car.navigation = false;
+    // this.car.rentPricePerHour = 80;
+    // this.car.smokingIsAllowed = false;
+    // this.car.userId = 3;
+    // this.car.locationId = 3;
 
     this.carService.createNewCar(this.car, this.imageFiles);
 
