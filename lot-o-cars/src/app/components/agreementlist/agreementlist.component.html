@@ -1,0 +1,31 @@
+<mat-form-field>
+  <input matInput placeholder="Zoeken op auto of kenteken" #input (keyup)="searchCars(input.value)">
+</mat-form-field>
+
+<div class="example-table-container mat-elevation-z8">
+  <mat-table #table *ngIf="agreements" [dataSource]="agreements">
+      <ng-container matColumnDef="carId">
+        <mat-header-cell id="carId" *matHeaderCellDef> Auto </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.car.make }} {{ element.car.model }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="numberPlate">
+        <mat-header-cell id="numberPlate" *matHeaderCellDef> Kenteken </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.car.numberPlate }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="startDate">
+        <mat-header-cell id="startDate" *matHeaderCellDef> Start datum </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.startDate | date }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="endDate">
+        <mat-header-cell id="endDate" *matHeaderCellDef> Eind datum </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.endDate | date }} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 200]"></mat-paginator>
+</div>

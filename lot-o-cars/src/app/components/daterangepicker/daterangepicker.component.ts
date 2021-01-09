@@ -13,7 +13,6 @@ export class DaterangepickerComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
   @Input() car: Car;
-  minDate: Date = new Date();
   blockedDates: Date[];
   @Output() startDate = new EventEmitter<Date>();
   @Output() endDate = new EventEmitter<Date>();
