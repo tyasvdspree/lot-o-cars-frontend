@@ -1,8 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AgreementService} from '../../services/agreement.service';
 import {Router} from '@angular/router';
 import {Agreement} from '../../models/agreement.model';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-agreementlist',
@@ -12,12 +14,10 @@ import {Agreement} from '../../models/agreement.model';
 export class AgreementlistComponent implements OnInit {
   agreementSubscription: Subscription;
   displayedColumns = ['carId', 'numberPlate', 'startDate', 'endDate'];
-  resultsLength = 0;
-  isLoadingResults = false;
-  isRateLimitReached = false;
   @Input() renterPerspective = false;
-  agreements = [];
-  searchText = '';
+  agreements = new MatTableDataSource();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private agreementService: AgreementService,
@@ -27,8 +27,8 @@ export class AgreementlistComponent implements OnInit {
   ngOnInit(): void {
     this.agreementSubscription = this.agreementService.getAgreements(this.renterPerspective).subscribe(
       response => {
-        this.agreements = response;
-        console.log(this.agreements);
+        this.agreements = new MatTableDataSource(response);
+        this.agreements.paginator = this.paginator;
       },
       error => {
         console.log(error);
@@ -41,4 +41,9 @@ export class AgreementlistComponent implements OnInit {
     this.router.navigateByUrl(`/agreement/${agreement.id}`);
   }
 
+  // TODO: finish filter
+  searchCars(value = ''): void {
+    console.log(value);
+    this.agreements.filter = value.toLowerCase().trim();
+  }
 }

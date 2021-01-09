@@ -1,21 +1,9 @@
 <mat-form-field>
-  <input matInput type="text" [(ngModel)]="searchText" placeholder="Zoeken op auto of kenteken" >
-  <button mat-button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''">
-    <mat-icon>close</mat-icon>
-  </button>
+  <input matInput placeholder="Zoeken op auto of kenteken" #input (keyup)="searchCars(input.value)">
 </mat-form-field>
 
-<!--<div class="example-container mat-elevation-z8">-->
-<!--  <div class="example-loading-shade"-->
-<!--       *ngIf="isLoadingResults || isRateLimitReached">-->
-<!--    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>-->
-<!--    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">-->
-<!--      GitHub's API rate limit has been reached. It will be reset in one minute.-->
-<!--    </div>-->
-<!--  </div>-->
-
 <div class="example-table-container mat-elevation-z8">
-  <mat-table #table *ngIf="agreements" [dataSource]="agreements | appFilter: searchText">
+  <mat-table #table *ngIf="agreements" [dataSource]="agreements">
       <ng-container matColumnDef="carId">
         <mat-header-cell id="carId" *matHeaderCellDef> Auto </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{ element.car.make }} {{ element.car.model }} </mat-cell>
@@ -39,4 +27,5 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
   </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 200]"></mat-paginator>
 </div>
