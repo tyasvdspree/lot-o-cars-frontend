@@ -37,6 +37,7 @@ import { DaterangepickerComponent } from './components/daterangepicker/daterange
 import { AgreementlistComponent } from './components/agreementlist/agreementlist.component';
 import { HirehistoryComponent } from './components/hirehistory/hirehistory.component';
 import { RenthistoryComponent } from './components/renthistory/renthistory.component';
+import { AgreementDetailsComponent } from './components/agreementdetails/agreementdetails.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { RenthistoryComponent } from './components/renthistory/renthistory.compo
     ImageuploadComponent,
     AgreementlistComponent,
     HirehistoryComponent,
-    RenthistoryComponent
+    RenthistoryComponent,
+    AgreementDetailsComponent
   ],
   imports: [
     BrowserModule,
