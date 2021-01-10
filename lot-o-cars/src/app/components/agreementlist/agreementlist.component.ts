@@ -27,7 +27,15 @@ export class AgreementlistComponent implements OnInit {
   ngOnInit(): void {
     this.agreementSubscription = this.agreementService.getAgreements(this.renterPerspective).subscribe(
       response => {
-        this.agreements = new MatTableDataSource(response);
+        this.agreements.data = response;
+        this.agreements.filterPredicate = (data, filter: string)  => {
+          const accumulator = (currentTerm, key) => {
+            return this.nestedFilterCheck(currentTerm, data, key);
+          };
+          const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+          const transformedFilter = filter.trim().toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
         this.agreements.paginator = this.paginator;
       },
       error => {
@@ -41,9 +49,20 @@ export class AgreementlistComponent implements OnInit {
     this.router.navigateByUrl(`/agreement/${agreement.id}`);
   }
 
-  // TODO: finish filter
   searchCars(value = ''): void {
-    console.log(value);
     this.agreements.filter = value.toLowerCase().trim();
+  }
+
+  nestedFilterCheck(search, data, key): any {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
   }
 }

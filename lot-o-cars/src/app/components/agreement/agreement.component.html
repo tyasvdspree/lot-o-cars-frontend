@@ -15,10 +15,12 @@
       <div><label class="label">merk</label> {{ car.make }}</div>
       <div><label class="label">model</label> {{ car.model }}</div>
       <br>
+      <div *ngIf="car.location">
       <div><label class="label">straat</label> {{ car.location.addressLine1 }}</div>
       <div><label class="label">postcode</label> {{ car.location.zipcode }}</div>
       <div><label class="label">plaats</label> {{ car.location.city }}</div>
       <div><label class="label">gemeente</label> {{ car.location.municipality }}</div>
+      </div>
       <br>
       <br>
       <app-daterangepicker
@@ -33,10 +35,11 @@
       <h1>Details</h1>
 
       <br>
+      <div *ngIf="car.user">
       <div><label class="label">naam</label> {{ car.user.firstname + ' ' + car.user.lastname }}</div>
       <div><label class="label">telefoon</label> {{ car.user.phonenumber }}</div>
       <div><label class="label">e-mail</label> <a href="mailto:{{ car.user.emailaddress }}">{{ car.user.emailaddress }}</a></div>
-
+      </div>
       <br>
       <p *ngIf="this.car">Prijs per dag: €{{ car.rentPricePerHour }}</p>
 
