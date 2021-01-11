@@ -27,6 +27,8 @@ export class AgreementService {
   }
 
   setAgreementStatus(id: number, status: string, reason: string): Observable<any> {
-    return this.http.put(environment.apiBaseUrl + '/agreement/status/' + id, { id: id, status: status, reason: reason });
+    const url = environment.apiBaseUrl + '/agreement/status';
+    const reqBody = { id: id, status: status, reason: reason };
+    return this.http.put(url, reqBody);
   }
 }

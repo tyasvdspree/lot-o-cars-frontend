@@ -101,7 +101,7 @@
                             <textarea matInput #reasonInput rows="5" [(ngModel)]="reason"></textarea>
                         </mat-form-field>
                         <div class="mt-3" *ngIf="isRentee">
-                            <button mat-flat-button color="primary" (click)="approveAgreement()">huurovereenkomst accepteren</button>
+                            <button class="mr-1" mat-flat-button color="primary" (click)="approveAgreement()">huurovereenkomst accepteren</button>
                             <button mat-flat-button color="primary" (click)="rejectAgreement()">huurovereenkomst afwijzen</button>
                         </div>
                         <div class="mt-3" *ngIf="!isRentee">

@@ -137,21 +137,41 @@ export class AgreementDetailsComponent implements OnInit, OnDestroy {
   }
 
   cancelAgreement() {
-    this.subscriptions.push(
-      this.service.setAgreementStatus(this.agreementId, 'CANCELED', this.reason).subscribe(
-        agreement => this.setAgreement(agreement),
-        error => this.toastr.error(error, 'Fout bij annuleren huurovereenkomst'),
-        () => console.log(this.agreement)
-      )
-    );
+    if (this.reason) {
+      this.subscriptions.push(
+        this.service.setAgreementStatus(this.agreementId, 'CANCELED', this.reason).subscribe(
+          agreement => this.setAgreement(agreement),
+          error => this.toastr.error(error, 'Fout bij annuleren huurovereenkomst'),
+          () => console.log(this.agreement)
+        )
+      );
+    } else {
+      this.toastr.warning('Vul een toelichting voor de annulering in.');
+    }
   }
 
   rejectAgreement() {
-    
+    if (this.reason) {
+      this.subscriptions.push(
+        this.service.setAgreementStatus(this.agreementId, 'CANCELED', this.reason).subscribe(
+          agreement => this.setAgreement(agreement),
+          error => this.toastr.error(error, 'Fout bij afwijzen huurovereenkomst'),
+          () => console.log(this.agreement)
+        )
+      );
+    } else {
+      this.toastr.warning('Vul een toelichting voor de afwijzing in.');
+    }
   }
 
   approveAgreement() {
-    
+    this.subscriptions.push(
+      this.service.setAgreementStatus(this.agreementId, 'APPROVED', this.reason).subscribe(
+        agreement => this.setAgreement(agreement),
+        error => this.toastr.error(error, 'Fout bij accepteren huurovereenkomst'),
+        () => console.log(this.agreement)
+      )
+    );
   }
 
 }
