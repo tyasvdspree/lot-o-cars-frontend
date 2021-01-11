@@ -26,7 +26,7 @@
 
       <ng-container matColumnDef="status">
         <mat-header-cell id="status" *matHeaderCellDef> Status </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{ element.status | lowercase }} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{ getEnumDisplayText(element.status) | lowercase }} </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
