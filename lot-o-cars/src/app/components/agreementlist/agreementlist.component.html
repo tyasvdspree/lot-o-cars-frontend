@@ -6,7 +6,7 @@
   <mat-table #table *ngIf="agreements" [dataSource]="agreements">
       <ng-container matColumnDef="carId">
         <mat-header-cell id="carId" *matHeaderCellDef> Auto </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{ element.car.make }} {{ element.car.model }} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{ element.car.make | titlecase }} {{ element.car.model }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="numberPlate">
