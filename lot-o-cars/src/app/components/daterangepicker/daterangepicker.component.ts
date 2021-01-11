@@ -14,8 +14,8 @@ export class DaterangepickerComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   @Input() car: Car;
   blockedDates: Date[];
-  @Output() startDate = new EventEmitter<Date>();
-  @Output() endDate = new EventEmitter<Date>();
+  @Output() startDate = new EventEmitter();
+  @Output() endDate = new EventEmitter();
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
@@ -45,10 +45,10 @@ export class DaterangepickerComponent implements OnInit, OnDestroy {
     }
   }
 
-  dateRangeChanged(dateRangeStart, dateRangeEnd): void {
-    this.startDate.emit(dateRangeStart);
-    this.endDate.emit(dateRangeEnd);
-  }
+  // dateRangeChanged(dateRangeStart, dateRangeEnd): void {
+  //   this.startDate.emit(dateRangeStart.value);
+  //   this.endDate.emit(dateRangeEnd.value);
+  // }
 
   myDateFilter = (d: Date): boolean => {
     return this.blockedDates.map(Number).indexOf(+d) === -1;

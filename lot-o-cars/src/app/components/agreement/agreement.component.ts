@@ -106,10 +106,10 @@ export class AgreementComponent implements OnInit, OnDestroy {
   }
 
   onStartDateChanged(startDate): void {
-    this.startDate = new Date(startDate.value);
+    this.startDate = new Date(startDate);
   }
 
   onEndDateChanged(endDate): void {
-    this.endDate = new Date(endDate.value);
+    this.endDate = new Date(endDate);
   }
 }
