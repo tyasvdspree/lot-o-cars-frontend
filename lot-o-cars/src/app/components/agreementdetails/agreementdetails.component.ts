@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Agreement } from 'src/app/models/agreement.model';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
-import { Status } from 'src/app/enums/status.enum';
+import { isPending, getStatusText, Status } from 'src/app/enums/status.enum';
 
 @Component({
   selector: 'app-agreementdetails',
@@ -100,25 +100,14 @@ export class AgreementDetailsComponent implements OnInit, OnDestroy {
   setAgreement(agreement: Agreement) {
     this.agreement = agreement;
     this.currentStatus = this.getTranslatedStatus(this.agreement.status);
-    this.isPending = this.agreement.status + '' == 'PENDING';
-    console.log('status: ', this.agreement.status);
-    console.log('is pending: ', this.isPending);
+    this.isPending = isPending(this.agreement.status);
     this.numOfDays = this.calcDaysBetweenDates(this.agreement.startDate, this.agreement.endDate);
     this.totalPrice = this.calcTotalPrice(this.agreement.rentPricePerHour, this.numOfDays);
     this.loadUser();
   }
 
-  getTranslatedStatus(status: string) {
-    switch(status){
-      case 'PENDING':
-        return 'ingediend';
-      case 'APPROVED':
-        return 'goedgekeurd'
-      case 'CANCELED':
-        return 'geannuleerd';
-      default:
-        return 'afgehandeld';
-    }
+  getTranslatedStatus(status: Status) {
+    return getStatusText(status);
   }
 
   calcDaysBetweenDates(startDate: Date, endDate: Date): number {

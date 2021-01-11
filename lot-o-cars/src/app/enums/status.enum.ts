@@ -1,8 +1,18 @@
 export enum Status {
-    PENDING = "ingediend",
-    APPROVED = "geaccepteerd",
-    CANCELED = "geannuleerd",
-    FINISHED = "afgehandeld"
+    PENDING,
+    APPROVED,
+    CANCELED,
+    FINISHED
+}
+export function getStatusText(status: Status) {
+    let myStatus = Status[status];
+    let statussen = ['ingediend', 'geaccepteerd', 'geannuleerd', 'afgehandeld'];
+    return statussen[myStatus];
+}
+export function isPending(status: Status) {
+    let myStatus = Status[status];
+    let statussen = [true, false, false, false];
+    return statussen[myStatus];
 }
 export interface StatusSpec {
     displayText: string,

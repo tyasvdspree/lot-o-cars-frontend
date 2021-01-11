@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {Agreement} from '../../models/agreement.model';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {Status} from '../../enums/status.enum';
+import {getStatusText, Status} from '../../enums/status.enum';
 
 @Component({
   selector: 'app-agreementlist',
@@ -67,16 +67,7 @@ export class AgreementlistComponent implements OnInit {
     return search;
   }
 
-  getEnumDisplayText(status: Status) {
-    switch(status + ''){
-      case "PENDING":
-          return "ingediend";
-      case "APPROVED":
-          return "geaccepteerd";
-      case "CANCELED":
-          return "geannuleerd";
-      case "FINISHED":
-          return "afgehandeld";
-  }
+  getStatusDisplayText(status: Status) {
+    return getStatusText(status);
   }
 }
