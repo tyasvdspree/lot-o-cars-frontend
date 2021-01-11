@@ -13,7 +13,7 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class AgreementlistComponent implements OnInit {
   agreementSubscription: Subscription;
-  displayedColumns = ['carId', 'numberPlate', 'startDate', 'endDate'];
+  displayedColumns = ['carId', 'numberPlate', 'startDate', 'endDate', 'status'];
   @Input() renterPerspective = false;
   agreements = new MatTableDataSource();
 
@@ -46,7 +46,7 @@ export class AgreementlistComponent implements OnInit {
 
   onRowClicked(agreement: Agreement): void {
     console.log('Row clicked: ', agreement);
-    this.router.navigateByUrl(`/agreement/${agreement.id}`);
+    this.router.navigateByUrl(`/agreementdetails/${agreement.id}`);
   }
 
   searchCars(value = ''): void {

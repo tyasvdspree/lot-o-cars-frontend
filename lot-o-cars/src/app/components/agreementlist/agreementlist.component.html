@@ -24,6 +24,11 @@
         <mat-cell *matCellDef="let element"> {{ element.endDate | date }} </mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="status">
+        <mat-header-cell id="status" *matHeaderCellDef> Status </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.status | lowercase }} </mat-cell>
+      </ng-container>
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
   </mat-table>

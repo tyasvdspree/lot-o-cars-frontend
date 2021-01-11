@@ -1,3 +1,4 @@
+import { Status } from '../enums/status.enum';
 import {Car} from './car.model';
 import {User} from './user.model';
 
@@ -11,4 +12,6 @@ export class Agreement {
   rentPricePerHour: number;
   brokerFee: number;
   isPayed: boolean;
+  status: Status;
+  reason: string;
 }

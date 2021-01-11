@@ -1,0 +1,115 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-3 m-3">
+            <a (click)="navigateBack()">
+                <span class="material-icons">
+                    arrow_back_ios
+                </span>
+                <span style="position:relative;top:-7px">
+                    terug naar de lijst
+                </span>
+            </a>
+        </div>
+        <div class="col-md-6 text-center">
+            <h1>huurovereenkomst</h1>
+        </div>
+        <div class="col-md-3">
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-card class="mb-3">
+                <mat-card-header>
+                    <mat-card-title>verhuurder</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="mb-3">
+                        {{agreement.rentee.firstname}} {{agreement.rentee.lastname}}
+                    </div>
+                    <div>{{agreement.rentee.location.addressLine1}}</div>
+                    <div>{{agreement.rentee.location.addressLine2}}</div>
+                    <div>{{agreement.rentee.location.zipcode}} &nbsp;{{agreement.rentee.location.city}}</div>
+                    <div class="mt-3">
+                        <a href="mailto:{{agreement.rentee.emailaddress}}">{{agreement.rentee.emailaddress}}</a>
+                    </div><div>
+                        <a href="tel:{{agreement.rentee.phonenumber}}">{{agreement.rentee.phonenumber}}</a>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-md-6">
+            <mat-card class="mb-3">
+                <mat-card-header>
+                    <mat-card-title>huurder</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="mb-3">
+                        {{agreement.renter.firstname}} {{agreement.renter.lastname}}
+                    </div>
+                    <div>{{agreement.renter.location.addressLine1}}</div>
+                    <div>{{agreement.renter.location.addressLine2}}</div>
+                    <div>{{agreement.renter.location.zipcode}} &nbsp;{{agreement.renter.location.city}}</div>
+                    <div class="mt-3">
+                        <a href="mailto:{{agreement.renter.emailaddress}}">{{agreement.renter.emailaddress}}</a>
+                    </div><div>
+                        <a href="tel:{{agreement.renter.phonenumber}}">{{agreement.renter.phonenumber}}</a>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-card class="mb-3">
+                <mat-card-header>
+                    <mat-card-title>overeenkomst</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="label">auto</div>
+                    <div>
+                        {{agreement.car.make | titlecase}}
+                        {{agreement.car.model}} 
+                        met kenteken 
+                        {{agreement.car.numberPlate}}
+                    </div>
+                    <div class="mt-3 label">ophaal- en terugbrengadres</div>
+                    <div>{{agreement.car.location.addressLine1}}</div>
+                    <div>{{agreement.car.location.addressLine2}}</div>
+                    <div>{{agreement.car.location.zipcode}} &nbsp;{{agreement.renter.location.city}}</div>
+                    <div class="mt-3 label">huurperiode</div>
+                    <div>{{agreement.startDate | date: 'dd-MM-yyyy'}} t/m {{agreement.endDate | date: 'dd-MM-yyyy'}} ({{numOfDays}} dagen)</div>
+                    <div class="mt-3 label">prijs per dag</div>
+                    <div>{{agreement.rentPricePerHour | currency: 'EUR'}}</div>
+                    <div class="mt-3 label">totaalbedrag</div>
+                    <div>{{ totalPrice | currency: 'EUR' }}</div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-md-6">
+            <mat-card class="mb-3">
+                <mat-card-header>
+                    <mat-card-title>status</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="label">status</div>
+                    <div>{{currentStatus | lowercase}}</div>
+                    <div class="mt-3 label">toelichting</div>
+                    <div *ngIf="!isPending">{{agreement.reason || '-'}}</div>
+                    <div *ngIf="isPending">
+                        <mat-form-field>
+                            <textarea matInput #reasonInput rows="5" [(ngModel)]="reason"></textarea>
+                        </mat-form-field>
+                        <div class="mt-3" *ngIf="isRentee">
+                            <button class="mr-1" mat-flat-button color="primary" (click)="approveAgreement()">huurovereenkomst accepteren</button>
+                            <button mat-flat-button color="primary" (click)="rejectAgreement()">huurovereenkomst afwijzen</button>
+                        </div>
+                        <div class="mt-3" *ngIf="!isRentee">
+                            <button mat-flat-button color="primary" (click)="cancelAgreement()">huurovereenkomst annuleren</button>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
