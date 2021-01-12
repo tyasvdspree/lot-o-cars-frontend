@@ -44,14 +44,21 @@ export class ListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.carSearchSubscription = this.carService.SearchEvent.subscribe(
-      criteria => {
-        this.getCarsBySearchCriteria(criteria);
-      },
-      error => {
+    if (!this.cars){
+      this.carSearchSubscription = this.carService.SearchEvent.subscribe(
+        criteria => {
+          this.getCarsBySearchCriteria(criteria);
+        },
+        error => {
 
-      }
-    );
+        }
+      );
+
+    } else {
+      // Cars input from another component
+      this.initPageItems();
+    }
+
   }
 
   ngOnDestroy(): void {

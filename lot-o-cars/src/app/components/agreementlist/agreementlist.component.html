@@ -32,5 +32,5 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
   </mat-table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20, 200]"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 200]" [pageSize]="10"></mat-paginator>
 </div>

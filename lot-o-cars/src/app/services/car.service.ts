@@ -1,6 +1,6 @@
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { from, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Car } from '../models/car.model';
 import { CarSearchCriteria } from '../models/carSearchCriteria.model';
@@ -10,6 +10,7 @@ import { Make } from 'src/app/enums/make.enum';
 import { Color } from 'src/app/enums/color.enum';
 import { CarBody } from 'src/app/enums/carBody.enum';
 import { ToastrService } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,11 @@ export class CarService {
 
   public SearchEvent: EventEmitter<CarSearchCriteria> = new EventEmitter<CarSearchCriteria>();
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
+  constructor(
+    private http: HttpClient, 
+    private toastr: ToastrService,
+    private datePipe: DatePipe
+  ) {
     this.transmission = Object.values(Transmission);
     this.fuel = Object.values(Fuel);
     this.make = Object.values(Make);
@@ -68,8 +73,8 @@ export class CarService {
   find(searchCriteria: CarSearchCriteria): Observable<any> {
     let url = environment.apiBaseUrl + '/renting/search' +
       '?city=' + searchCriteria.pickUpLocation +
-      '&pickupdate=' + searchCriteria.pickUpDate.toISOString().slice(0, 10) +
-      '&dropoffdate=' + searchCriteria.dropOffDate.toISOString().slice(0, 10) +
+      '&pickupdate=' + this.datePipe.transform(searchCriteria.pickUpDate, 'yyyy-MM-dd') +
+      '&dropoffdate=' + this.datePipe.transform(searchCriteria.dropOffDate, 'yyyy-MM-dd') +
       '&make=' + searchCriteria.make +
       '&model=' + searchCriteria.model +
       '&color=' + searchCriteria.color +
