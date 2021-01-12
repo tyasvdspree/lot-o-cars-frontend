@@ -16,6 +16,12 @@ export class UserService {
   }
 
   editUser(user){
+    console.log("user.service.ts / editUser")
     return this.http.put(environment.apiBaseUrl + "/user/editme", user);
+  }
+
+  checkIfEmailAddressExists(userId, userEmailAddress){
+    console.log("user.service.ts / userid=" + userId + "emailAddress=" + userEmailAddress)
+    return this.http.get(environment.apiBaseUrl + "/user/checkUserEmailAddress" + "?userId=" + userId + "&userEmailAddress=" + userEmailAddress);
   }
 }
