@@ -38,6 +38,7 @@ import { AgreementlistComponent } from './components/agreementlist/agreementlist
 import { HirehistoryComponent } from './components/hirehistory/hirehistory.component';
 import { RenthistoryComponent } from './components/renthistory/renthistory.component';
 import { AgreementDetailsComponent } from './components/agreementdetails/agreementdetails.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { AgreementDetailsComponent } from './components/agreementdetails/agreeme
   ],
   providers: [
     CarService,
+    DatePipe,
     RegisterService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
