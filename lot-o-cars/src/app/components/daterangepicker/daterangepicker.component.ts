@@ -16,10 +16,6 @@ export class DaterangepickerComponent implements OnInit, OnDestroy {
   blockedDates: Date[];
   @Output() startDate = new EventEmitter();
   @Output() endDate = new EventEmitter();
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl()
-  });
 
   constructor(
     private carService: CarService,
