@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angula
 import { Subscription } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
 import { CarService } from 'src/app/services/car.service';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-daterangepicker',
@@ -10,22 +10,29 @@ import {FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./daterangepicker.component.scss']
 })
 export class DaterangepickerComponent implements OnInit, OnDestroy {
-
+  form: FormGroup;
   subscriptions: Subscription[] = [];
   @Input() car: Car;
   blockedDates: Date[];
-  @Output() startDate = new EventEmitter<Date>();
-  @Output() endDate = new EventEmitter<Date>();
+  @Output() startDate = new EventEmitter();
+  @Output() endDate = new EventEmitter();
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
   });
 
   constructor(
-    private carService: CarService
+    private carService: CarService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      daterange: new FormGroup({
+        start: new FormControl(),
+        end: new FormControl(),
+      }),
+    });
     this.subscriptions.push(
       this.carService.getBlockedDates(this.car.numberPlate).subscribe(
         response => {
@@ -45,9 +52,12 @@ export class DaterangepickerComponent implements OnInit, OnDestroy {
     }
   }
 
-  dateRangeChanged(dateRangeStart, dateRangeEnd): void {
-    this.startDate.emit(dateRangeStart);
-    this.endDate.emit(dateRangeEnd);
+  startDateChanged(): void {
+    this.startDate.emit(this.form.value.daterange.start);
+  }
+
+  endDateChanged(): void {
+    this.endDate.emit(this.form.value.daterange.end);
   }
 
   myDateFilter = (d: Date): boolean => {
