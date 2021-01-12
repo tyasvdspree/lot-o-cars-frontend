@@ -1,14 +1,11 @@
-<mat-form-field appearance="fill">
-    {{startDate}}
-    {{endDate}}
-    <mat-label>Selecteer een of meerdere data</mat-label>
-    <mat-date-range-input [rangePicker]="picker" [dateFilter]="myDateFilter">
-      <input matStartDate placeholder="Start datum" [(ngModel)]="startDate">
-      <input matEndDate placeholder="Eind datum" [(ngModel)]="endDate">
-    </mat-date-range-input>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker></mat-date-range-picker>
-
-    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-</mat-form-field>
+<form [formGroup]="form">
+  <mat-form-field appearance="fill">
+      <mat-label>Selecteer een of meerdere data</mat-label>
+      <mat-date-range-input [rangePicker]="picker" formGroupName="daterange" [dateFilter]="myDateFilter">
+        <input matStartDate placeholder="Start datum" formControlName="start" (dateChange)="startDateChanged()" />
+        <input matEndDate placeholder="Eind datum" formControlName="end" (dateChange)="endDateChanged()" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+</form>

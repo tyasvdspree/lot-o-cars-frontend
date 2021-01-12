@@ -14,15 +14,16 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./agreement.component.scss']
 })
 export class AgreementComponent implements OnInit, OnDestroy {
+  form: FormGroup;
   subscriptions: Subscription[] = [];
   agreement: Agreement = new Agreement();
-  numberOfDays = null;
+  numberOfDays: number;
   carServiceSubscription: Subscription;
   licensePlate: string;
   car: Car;
   blockedDates: Date[];
-  startDate: Date = null;
-  endDate: Date = null;
+  startDate: Date;
+  endDate: Date;
 
   constructor(
     private carService: CarService,
@@ -103,13 +104,5 @@ export class AgreementComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl(`/hirehistory`); // TODO: navigate to agreement detail
       }
     );
-  }
-
-  onStartDateChanged(startDate): void {
-    this.startDate = new Date(startDate);
-  }
-
-  onEndDateChanged(endDate): void {
-    this.endDate = new Date(endDate);
   }
 }
