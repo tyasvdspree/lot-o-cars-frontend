@@ -48,6 +48,10 @@
                 </div>
 
                 <div>
+                    <app-location (outputLocation)="this.location=$event"></app-location>
+                </div>
+
+                <div>
                     <mat-checkbox (change)="changeCheck($event)">U gaat akkoord met onze voorwaarden</mat-checkbox>
                 </div>
 
