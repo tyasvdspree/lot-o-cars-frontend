@@ -10,7 +10,7 @@
                         </mat-form-field>
                     </td>
                 </tr>
-                <tr>
+                <tr style="margin-top: 15px;">
                     <td>
                         <mat-form-field>
                             <input type="text" placeholder="Achternaam" matInput name="lastnameInput" [(ngModel)]="user.lastname">
@@ -20,22 +20,30 @@
                 <tr>
                     <td>
                         <mat-form-field>
-                            <input type="text" placeholder="Telefoonnummer" matInput name="phonenumberInput" [(ngModel)]="user.phonenumber">
+                            <input pattern="[0-9]{9,14}" type="phone" placeholder="Telefoonnummer" matInput name="phonenumberInput" [(ngModel)]="user.phonenumber">
+                            <mat-error>
+                                Telefoonnummer moet tussen de 9 en 14 cijfers bestaan.
+                            </mat-error>
                         </mat-form-field>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <mat-form-field>
-                            <input #emailaddress pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" email="true"
-                                type="email" placeholder="Emailaddres" matInput name="emailaddressInput" [(ngModel)]="user.emailaddress" required>
+                            <input #emailaddress pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" email="true" type="email" placeholder="Emailaddres" matInput name="emailaddressInput" [(ngModel)]="user.emailaddress" required>
+                            <mat-error>
+                                Voorbeeld van emailadres: gebruiker@lotocars.nl
+                            </mat-error>
                         </mat-form-field>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <mat-form-field>
-                            <input type="password" placeholder="Wachtwoord" matInput name="passwordInput" [(ngModel)]="user.password">
+                            <input required minlength="5" type="password" placeholder="Wachtwoord" matInput name="passwordInput" [(ngModel)]="user.password">
+                            <mat-error>
+                                Wachtwoord moet minimaal 5 karakters bevatten.
+                            </mat-error>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -44,7 +52,7 @@
                         <div style="margin-top: 10px;">
                             <button mat-flat-button type="submit" color="primary" style="float: right;"
                             (click)="editUser()" mat-button class="NxtBtnWrap"
-                            [disabled]="!emailaddress.validity.valid"
+                            [disabled]="!emailaddress.validity.valid || (!user.password || user.password.length < 5)"
                             >Wijzig</button>
                          </div>
                     </td>
