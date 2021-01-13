@@ -4,6 +4,7 @@ import { RegisterService } from 'src/app/services/register.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { Location } from 'src/app/models/location.model';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +16,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   disabledAgreement = true;
   user: User = new User('', '', '', '', '', '');
   subscription: Subscription;
+  location: Location;
 
   constructor(
     private registerService: RegisterService,
@@ -34,6 +36,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   public register(): void {
+    this.user.location = this.location;
     this.subscription = this.registerService.register(this.user).subscribe(
       response => {
         console.log(response);
