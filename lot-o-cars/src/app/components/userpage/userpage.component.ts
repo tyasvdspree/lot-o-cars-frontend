@@ -25,13 +25,15 @@ export class UserpageComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private _userService: UserService,
-    private toastr: ToastrService) { }
-
+    private toastr: ToastrService
+    ) 
+    {}
+    
   ngOnInit(): void {
     if (this.authenticationService.isLoggedIn() == false) {
       this.redirectTo('/');
     };
-
+    
     this._userService.getUser()
       .subscribe(data => {
         this.user = data;
@@ -45,35 +47,28 @@ export class UserpageComponent implements OnInit {
       this.router.navigate([uri]));
   }
 
-  checkIfEmailAddressExists(user: User) {
-    this.subscription = this._userService.checkIfEmailAddressExists(user.id, user.emailaddress).subscribe(
+
+  public editUser(): void {
+    this.subscription = this._userService.checkIfEmailAddressExists(this.user.id, this.user.emailaddress).subscribe(
       response => {
-        if (response === true){
-          debugger;
-          this.userEmailAddressExists = true;
+        if (response === false){
+          this.subscription = this._userService.editUser(this.user).subscribe(
+            response => {
+              this.toastr.success('Gewijzigd', 'Success');
+              this.redirectTo(this.returnUrl);
+            },
+            error => {
+              this.toastr.error('Registratie mislukt', 'Error');
+            }
+          )
         }
         else{
-          this.userEmailAddressExists = false;
+          this.toastr.error('Emailadres bestaat al', 'Error');
         }
       },
       error => {
         this.toastr.error('Registratie mislukt', 'Error');
       }
     );
-  }
-
-  public editUser(): void {
-    this.checkIfEmailAddressExists(this.user);
-
-    this.subscription = this._userService.editUser(this.user).subscribe(
-      response => {
-        this.toastr.success('Gewijzigd', 'Success');
-        this.redirectTo(this.returnUrl);
-      },
-      error => {
-      
-        this.toastr.error('Registratie mislukt', 'Error');
-      }
-    )
   }
 }
