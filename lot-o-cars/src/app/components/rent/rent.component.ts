@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CarService } from 'src/app/services/car.service';
 import { HttpClient } from '@angular/common/http';
-import { Subscription } from 'rxjs';
+import { from, Subscription } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
 import { Make } from 'src/app/enums/make.enum';
 import { Color } from 'src/app/enums/color.enum';
@@ -20,6 +20,7 @@ export class RentComponent implements OnInit {
 
   car: Car;
   imageFiles: FileList;
+  imageUrls;
 
   SERVER_URL = "http://localhost:8080/car";
 
@@ -73,6 +74,20 @@ export class RentComponent implements OnInit {
 
   receiveSelectedImageFiles(images: FileList) {
     this.imageFiles = images;
+    this.readImageFile(images);
+  }
+
+  readImageFile(images: FileList){
+    if(!this.imageUrls){
+      this.imageUrls = [];
+    }
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      this.imageUrls.push({path: fileReader.result})
+    }
+    Array.from(images).forEach(image => {
+      fileReader.readAsDataURL(image);
+    });
   }
 
   onSubmit() {
@@ -86,7 +101,6 @@ export class RentComponent implements OnInit {
     // this.car.smokingIsAllowed = false;
     // this.car.userId = 3;
     // this.car.locationId = 3;
-
     this.carService.createNewCar(this.car, this.imageFiles);
 
     setTimeout(() => {  this.router.navigateByUrl(`/cardetails/${this.car.numberPlate}`); }, 2000);
