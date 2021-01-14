@@ -13,4 +13,8 @@ export class RegisterService {
   public register(user): Observable<any> {
     return this.http.put(environment.apiBaseUrl + '/user', user);
   }
+
+  checkIfUsernameExists(username){
+    return this.http.get(environment.apiBaseUrl + "/user/checkUsername" + "?username=" + username);
+  }
 }

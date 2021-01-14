@@ -58,7 +58,7 @@ export class UserpageComponent implements OnInit {
               this.redirectTo(this.returnUrl);
             },
             error => {
-              this.toastr.error('Registratie mislukt', 'Error');
+              this.toastr.error('Wijziging mislukt', 'Error');
             }
           )
         }
@@ -67,7 +67,7 @@ export class UserpageComponent implements OnInit {
         }
       },
       error => {
-        this.toastr.error('Registratie mislukt', 'Error');
+        this.toastr.error('Wijziging mislukt', 'Error');
       }
     );
   }
