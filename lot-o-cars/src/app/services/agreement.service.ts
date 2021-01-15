@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Agreement} from '../models/agreement.model';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
-import { Status } from '../enums/status.enum';
+
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +30,11 @@ export class AgreementService {
     const url = environment.apiBaseUrl + '/agreement/status';
     const reqBody = { id: id, status: status, reason: reason };
     return this.http.put(url, reqBody);
+  }
+
+  getDashboardAgreements(userName: string, startYear: number, endYear: number): Observable<any> {
+    const url = `${environment.apiBaseUrl}/agreement/rentee_years/${userName}/${startYear}/${endYear}`;
+    console.log('url: ', url);
+    return this.http.get(url);
   }
 }
