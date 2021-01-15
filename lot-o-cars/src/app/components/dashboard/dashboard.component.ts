@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as c3 from 'c3';
 import { ToastrService } from 'ngx-toastr';
 import { AgreementService } from 'src/app/services/agreement.service';
@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   userName = '';
   startYear = 2020;
   endYear = 2021;
+  revenueYears = [];
 
   agreements: [];
 
@@ -33,8 +34,25 @@ export class DashboardComponent implements OnInit {
     this.loadDashboardData();
   }
 
+  revenueYearChange(yearItem: any) {
+    console.log('rev item: ', JSON.stringify(yearItem));
+    if (yearItem.checked) {
+      this.addRevenueYear(yearItem.year);
+    } else {
+      this.removeRevenueYear(yearItem.year);
+    }
+  }
+
   loadDashboardData(): void {
+    this.initYears();
     this.getCurrentUserId();
+  }
+
+  initYears() {
+    let year = new Date().getFullYear();
+    for (let i = 0; i <= 5; i++) {
+      this.revenueYears.push({year: year--, checked: i < 2 ? true : false});
+    }
   }
 
   getCurrentUserId(): void {
@@ -69,15 +87,24 @@ export class DashboardComponent implements OnInit {
   }
 
   setChartRevenueData(): void {
-    const prop = 'totalPrice';
-    const startYearTotals = this.getYearTotals(this.startYear, prop);
-    const endYearTotals = this.getYearTotals(this.endYear, prop);
-
-    this.chartRevenue.load({
-        columns: [startYearTotals, endYearTotals]
+    this.revenueYears.forEach(item => {
+      if (item.checked) {
+        this.addRevenueYear(item.year);
+      }
     });
+  }
+
+  addRevenueYear(year: number) {
+    const prop = 'totalPrice';
+    const yearTotals = this.getYearTotals(year, prop);
+    this.chartRevenue.load({
+      columns: [yearTotals]
+    });
+  }
+
+  removeRevenueYear(year: number) {
     this.chartRevenue.unload({
-        ids: ['data1', 'data2']
+      ids: [year.toString()]
     });
   }
 
@@ -91,10 +118,10 @@ export class DashboardComponent implements OnInit {
 
     this.chartProfitAndCosts.load({
         columns: [profitTotals, costTotals]
-      });
-    this.chartProfitAndCosts.unload({
+    });
+    /* this.chartProfitAndCosts.unload({
         ids: ['data3', 'data4']
-      });
+    }); */
   }
 
 
@@ -118,10 +145,7 @@ export class DashboardComponent implements OnInit {
     this.chartRevenue = c3.generate({
       bindto: '#chartRevenue',
       data: {
-        columns: [
-          ['data1', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          ['data2', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        ]
+        columns: []
       },
       axis: {
         x: {
@@ -148,10 +172,7 @@ export class DashboardComponent implements OnInit {
     this.chartProfitAndCosts = c3.generate({
       bindto: '#chartProfitAndCosts',
       data: {
-        columns: [
-          ['data3', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          ['data4', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        ]
+        columns: []
       },
       axis: {
         x: {
