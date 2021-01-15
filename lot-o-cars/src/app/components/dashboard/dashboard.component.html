@@ -12,28 +12,48 @@
     </div>
     <div class="row">
         <div class="col-md-6 mb-3">
-            <div class="border rounded p-2" style="background-color: #f5f5f5;">
+            <div class="dash-item border rounded p-2">
                 <h2 class="text-center">omzet per periode</h2>
                 <div id="chartRevenue"></div>
                 <div>
-                    <mat-list dense>
-                        <mat-list-item *ngFor="let item of revenueYears">
-                          <mat-checkbox [(ngModel)]="item.checked" (change)="revenueYearChange(item)">{{item.year}}</mat-checkbox>
-                        </mat-list-item>
-                    </mat-list>
+                    <details>
+                        <summary>filters</summary>
+                        <div class="mt-3">
+                            <ul>
+                                <li *ngFor="let item of revenueYears">
+                                <mat-checkbox [(ngModel)]="item.checked" (change)="revenueYearChange(item)">{{item.text}}</mat-checkbox>
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
                 </div>
             </div>
         </div>
         <div class="col-md-6 mb-3">
-            <div class="border rounded p-2" style="background-color: #f5f5f5;">
+            <div class="dash-item border rounded p-2">
                 <h2 class="text-center">opbrengsten en kosten per periode</h2>
                 <div id="chartProfitAndCosts"></div>
+                <div>
+                    <details>
+                        <summary>filters</summary>
+                        <div class="mt-3">
+                            <ul>
+                                <li *ngFor="let item of profitAndCostsYears">
+                                <mat-checkbox [(ngModel)]="item.checked" (change)="profitAndCostsYearChange(item)">{{item.text}}</mat-checkbox>
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-
+            <div class="dash-item border rounded p-2">
+                <h2 class="text-center">onbetaalde overeenkomsten</h2>
+                <div id="chartUnpaidAgreements"></div>
+            </div>
         </div>
         <div class="col-md-6">
 
