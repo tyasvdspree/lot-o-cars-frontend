@@ -21,9 +21,10 @@ export class DashboardComponent implements OnInit {
 
   chartRevenue: any;
   chartProfitAndCosts: any;
-  chartUnpaidAgreements: any;
-  chartPendingAgreements: any;
+  chartCarRevenuePart: any;
 
+  numOfUnpaidAgreements: number = 0;
+  numOfPendingAgreements: number = 0;
 
   constructor(
     private userService: UserService,
@@ -53,37 +54,32 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  showCharts() {
-    this.showChartRevenue();
-    this.showChartProfitAndCosts();
-    this.showChartUnpaidAgreements();
-    this.showChartPendingAgreements();
-  }
-
   loadDashboardData(): void {
-    this.initYears();
-    this.getCurrentUserId();
+    this.initYearFilters();
+    this.getCurrentUserIdAndLoadAgreements();
   }
 
-  initYears() {
+  initYearFilters() {
+    // initialize year filters
+    // show the last n years to filter the agreements on
     const numOfYears = 5;
-    let year = new Date().getFullYear();
-    this.startYear = year - numOfYears;
-    this.endYear = year;
+
+    let currentYear = new Date().getFullYear();
+    this.startYear = currentYear - numOfYears;
+    this.endYear = currentYear;
 
     for (let i = 0; i < numOfYears; i++) {
-      this.revenueYears.push({year: year, text: year.toString(), checked: i < 2 ? true : false});
-      this.profitAndCostsYears.push({year: year, text: year.toString(), checked: i === 1 ? true : false});
-      year--;
+      this.revenueYears.push({year: currentYear, text: currentYear.toString(), checked: i < 2 ? true : false});
+      this.profitAndCostsYears.push({year: currentYear, text: currentYear.toString(), checked: i === 1 ? true : false});
+      currentYear--;
     }
   }
 
-  getCurrentUserId(): void {
+  getCurrentUserIdAndLoadAgreements(): void {
     this.userService.getUser().subscribe(
       user => {
         this.userName = user.username;
-        console.log('user: ' + JSON.stringify(user));
-        this.getAgreementData();
+        this.getAgreementDataFromApi();
       },
       error => {
         this.toastrService.error('Fout bij ophalen gebruikersgegevens.');
@@ -91,7 +87,7 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  getAgreementData(): void {
+  getAgreementDataFromApi(): void {
     this.agreementService.getDashboardAgreements(this.userName, this.startYear, this.endYear).subscribe(
       data => {
         this.agreements = data;
@@ -107,8 +103,7 @@ export class DashboardComponent implements OnInit {
   initChartData(): void {
     this.initChartRevenueData();
     this.initChartProfitAndCostsData();
-    this.initUnpaidAgreementsData();
-    this.initPendingAgreementsData();
+    this.initSpecialData();
   }
 
   initChartRevenueData(): void {
@@ -118,6 +113,20 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+
+  initChartProfitAndCostsData(): void {
+    this.profitAndCostsYears.forEach(item => {
+      if (item.checked) {
+        this.addProfitAndCostsYear(item.year);
+      }
+    });
+  }
+
+  initSpecialData() {
+    this.numOfPendingAgreements = this.getPendingTotal();
+    this.numOfUnpaidAgreements = this.getUnpaidTotal();
+  }
+
 
   addRevenueYear(year: number) {
     const prop = 'totalPrice';
@@ -133,14 +142,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-
-  initChartProfitAndCostsData(): void {
-    this.profitAndCostsYears.forEach(item => {
-      if (item.checked) {
-        this.addProfitAndCostsYear(item.year);
-      }
-    });
-  }
 
   addProfitAndCostsYear(year: number) {
     let prop = 'profit';
@@ -191,22 +192,11 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  initUnpaidAgreementsData() {
-    const numOfAgreements = this.getUnpaidTotal();
-
-    this.chartUnpaidAgreements.load({
-      columns: [['aantal', numOfAgreements]]
-    }); 
+  showCharts() {
+    this.showChartRevenue();
+    this.showChartProfitAndCosts();
+    this.showChartCarRevenuePart();
   }
-
-  initPendingAgreementsData() {
-    const numOfAgreements = this.getPendingTotal();
-
-    this.chartPendingAgreements.load({
-      columns: [['aantal', numOfAgreements]]
-    }); 
-  }
-
 
   showChartRevenue() {
     this.chartRevenue = c3.generate({
@@ -262,46 +252,17 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  showChartUnpaidAgreements() {
-    this.chartUnpaidAgreements = c3.generate({
-      bindto: '#chartUnpaidAgreements',
+  showChartCarRevenuePart() {
+    this.chartCarRevenuePart = c3.generate({
+      bindto: '#chartCarRevenuePart',
       data: {
           columns: [
-              ['aantal', 0]
+              ['H-735-GT', 30],
+              ['3-ZNL-32', 120],
           ],
-          type: 'gauge'
-      },
-      gauge: {
-        label: {
-          format: (value) => value,
-          show: false 
-        },
-      },
-      size: {
-          height: 200
+          type : 'pie'
       }
-    });
-  }
-
-  showChartPendingAgreements() {
-    this.chartPendingAgreements = c3.generate({
-      bindto: '#chartPendingAgreements',
-      data: {
-          columns: [
-              ['aantal', 0]
-          ],
-          type: 'gauge'
-      },
-      gauge: {
-        label: {
-          format: (value) => value,
-          show: false 
-        },
-      },
-      size: {
-          height: 200
-      }
-    });
+  });
   }
 
 }
