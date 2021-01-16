@@ -11,7 +11,7 @@ export class RegisterService {
   constructor(private http: HttpClient) { }
 
   public register(user): Observable<any> {
-    return this.http.put(environment.apiBaseUrl + '/user', user);
+    return this.http.post(environment.apiBaseUrl + '/user', user);
   }
 
   checkIfUsernameExists(username){
