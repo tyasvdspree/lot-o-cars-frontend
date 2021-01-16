@@ -17,4 +17,8 @@ export class RegisterService {
   checkIfUsernameExists(username){
     return this.http.get(environment.apiBaseUrl + "/user/checkUsername" + "?username=" + username);
   }
+
+  checkIfEmailAddressExistsAtRegistration(userEmailAddress){
+    return this.http.get(environment.apiBaseUrl + "/user/checkIfEmailAddressExistsAtRegistration" + "?userEmailAddress=" + userEmailAddress);
+  }
 }
