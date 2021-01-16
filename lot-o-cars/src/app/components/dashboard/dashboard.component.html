@@ -16,20 +16,21 @@
 
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3">
             <div class="dash-item border rounded p-2">
+                <h2 class="text-center">filters</h2>
+                <div class="filter-container mt-3">
+                    <ul>
+                        <li *ngFor="let item of years">
+                            <mat-checkbox [(ngModel)]="item.checked" (change)="yearFilterChanged(item)">{{item.text}}</mat-checkbox>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3">
+            <div class="dash-item border rounded p-2">
                 <h2 class="text-center">omzet per periode</h2>
                 <div id="chartRevenue"></div>
-                <div>
-                    <details>
-                        <summary>filters</summary>
-                        <div class="mt-3">
-                            <ul>
-                                <li *ngFor="let item of revenueYears">
-                                <mat-checkbox [(ngModel)]="item.checked" (change)="revenueYearChange(item)">{{item.text}}</mat-checkbox>
-                                </li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
             </div>
         </div>
 
@@ -37,18 +38,6 @@
             <div class="dash-item border rounded p-2">
                 <h2 class="text-center">opbrengsten en kosten per periode</h2>
                 <div id="chartProfitAndCosts"></div>
-                <div>
-                    <details>
-                        <summary>filters</summary>
-                        <div class="mt-3">
-                            <ul>
-                                <li *ngFor="let item of profitAndCostsYears">
-                                <mat-checkbox [(ngModel)]="item.checked" (change)="profitAndCostsYearChange(item)">{{item.text}}</mat-checkbox>
-                                </li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
             </div>
         </div>
 
@@ -56,18 +45,6 @@
             <div class="dash-item border rounded p-2">
                 <h2 class="text-center">aandeel omzet per auto</h2>
                 <div id="chartCarRevenuePart"></div>
-                <div>
-                    <details>
-                        <summary>filters</summary>
-                        <div class="mt-3">
-                            <ul>
-                                <li *ngFor="let item of revenueYears">
-                                <mat-checkbox [(ngModel)]="item.checked" (change)="revenueYearChange(item)">{{item.text}}</mat-checkbox>
-                                </li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
             </div>
         </div>
 
@@ -77,38 +54,30 @@
                 <div id="tableRevenue" class="p-3 text-center">
                     <table class="data">
                         <thead>
-                            <tr><th>Jaar</th><th>Maand</th><th>Omzet</th></tr>
+                            <tr>
+                                <th>jaar</th>
+                                <th>omzet</th>
+                                <th>kosten</th>
+                                <th>winst</th>
+                            </tr>
                         </thead>
-                        <tbody>
-                            <tr><td>2020</td><td>1</td><td>2300</td></tr>
-                            <tr><td>2020</td><td>2</td><td>2300</td></tr>
-                            <tr><td>2020</td><td>3</td><td>2300</td></tr>
-                            <tr><td>2020</td><td>4</td><td>2300</td></tr>
-                            <tr><td>2020</td><td>5</td><td>2300</td></tr>
-                            <tr><td>2020</td><td>6</td><td>2300</td></tr>
-                            <tr><td>2020</td><td>7</td><td>2300</td></tr>
-                            <tr><td>2020</td><td>8</td><td>2300</td></tr>
-                            <tr><td>2020</td><td>9</td><td>2300</td></tr>
-                            <tr><td>2020</td><td>10</td><td>2300</td></tr>
-                            <tr><td>2020</td><td>11</td><td>2300</td></tr>
-                            <tr><td>2020</td><td>12</td><td>2300</td></tr>
+                        <tbody *ngIf="yearTotals">
+                            <tr *ngFor="let item of yearTotals">
+                                <td>{{item.year}}</td>
+                                <td>{{item.revenueTotal | currency: 'EUR'}}</td>
+                                <td>{{item.costsTotal | currency: 'EUR'}}</td>
+                                <td>{{item.profitTotal | currency: 'EUR'}}</td>
+                            </tr>
                         </tbody>
                         <tfoot>
-                            <tr><th>TOTAAL</th><th></th><th>50000</th></tr>
+                            <tr>
+                                <th>TOTAAL</th>
+                                <th>{{revenueTotal | currency: 'EUR'}}</th>
+                                <th>{{costsTotal | currency: 'EUR'}}</th>
+                                <th>{{profitTotal | currency: 'EUR'}}</th>
+                            </tr>
                         </tfoot>
                     </table>
-                </div>
-                <div>
-                    <details>
-                        <summary>filters</summary>
-                        <div class="mt-3">
-                            <ul>
-                                <li *ngFor="let item of revenueYears">
-                                <mat-checkbox [(ngModel)]="item.checked" (change)="revenueYearChange(item)">{{item.text}}</mat-checkbox>
-                                </li>
-                            </ul>
-                        </div>
-                    </details>
                 </div>
             </div>
         </div>
@@ -119,16 +88,12 @@
                 <div id="tableRevenue" class="p-3 text-center">
                     <table class="data">
                         <tbody>
-                            <tr><td>huurovereenkomsten status ingediend</td><td>{{numOfPendingAgreements}}</td></tr>
+                            <tr><td>huurovereenkomsten met status ingediend</td><td>{{numOfPendingAgreements}}</td></tr>
                             <tr><td>onbetaalde huurovereenkomsten</td><td>{{numOfUnpaidAgreements}}</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
-
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3">
-            
         </div>
 
     </div>

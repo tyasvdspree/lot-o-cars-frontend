@@ -12,8 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class DashboardComponent implements OnInit {
 
   userName = '';
-  revenueYears = [];
-  profitAndCostsYears = [];
+  years = [];
   startYear: number;
   endYear: number;
 
@@ -22,6 +21,11 @@ export class DashboardComponent implements OnInit {
   chartRevenue: any;
   chartProfitAndCosts: any;
   chartCarRevenuePart: any;
+
+  yearTotals: any[] = [];
+  revenueTotal: number = 0;
+  costsTotal: number = 0;
+  profitTotal: number = 0;
 
   numOfUnpaidAgreements: number = 0;
   numOfPendingAgreements: number = 0;
@@ -37,40 +41,32 @@ export class DashboardComponent implements OnInit {
     this.loadDashboardData();
   }
 
-  revenueYearChange(yearItem: any) {
+  yearFilterChanged(yearItem: any) {
     if (yearItem.checked) {
       this.addRevenueYear(yearItem.year);
-    } else {
-      this.removeRevenueYear(yearItem.year);
-    }
-  }
-
-  profitAndCostsYearChange(yearItem: any) {
-    if (yearItem.checked) {
       this.addProfitAndCostsYear(yearItem.year);
     } else {
+      this.removeRevenueYear(yearItem.year);
       this.removeProfitAndCostsYear(yearItem.year);
     }
   }
 
-
   loadDashboardData(): void {
-    this.initYearFilters();
+    this.initYearFilter();
     this.getCurrentUserIdAndLoadAgreements();
   }
 
-  initYearFilters() {
+  initYearFilter() {
     // initialize year filters
     // show the last n years to filter the agreements on
-    const numOfYears = 5;
+    const numOfYears = 10;
 
     let currentYear = new Date().getFullYear();
     this.startYear = currentYear - numOfYears;
     this.endYear = currentYear;
 
     for (let i = 0; i < numOfYears; i++) {
-      this.revenueYears.push({year: currentYear, text: currentYear.toString(), checked: i < 2 ? true : false});
-      this.profitAndCostsYears.push({year: currentYear, text: currentYear.toString(), checked: i === 1 ? true : false});
+      this.years.push({year: currentYear, text: currentYear.toString(), checked: i < 2 ? true : false});
       currentYear--;
     }
   }
@@ -103,11 +99,13 @@ export class DashboardComponent implements OnInit {
   initChartData(): void {
     this.initChartRevenueData();
     this.initChartProfitAndCostsData();
+    this.initChartCarRevenuePart();
+    this.initYearTotalsData();
     this.initSpecialData();
   }
 
   initChartRevenueData(): void {
-    this.revenueYears.forEach(item => {
+    this.years.forEach(item => {
       if (item.checked) {
         this.addRevenueYear(item.year);
       }
@@ -115,10 +113,35 @@ export class DashboardComponent implements OnInit {
   }
 
   initChartProfitAndCostsData(): void {
-    this.profitAndCostsYears.forEach(item => {
+    this.years.forEach(item => {
       if (item.checked) {
         this.addProfitAndCostsYear(item.year);
       }
+    });
+  }
+
+  initChartCarRevenuePart(): void {
+    this.years.forEach(item => {
+      if (item.checked) {
+        // this.addProfitAndCostsYear(item.year);
+      }
+    });
+  }
+
+  initYearTotalsData(): void {
+    this.years.forEach(item => {
+      this.yearTotals.push({
+        year: item.year, 
+        revenueTotal: this.getYearTotal(item.year, 'totalPrice'),
+        costsTotal: this.getYearTotal(item.year, 'brokerCosts'),
+        profitTotal: this.getYearTotal(item.year, 'profit')
+      });
+    });
+
+    this.yearTotals.forEach(item => {
+      this.revenueTotal += item.revenueTotal;
+      this.costsTotal += item.costsTotal;
+      this.profitTotal += item.profitTotal;
     });
   }
 
@@ -176,6 +199,12 @@ export class DashboardComponent implements OnInit {
   getMonthTotal(year: number, month: number, prop: string): number {
     return this.agreements.reduce((sum, a) => 
       a['year'] === year && a['month'] === month ? sum + a[prop] : sum + 0, 0
+    );
+  }
+
+  getYearTotal(year: number, prop: string): number {
+    return this.agreements.reduce((sum, a) => 
+      a['year'] === year ? sum + a[prop] : sum + 0, 0
     );
   }
 
