@@ -1,7 +1,7 @@
 <div class="flexContainer flexCol p-5">
     <div style="margin-top: 30px;">
         <form>
-            <table style="border-spacing: 50px 15px;">
+            <table *ngIf="user" style="border-spacing: 50px 15px;">
                 <h1>Mijn Gegevens</h1>
                 <tr>
                     <td>
@@ -47,6 +47,50 @@
                         </mat-form-field>
                     </td>
                 </tr>
+                <div *ngIf="user.location">
+                <tr>
+                  <td>
+                    <mat-form-field>
+                      <input type="text" placeholder="Adres" matInput name="addressLine1" [(ngModel)]="user.location.addressLine1">
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <mat-form-field>
+                      <input type="text" placeholder="Adresregel 2" matInput name="addressLine2" [(ngModel)]="user.location.addressLine2">
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <mat-form-field>
+                      <input type="text" placeholder="Stad" matInput name="city" [(ngModel)]="user.location.city">
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <mat-form-field>
+                      <input type="text" placeholder="Gemeente" matInput name="municipality" [(ngModel)]="user.location.municipality">
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <mat-form-field>
+                      <input type="text" placeholder="Postcode" matInput name="zipcode" [(ngModel)]="user.location.zipcode">
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <mat-form-field>
+                      <input type="text" placeholder="Landcode" matInput name="countryCode" [(ngModel)]="user.location.countryCode">
+                    </mat-form-field>
+                  </td>
+                </tr>
+                </div>
                 <tr>
                     <td>
                         <div style="margin-top: 10px;">
