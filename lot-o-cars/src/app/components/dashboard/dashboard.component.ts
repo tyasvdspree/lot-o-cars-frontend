@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   chartRevenue: any;
   chartProfitAndCosts: any;
   chartUnpaidAgreements: any;
+  chartPendingAgreements: any;
 
 
   constructor(
@@ -31,9 +32,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.showChartRevenue();
-    this.showChartProfitAndCosts();
-    this.showChartUnpaidAgreements();
+    this.showCharts();
     this.loadDashboardData();
   }
 
@@ -53,6 +52,13 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+
+  showCharts() {
+    this.showChartRevenue();
+    this.showChartProfitAndCosts();
+    this.showChartUnpaidAgreements();
+    this.showChartPendingAgreements();
+  }
 
   loadDashboardData(): void {
     this.initYears();
@@ -102,6 +108,7 @@ export class DashboardComponent implements OnInit {
     this.initChartRevenueData();
     this.initChartProfitAndCostsData();
     this.initUnpaidAgreementsData();
+    this.initPendingAgreementsData();
   }
 
   initChartRevenueData(): void {
@@ -177,12 +184,26 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  getPendingTotal(): number {
+    return this.agreements.reduce((sum, a) => 
+      a['status'] === "PENDING" ? sum + 1 : sum + 0, 0
+    );
+  }
+
 
   initUnpaidAgreementsData() {
-    const numOfUnpaidAgreements = this.getUnpaidTotal();
+    const numOfAgreements = this.getUnpaidTotal();
 
     this.chartUnpaidAgreements.load({
-      columns: [['aantal', numOfUnpaidAgreements]]
+      columns: [['aantal', numOfAgreements]]
+    }); 
+  }
+
+  initPendingAgreementsData() {
+    const numOfAgreements = this.getPendingTotal();
+
+    this.chartPendingAgreements.load({
+      columns: [['aantal', numOfAgreements]]
     }); 
   }
 
@@ -244,6 +265,27 @@ export class DashboardComponent implements OnInit {
   showChartUnpaidAgreements() {
     this.chartUnpaidAgreements = c3.generate({
       bindto: '#chartUnpaidAgreements',
+      data: {
+          columns: [
+              ['aantal', 0]
+          ],
+          type: 'gauge'
+      },
+      gauge: {
+        label: {
+          format: (value) => value,
+          show: false 
+        },
+      },
+      size: {
+          height: 200
+      }
+    });
+  }
+
+  showChartPendingAgreements() {
+    this.chartPendingAgreements = c3.generate({
+      bindto: '#chartPendingAgreements',
       data: {
           columns: [
               ['aantal', 0]
