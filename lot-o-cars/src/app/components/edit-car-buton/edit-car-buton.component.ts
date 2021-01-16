@@ -75,6 +75,6 @@ export class EditCarButonComponent implements OnInit {
   }
 
   editCar(): void  {
-    console.log("fds")
+    console.log(this.car)
   }
 }
