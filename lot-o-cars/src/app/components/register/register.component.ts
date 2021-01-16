@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { Location } from 'src/app/models/location.model';
+import { debug } from 'console';
 
 @Component({
   selector: 'app-register',
@@ -37,15 +38,32 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   public register(): void {
     this.user.location = this.location;
-    this.subscription = this.registerService.register(this.user).subscribe(
+    this.subscription = this.registerService.checkIfUsernameExists(this.user.username).subscribe(
       response => {
-        console.log(response);
-        this.toastr.success('Geregistreerd', 'Success');
-        this.router.navigate(['/login']);
-      },
-      error => {
-        this.toastr.error('Registratie mislukt', 'Error');
+        if (response === false){
+          this.subscription = this.registerService.checkIfEmailAddressExistsAtRegistration(this.user.emailaddress).subscribe(
+            response => {
+              if (response === false){
+                this.subscription = this.registerService.register(this.user).subscribe(
+                  response => {
+                    this.toastr.success('Geregistreerd', 'Success');
+                    this.router.navigate(['/login']);
+                  },
+                  error => {
+                    this.toastr.error('Registratie mislukt', 'Error');
+                  }
+                );
+              }
+              else{
+                this.toastr.error('Emailadres bestaat al', 'Error');
+              }
+            }
+          )
+        }
+        else{
+          this.toastr.error('Username bestaat al', 'Error');
+        }
       }
-    );
+    )
   }
 }
