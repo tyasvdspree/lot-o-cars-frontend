@@ -1,0 +1,17 @@
+<!-- <h1>{{ this.data.car.make }} {{ this.data.car.model }} ({{ this.data.car.numberPlate }})</h1> -->
+
+<table style="border-spacing: 50px 15px; width: 500px;">
+    <h1>Mijn Auto</h1>
+
+
+    <tr>
+        <td>
+            <mat-form-field>
+                <input type="text" matInput name="firstnameInput"
+                    [(ngModel)]="this.data.car.make">
+            </mat-form-field>
+        </td>
+    </tr>
+</table>
+
+<button (click)="editCar()"></button>

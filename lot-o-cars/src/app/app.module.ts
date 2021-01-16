@@ -40,6 +40,7 @@ import { RenthistoryComponent } from './components/renthistory/renthistory.compo
 import { AgreementDetailsComponent } from './components/agreementdetails/agreementdetails.component';
 import { DatePipe } from '@angular/common';
 import { LocationComponent } from './components/location/location.component';
+import { EditCarButonComponent } from './components/edit-car-buton/edit-car-buton.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { LocationComponent } from './components/location/location.component';
     HirehistoryComponent,
     RenthistoryComponent,
     AgreementDetailsComponent,
-    LocationComponent
+    LocationComponent,
+    EditCarButonComponent
   ],
   imports: [
     BrowserModule,
