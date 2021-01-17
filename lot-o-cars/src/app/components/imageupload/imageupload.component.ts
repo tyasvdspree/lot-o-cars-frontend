@@ -25,6 +25,7 @@ export class ImageuploadComponent implements OnInit {
  
     if (file.type.match('image.*')) {
       this.onFilesSelected.emit(event.target.files);
+      
       this.fileInfo = "aantal geselecteerde foto's: " + event.target.files.length;
     } else {
       alert('selecteer een fotobestand (.jpg, .png, .gif)!');

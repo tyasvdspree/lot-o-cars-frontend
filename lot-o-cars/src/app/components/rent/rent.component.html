@@ -1,123 +1,206 @@
-<div class="flexContainer flexCol p-5">
-
-
-    <div style="display:flex; margin-top: 5%;">
-
-        <div style="width: 500px;">
-            <img src="assets/img/app/maincar.jpg" alt="car" width="90%">
-        </div>
-
-        <div style="width: 500px;">
-            <div>
-                <h1>Registreer een auto voor verhuur</h1>
-                <p>vul de gegevens van de auto in om deze te kunnen verhuren</p>
-            </div>
-            <form (ngSubmit)="onSubmit()">
-                <div>
-                    <mat-form-field>
-                        <input [value]="car.numberPlate" name="numberPlate" (input)="car.numberPlate = $event.target.value" required type="text" placeholder="nummer plaat" matInput ngModel>
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-form-field>
-                        <input [value]="car.countryCode" name="countryCode" (input)="car.countryCode = $event.target.value" required type="text" placeholder="countryCode" type="number" min="1900" max="2022" matInput ngModel>
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-form-field>
-                        <input [value]="car.modelYear" name="modelYear" (input)="car.modelYear = $event.target.value" required type="text" placeholder="Bouwjaar" type="number" min="1900" max="2022" matInput ngModel>
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-label>Merk</mat-label>
-                    <mat-select [(ngModel)]='car.make' name="make">
-                        <mat-option *ngFor="let make of makes" value={{make.key}}>
-                            {{make.value}}
-                        </mat-option>
-                    </mat-select>
-                </div>
-
-                <div>
-                    <mat-form-field>
-                        <input [value]="car.model" name="model" (input)="car.model = $event.target.value" required type="text" placeholder="model" matInput ngModel>
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-label>Carrosserie</mat-label>
-                    <mat-select [(ngModel)]='car.body' name="body">
-                        <mat-option *ngFor="let body of carBodies" value={{body.key}}>
-                            {{body.value}}
-                        </mat-option>
-                    </mat-select>
-                </div>
-
-                <div>
-                    <mat-label>Kleur</mat-label>
-                    <mat-select [(ngModel)]='car.color' name="color">
-                        <mat-option *ngFor="let color of colors" value={{color.key}}>
-                            {{color.value}}
-                        </mat-option>
-                    </mat-select>
-                </div>
-
-                <div> 
-                    <mat-label>Transmissie</mat-label>
-                    <mat-select [(ngModel)]='car.transmission' name="transmission">
-                        <mat-option *ngFor="let transmission of transmissions" value={{transmission.key}}>
-                            {{transmission.value}}
-                        </mat-option>
-                    </mat-select>
-                </div>
-
-                <div>
-                    <mat-label>Brandstof</mat-label>
-                    <mat-select [(ngModel)]='car.fuel' name="fuel">
-                        <mat-option *ngFor="let fuel of fuelTypes" value={{fuel.key}}>
-                            {{fuel.value}}
-                        </mat-option>
-                    </mat-select>
-                </div>
-
-                <div>
-                    <mat-form-field>
-                        <input [value]="car.fuelUsage" name="fuelUsage" (input)="car.fuelUsage = $event.target.value" required type="text" placeholder="Brandstof verbruik" matInput type="number" min="1900" max="2022" ngModel>
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-form-field>
-                        <input [value]="car.doors" name="doors" (input)="car.doors = $event.target.value" required type="text" placeholder="Aantal deuren" matInput type="number" min="1900" max="2022" ngModel>
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-form-field>
-                        <input [value]="car.seats" name="seats" (input)="car.seats = $event.target.value" required type="text" placeholder="Aantal zitplaatsen" matInput type="number" min="1900" max="2022" ngModel>
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-form-field>
-                        <input [value]="car.bootSpaceInLiters" name="bootSpaceInLiters" (input)="car.bootSpaceInLiters = $event.target.value" required type="text" placeholder="Bagageruimte" type="number" min="1900" max="2022" matInput ngModel>
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <app-imageupload #imageFiles (onFilesSelected)="receiveSelectedImageFiles($event)"></app-imageupload>
-                </div>
-
-                <div>
-                    <mat-checkbox>U gaat akkoord met onze voorwaarden</mat-checkbox>
-                </div>
-
-                <div style="margin-top: 10px;">
-                    <button mat-flat-button color="primary" type="submit" style="float: left;">Registreren</button>
-                </div>
-            </form>
+<div class="container-fluid" style="overflow-x:hidden">
+    <div class="row">
+        <div class="col-md-12 m-3">
+            <a routerLink="/my-cars">
+                <span class="material-icons">
+                    arrow_back_ios
+                </span>
+                <span style="position:relative;top:-7px">
+                    terug naar de lijst
+                </span>
+            </a>
         </div>
     </div>
+    <form (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-md-4">
+                <mat-card class="mb-3">
+                    <mat-card-header>
+                        <mat-card-title>foto's</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <ng-container *ngIf="imageUrls == undefined || imageUrls == 0">
+                            <img src="assets/img/app/maincar.jpg" alt="car" width="90%" />
+                        </ng-container>
+                        <carousel objectFit="contain" [images]="imageUrls" cellsToShow="1" dots="true"
+                            *ngIf="imageUrls && imageUrls.length > 0">
+                        </carousel>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card class="mb-3">
+                    <mat-card-header>
+                        <mat-card-title>foto's toevoegen</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <app-imageupload #imageFiles (onFilesSelected)="receiveSelectedImageFiles($event)">
+                        </app-imageupload>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="col-md-4">
+                <mat-card class="mb-3">
+                    <mat-card-header>
+                        <mat-card-title>auto</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <ng-container>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label>Nummer plaat</mat-label>
+                                            <input [value]="car.numberPlate" name="numberPlate"
+                                                (input)="car.numberPlate = $event.target.value" required type="text"
+                                                matInput ngModel>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label>Merk</mat-label>
+                                            <mat-select [(ngModel)]='car.make' name="make">
+                                                <mat-option *ngFor="let make of makes" value={{make.key}}>
+                                                    {{make.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label>Model</mat-label>
+                                            <input [value]="car.model" name="model"
+                                                (input)="car.model = $event.target.value" required type="text" matInput
+                                                ngModel>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label>Carrosserie</mat-label>
+                                            <mat-select [(ngModel)]='car.body' name="body">
+                                                <mat-option *ngFor="let body of carBodies" value={{body.key}}>
+                                                    {{body.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label>Transmissie</mat-label>
+                                            <mat-select [(ngModel)]='car.transmission' name="transmission">
+                                                <mat-option *ngFor="let transmission of transmissions"
+                                                    value={{transmission.key}}>
+                                                    {{transmission.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label>Brandstof</mat-label>
+                                            <mat-select [(ngModel)]='car.fuel' name="fuel">
+                                                <mat-option *ngFor="let fuel of fuelTypes" value={{fuel.key}}>
+                                                    {{fuel.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label>Brandstof verbruik l/100km</mat-label>
+                                            <input [value]="car.fuelUsage" name="fuelUsage"
+                                                (input)="car.fuelUsage = $event.target.value" required type="text"
+                                                matInput type="number" min="1" max="50">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label>Bouwjaar</mat-label>
+                                            <input [value]="car.modelYear" name="modelYear"
+                                                (input)="car.modelYear = $event.target.value" required type="text"
+                                                type="number" min="1900" max="2022" matInput>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label>Kleur</mat-label>
+                                            <mat-select [(ngModel)]='car.color' name="color">
+                                                <mat-option *ngFor="let color of colors" value={{color.key}}>
+                                                    {{color.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label>Aantal deuren</mat-label>
+                                            <input [value]="car.doors" name="doors"
+                                                (input)="car.doors = $event.target.value" required type="text" matInput
+                                                type="number" min="2" max="7">
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label>Aantal zitplaatsen</mat-label>
+                                            <input [value]="car.seats" name="seats"
+                                                (input)="car.seats = $event.target.value" required type="text" matInput
+                                                type="number" min="1" max="7">
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label>Bagageruimte</mat-label>
+                                            <input [value]="car.bootSpaceInLiters" name="bootSpaceInLiters"
+                                                (input)="car.bootSpaceInLiters = $event.target.value" matInput required
+                                                type="number" min="0" max="400">
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label>dag prijs</mat-label>
+                                            <input [value]="car.rentPricePerHour" name="rentPricePerHour"
+                                                (input)="car.rentPricePerHour = $event.target.value" matInput required
+                                                type="number" min="0">
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-slide-toggle [(ngModel)]='car.navigation' name="navigation">navigatie
+                                        </mat-slide-toggle>
+                                    </div>
+                                    <div>
+                                        <mat-slide-toggle [(ngModel)]='car.airco' name="airco">airco</mat-slide-toggle>
+                                    </div>
+                                    <div>
+                                        <mat-slide-toggle [(ngModel)]='car.smokingIsAllowed' name="smokingIsAllowed">
+                                            rookvrij
+                                        </mat-slide-toggle>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="col-md-4">
+                <mat-card class="mb-3">
+                    <mat-card-header>
+                        <mat-card-title>ophaaladres</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <ng-container>
+                          <app-location (outputLocation)="this.location=$event"></app-location>
+                        </ng-container>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card class="mb-3">
+                    <mat-checkbox>U gaat akkoord met onze voorwaarden</mat-checkbox>
+                    <mat-card-actions style="text-align:center">
+                        <div style="margin-top: 10px;">
+                            <button mat-flat-button color="primary" type="submit">Registreren</button>
+                        </div>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+    </form>
 </div>

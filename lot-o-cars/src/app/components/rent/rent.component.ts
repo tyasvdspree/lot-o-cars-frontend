@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CarService } from 'src/app/services/car.service';
 import { HttpClient } from '@angular/common/http';
-import { Subscription } from 'rxjs';
+import { from, Subscription } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
 import { Make } from 'src/app/enums/make.enum';
 import { Color } from 'src/app/enums/color.enum';
@@ -9,6 +9,7 @@ import { Transmission } from 'src/app/enums/transmission.enum';
 import { Fuel } from 'src/app/enums/fuel.enum';
 import { CarBody } from 'src/app/enums/carBody.enum';
 import { Router } from '@angular/router';
+import {Location} from '../../models/location.model';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class RentComponent implements OnInit {
 
   car: Car;
   imageFiles: FileList;
+  imageUrls;
 
   SERVER_URL = "http://localhost:8080/car";
 
@@ -30,6 +32,7 @@ export class RentComponent implements OnInit {
   carBodies: any[] = [];
 
   subscriptions: Subscription[] = [];
+  location: Location;
 
   constructor(private httpClient: HttpClient, private carService: CarService, private router: Router) { }
 
@@ -73,11 +76,25 @@ export class RentComponent implements OnInit {
 
   receiveSelectedImageFiles(images: FileList) {
     this.imageFiles = images;
+    this.readImageFile(images);
+  }
+
+  readImageFile(images: FileList){
+    if(!this.imageUrls){
+      this.imageUrls = [];
+    }
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      this.imageUrls.push({path: fileReader.result})
+    }
+    Array.from(images).forEach(image => {
+      fileReader.readAsDataURL(image);
+    });
   }
 
   onSubmit() {
     console.log(this.car);
-
+    this.car.location = this.location;
     // set defaults for non nullable values
     // this.car.airco = false;
     this.car.isActive = true;
@@ -86,11 +103,10 @@ export class RentComponent implements OnInit {
     // this.car.smokingIsAllowed = false;
     // this.car.userId = 3;
     // this.car.locationId = 3;
-
     this.carService.createNewCar(this.car, this.imageFiles);
 
     setTimeout(() => {  this.router.navigateByUrl(`/cardetails/${this.car.numberPlate}`); }, 2000);
-    
+
   }
 
 }
