@@ -18,4 +18,8 @@ export class UserService {
   editUser(user){
     return this.http.put(environment.apiBaseUrl + "/user/editme", user);
   }
+
+  checkIfEmailAddressExists(userId, userEmailAddress){
+    return this.http.get(environment.apiBaseUrl + "/user/checkUserEmailAddress" + "?userId=" + userId + "&userEmailAddress=" + userEmailAddress);
+  }
 }

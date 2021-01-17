@@ -4,7 +4,7 @@ export class Location {
     addressLine2: string;
     city: string;
     zipcode: string;
-    countryCode: string;
+    countryCode: number;
     municipality: string;
     latitude: number;
     longitude: number;
