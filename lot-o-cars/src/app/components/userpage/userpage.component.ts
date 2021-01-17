@@ -37,6 +37,7 @@ export class UserpageComponent implements OnInit {
     this._userService.getUser()
       .subscribe(data => {
         this.user = data;
+        this.user.password = "*****"
       }
       );
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/userpage';

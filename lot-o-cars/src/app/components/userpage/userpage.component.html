@@ -52,7 +52,7 @@
                         <div style="margin-top: 10px;">
                             <button mat-flat-button type="submit" color="primary" style="float: right;"
                             (click)="editUser()" mat-button class="NxtBtnWrap"
-                            [disabled]="!emailaddress.validity.valid || (!user.password || user.password.length < 5)"
+                            [disabled]="!emailaddress.validity.valid || (!user.password || user.password.length < 5) || user.phonenumber.length < 9 || user.phonenumber.length > 14"
                             >Wijzig</button>
                          </div>
                     </td>
