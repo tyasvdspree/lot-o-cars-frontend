@@ -1,4 +1,4 @@
-<!-- <h1>{{ this.data.car.make }} {{ this.data.car.model }} ({{ this.data.car.numberPlate }})</h1> -->
+<h1>{{ this.data.car.id }} {{ this.data.car.make }} {{ this.data.car.model }} ({{ this.data.car.numberPlate }})</h1>
 
 
 <form>
@@ -24,5 +24,5 @@
         </tr>
     </table>
 
-    <button type="submit" (click)="editCar()">Wijzig</button>
+    <button type="submit"  (click)="editCar($event, this.data.car.numberPlate)">Wijzig</button>
 </form>
