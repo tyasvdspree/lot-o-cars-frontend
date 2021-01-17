@@ -39,6 +39,7 @@ import { HirehistoryComponent } from './components/hirehistory/hirehistory.compo
 import { RenthistoryComponent } from './components/renthistory/renthistory.component';
 import { AgreementDetailsComponent } from './components/agreementdetails/agreementdetails.component';
 import { DatePipe } from '@angular/common';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LocationComponent } from './components/location/location.component';
 
 @NgModule({
@@ -67,6 +68,7 @@ import { LocationComponent } from './components/location/location.component';
     HirehistoryComponent,
     RenthistoryComponent,
     AgreementDetailsComponent,
+    DashboardComponent,
     LocationComponent
   ],
   imports: [
