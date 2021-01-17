@@ -1,4 +1,4 @@
-<div class="container-flex mt-3">
+<div class="container-flex mt-3" style="overflow-x:hidden">
 
     <div class="row">
         <div class="col-md-3">
@@ -17,12 +17,34 @@
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3">
             <div class="dash-item border rounded p-2">
                 <h2 class="text-center">filters</h2>
-                <div class="filter-container mt-3">
-                    <ul>
-                        <li *ngFor="let item of years">
-                            <mat-checkbox [(ngModel)]="item.checked" (change)="yearFilterChanged(item)">{{item.text}}</mat-checkbox>
-                        </li>
-                    </ul>
+                <div class="filter-container mt-3 row">
+                    <div class="col-md">
+                        <ul>
+                            <li *ngFor="let item of years">
+                                <mat-checkbox [(ngModel)]="item.checked" 
+                                    (change)="yearFilterChanged(item)" 
+                                    title="filter huurovereenkomsten op dit jaar">
+                                        {{item.text}}
+                                </mat-checkbox>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md">
+                        <ul>
+                            <li>
+                                <mat-checkbox [(ngModel)]="includePending" 
+                                    (change)="filterChanged()" 
+                                    title="inclusief ingediende huurovereenkomsten">
+                                        Inclusief ingediend
+                                </mat-checkbox>
+                                <mat-checkbox [(ngModel)]="includeUnpayed" 
+                                    (change)="filterChanged()" 
+                                    title="inclusief onbetaalde huurovereenkomsten">
+                                        Inclusief onbetaald
+                                </mat-checkbox>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -36,7 +58,7 @@
 
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3">
             <div class="dash-item border rounded p-2">
-                <h2 class="text-center">opbrengsten en kosten per periode</h2>
+                <h2 class="text-center">winst en kosten per periode</h2>
                 <div id="chartProfitAndCosts"></div>
             </div>
         </div>
@@ -71,10 +93,10 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>TOTAAL</th>
-                                <th>{{revenueTotal | currency: 'EUR'}}</th>
-                                <th>{{costsTotal | currency: 'EUR'}}</th>
-                                <th>{{profitTotal | currency: 'EUR'}}</th>
+                                <td>TOTAAL</td>
+                                <td>{{revenueTotal | currency: 'EUR'}}</td>
+                                <td>{{costsTotal | currency: 'EUR'}}</td>
+                                <td>{{profitTotal | currency: 'EUR'}}</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -86,10 +108,11 @@
             <div class="dash-item border rounded p-2">
                 <h2 class="text-center">aantallen</h2>
                 <div id="tableRevenue" class="p-3 text-center">
-                    <table class="data">
+                    <table class="data mt-4">
                         <tbody>
                             <tr><td>huurovereenkomsten met status ingediend</td><td>{{numOfPendingAgreements}}</td></tr>
                             <tr><td>onbetaalde huurovereenkomsten</td><td>{{numOfUnpaidAgreements}}</td></tr>
+                            <tr><td>gemiddelde jaaromzet</td><td>{{avgYearRevenue | currency: 'EUR'}}</td></tr>
                         </tbody>
                     </table>
                 </div>

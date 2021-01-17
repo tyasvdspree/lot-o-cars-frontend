@@ -15,6 +15,8 @@ export class DashboardComponent implements OnInit {
   years = [];
   startYear: number;
   endYear: number;
+  includePending: boolean = true;
+  includeUnpayed: boolean = true;
 
   agreements: [];
 
@@ -29,6 +31,7 @@ export class DashboardComponent implements OnInit {
 
   numOfUnpaidAgreements: number = 0;
   numOfPendingAgreements: number = 0;
+  avgYearRevenue: number = 0;
 
   constructor(
     private userService: UserService,
@@ -49,6 +52,12 @@ export class DashboardComponent implements OnInit {
       this.removeRevenueYear(yearItem.year);
       this.removeProfitAndCostsYear(yearItem.year);
     }
+    this.initChartCarRevenuePart();
+  }
+
+  filterChanged() {
+    this.clearCharts();
+    this.initChartData();
   }
 
   loadDashboardData(): void {
@@ -61,7 +70,7 @@ export class DashboardComponent implements OnInit {
     // show the last n years to filter the agreements on
     const numOfYears = 10;
 
-    let currentYear = new Date().getFullYear();
+    let currentYear = this.getCurrentYear();
     this.startYear = currentYear - numOfYears;
     this.endYear = currentYear;
 
@@ -69,6 +78,10 @@ export class DashboardComponent implements OnInit {
       this.years.push({year: currentYear, text: currentYear.toString(), checked: i < 2 ? true : false});
       currentYear--;
     }
+  }
+
+  getCurrentYear(): number {
+    return new Date().getFullYear();
   }
 
   getCurrentUserIdAndLoadAgreements(): void {
@@ -121,10 +134,26 @@ export class DashboardComponent implements OnInit {
   }
 
   initChartCarRevenuePart(): void {
-    this.years.forEach(item => {
-      if (item.checked) {
-        // this.addProfitAndCostsYear(item.year);
-      }
+    const carPlates = this.getUniqueCarPlates();
+    const carTotals = [];
+    
+    carPlates.forEach(carPlate => {
+      let carRevenueTotal = 0;
+
+      this.years.forEach(yearItem => {
+        if (yearItem.checked) {
+          carRevenueTotal += this.getCarYearTotal(carPlate, yearItem.year, 'totalPrice');
+        }
+      });
+
+      carTotals.push([carPlate, carRevenueTotal]);
+    });
+
+    console.log(carTotals);
+    
+    //this.chartCarRevenuePart.unload();
+    this.chartCarRevenuePart.load({
+      columns: carTotals
     });
   }
 
@@ -148,6 +177,7 @@ export class DashboardComponent implements OnInit {
   initSpecialData() {
     this.numOfPendingAgreements = this.getPendingTotal();
     this.numOfUnpaidAgreements = this.getUnpaidTotal();
+    this.avgYearRevenue = this.getAverageYearRevenue();
   }
 
 
@@ -187,30 +217,63 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  getYearTotals(year: number, prop: string): Array<any> {
+  getYearTotals(year: number, agreementPropertyToSum: string): Array<any> {
     let array = new Array<any>();
     array.push(year.toString());
-    for (let i = 1; i <= 12; i++) {
-      array.push(this.getMonthTotal(year, i, prop));
+
+    for (let month = 1; month <= 12; month++) {
+      array.push(this.getMonthTotal(year, month, agreementPropertyToSum));
     }
+
     return array;
   }
 
-  getMonthTotal(year: number, month: number, prop: string): number {
+  getMonthTotal(year: number, month: number, agreementPropertyToSum: string): number {
+
     return this.agreements.reduce((sum, a) => 
-      a['year'] === year && a['month'] === month ? sum + a[prop] : sum + 0, 0
+      a['year'] === year && a['month'] === month 
+      && (this.includeUnpayed || a['payed']) 
+      && (this.includePending || a['status'] != 'PENDING')
+        ? sum + a[agreementPropertyToSum] 
+        : sum + 0, 0
     );
   }
 
-  getYearTotal(year: number, prop: string): number {
+  getYearTotal(year: number, agreementPropertyToSum: string): number {
     return this.agreements.reduce((sum, a) => 
-      a['year'] === year ? sum + a[prop] : sum + 0, 0
+      a['year'] === year 
+      && (this.includeUnpayed === true || a['payed'] === true) 
+      && (this.includePending || a['status'] != 'PENDING')
+        ? sum + a[agreementPropertyToSum] 
+        : sum + 0, 0
     );
+  }
+
+  getCarYearTotal(numberplate: string, year: number, agreementPropertyToSum: string): number {
+    return this.agreements.reduce((sum, a) => 
+      a['numberPlate'] === numberplate && a['year'] === year 
+      && (this.includeUnpayed === true || a['payed'] === true) 
+      && (this.includePending || a['status'] != 'PENDING')
+        ? sum + a[agreementPropertyToSum] 
+        : sum + 0, 0
+    );
+  }
+
+  getUniqueCarPlates(): Array<any> {
+    const plates = [];
+
+    this.agreements.forEach(a => {
+      if (plates.indexOf(a['numberPlate']) === -1) {
+        plates.push(a['numberPlate']);
+      }
+    });
+    
+    return plates;
   }
 
   getUnpaidTotal(): number {
     return this.agreements.reduce((sum, a) => 
-      a['payed'] === false ? sum + 1 : sum + 0, 0
+      a['payed'] === false && a['status'] != 'PENDING' ? sum + 1 : sum + 0, 0
     );
   }
 
@@ -220,6 +283,31 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  getAverageYearRevenue(): number {
+    const currentYear = this.getCurrentYear();
+    const yearTotals = [];
+
+    this.years.forEach(item => {
+      if (item.year != currentYear) {
+        const total = this.getYearTotal(item.year, 'totalPrice');
+        if (total > 0) {
+          yearTotals.push(total);
+        }
+      }
+    });
+
+    const avg = yearTotals.reduce((sum, total) => sum + total, 0) / yearTotals.length;
+
+    return avg;
+  }
+
+
+  clearCharts() {
+    this.chartRevenue.unload();
+    this.chartProfitAndCosts.unload();
+    this.chartCarRevenuePart.unload();
+    this.yearTotals = [];
+  }
 
   showCharts() {
     this.showChartRevenue();
@@ -285,10 +373,7 @@ export class DashboardComponent implements OnInit {
     this.chartCarRevenuePart = c3.generate({
       bindto: '#chartCarRevenuePart',
       data: {
-          columns: [
-              ['H-735-GT', 30],
-              ['3-ZNL-32', 120],
-          ],
+          columns: [],
           type : 'pie'
       }
   });
