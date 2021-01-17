@@ -13,8 +13,8 @@ import {ToastrService} from 'ngx-toastr';
 export class DeactivateCarDialogComponent implements OnInit {
 
   agreement: Agreement = new Agreement();
-  startDate: Date = null;
-  endDate: Date = null;
+  startDate: Date;
+  endDate: Date;
 
   constructor(
     public dialogRef: MatDialogRef<DeactivateCarDialogComponent>,
