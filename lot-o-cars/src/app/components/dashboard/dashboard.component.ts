@@ -307,6 +307,9 @@ export class DashboardComponent implements OnInit {
     this.chartProfitAndCosts.unload();
     this.chartCarRevenuePart.unload();
     this.yearTotals = [];
+    this.revenueTotal = 0;
+    this.costsTotal = 0;
+    this.profitTotal = 0;
   }
 
   showCharts() {
