@@ -6,6 +6,10 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Fuel } from 'src/app/enums/fuel.enum';
+import { Transmission } from 'src/app/enums/transmission.enum';
+import { CarBody } from 'src/app/enums/carBody.enum';
+import { Make } from 'src/app/enums/make.enum';
 
 @Component({
   selector: 'app-list',
@@ -76,7 +80,6 @@ export class ListComponent implements OnInit, OnDestroy {
     this.carServiceSubscription = this.carService.find(searchCriteria).subscribe(
       response => {
         this.cars = response.map(x =>  ({ ...x, imageUrl: this.getImageUrl(x.numberPlate, x.mainCarImageId) }) );
-        // this.carService.cars = this.cars;
         this.initPageItems();
       },
       error => {
@@ -91,6 +94,12 @@ export class ListComponent implements OnInit, OnDestroy {
   initPageItems() {
     this.length = this.cars.length;
     this.pageOfCars = this.cars.slice(0, this.pageSize);
+    this.pageOfCars.forEach(x => {
+      x.make = Make[x.make];
+      x.fuel = Fuel[x.fuel];
+      x.transmission = Transmission[x.transmission];
+      x.body = CarBody[x.body];
+    });
   }
 
   loadPageItems(pageEvent) {
