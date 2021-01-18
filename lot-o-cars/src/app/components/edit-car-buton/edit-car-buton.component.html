@@ -1,0 +1,28 @@
+<h1>{{ this.data.car.id }} {{ this.data.car.make }} {{ this.data.car.model }} ({{ this.data.car.numberPlate }})</h1>
+
+
+<form>
+    <table style="border-spacing: 50px 15px; width: 500px;">
+        <h1>Mijn Auto</h1>
+        <tr>
+            <td>
+                <mat-label>Merk</mat-label>
+                <mat-select [(ngModel)]='car.make' name="make">
+                    <mat-option *ngFor="let make of makes" value={{make.key}}>
+                        {{make.value}}
+                    </mat-option>
+                </mat-select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <mat-form-field>
+                    <input type="text" matInput name="firstnameInput" [(ngModel)]="this.data.car.make">
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+
+    <button type="submit"  (click)="editCar($event, this.data.car.numberPlate)">Wijzig</button>
+</form>
