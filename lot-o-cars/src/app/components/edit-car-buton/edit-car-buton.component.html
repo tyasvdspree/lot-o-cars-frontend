@@ -1,9 +1,28 @@
-<h1>{{ this.data.car.id }} {{ this.data.car.make }} {{ this.data.car.model }} ({{ this.data.car.numberPlate }})</h1>
+<h1>
+    <!-- {{ this.data.car.id }}  -->
+    {{ this.data.car.make }} 
+    {{ this.data.car.model }} 
+    ({{ this.data.car.numberPlate }})
+</h1>
 
 
 <form>
     <table style="border-spacing: 50px 15px; width: 500px;">
-        <h1>Mijn Auto</h1>
+        <!-- <tr>
+            <td>
+                <mat-form-field>
+                    <input type="text" matInput [(ngModel)]="this.data.car.make">
+                </mat-form-field>
+            </td>
+        </tr> -->
+        <!-- <tr>
+            <td>
+                <mat-form-field>
+                    <input type="text" matInput [(ngModel)]="this.data.car.make">
+                </mat-form-field>
+            </td>
+        </tr>
+
         <tr>
             <td>
                 <mat-label>Merk</mat-label>
@@ -13,16 +32,81 @@
                     </mat-option>
                 </mat-select>
             </td>
+        </tr>  -->
+        <tr>
+            <td>
+                <div>
+                    <mat-slide-toggle [(ngModel)]='this.data.car.navigation' name="navigation">navigatie
+                    </mat-slide-toggle>
+                </div>
+            </td>
         </tr>
-
+        <tr>
+            <td>
+                <div>
+                    <mat-slide-toggle [(ngModel)]='this.data.car.airco' name="airco">airco</mat-slide-toggle>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <mat-slide-toggle [(ngModel)]='this.data.car.smokingIsAllowed' name="smokingIsAllowed">
+                        rookvrij
+                    </mat-slide-toggle>
+                </div>
+            </td>
+        </tr>
+        <h1 style="margin-top: 20px;">Ophaallocatie</h1>
+    
+        <!-- <tr>
+            <td>
+                <app-location (outputLocation)="this.data.car.location=$event"></app-location>
+            </td>
+        </tr> -->
         <tr>
             <td>
                 <mat-form-field>
-                    <input type="text" matInput name="firstnameInput" [(ngModel)]="this.data.car.make">
+                    <input required type="text" placeholder="Adres" matInput [(ngModel)]="this.data.car.location.addressLine1" name="addressLine1">
                 </mat-form-field>
             </td>
         </tr>
+        <tr>
+            <td>
+                <mat-form-field>
+                    <input type="text" placeholder="Adresregel 2" matInput [(ngModel)]="this.data.car.location.addressLine2" name="addressLine2">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field>
+                    <input required type="text" placeholder="Stad" matInput [(ngModel)]="this.data.car.location.city" name="city">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field>
+                    <input required type="text" placeholder="Gemeente" matInput [(ngModel)]="this.data.car.location.municipality" name="municipality">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field>
+                    <input required type="text" placeholder="Postcode" matInput [(ngModel)]="this.data.car.location.zipcode" name="zipcode">
+                </mat-form-field>
+            </td>
+        </tr>
+        <!-- <tr>
+            <td>
+                <mat-form-field>
+                    <input required type="number" placeholder="Landcode" matInput [(ngModel)]="this.data.car.location.countryCode" name="countryCode">
+                </mat-form-field>
+            </td>
+        </tr> -->
     </table>
 
-    <button type="submit"  (click)="editCar($event, this.data.car.numberPlate)">Wijzig</button>
+    <button mat-flat-button type="submit" color="primary" style="float: right;" (click)="editCar($event, this.data)">Wijzig</button>
 </form>

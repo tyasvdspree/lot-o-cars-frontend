@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarService } from 'src/app/services/car.service';
@@ -10,6 +10,7 @@ import { Transmission } from 'src/app/enums/transmission.enum';
 import { Fuel } from 'src/app/enums/fuel.enum';
 import { CarBody } from 'src/app/enums/carBody.enum';
 import { AuthService } from 'src/app/services/auth.service';
+import { Location } from '../../models/location.model';
 
 @Component({
   selector: 'app-edit-car-buton',
@@ -29,6 +30,8 @@ export class EditCarButonComponent implements OnInit {
   subscriptions: Subscription[] = [];
   isLoggedIn: boolean;
   licensePlate: string;
+  location: Location;
+
 
   constructor(
     public dialogRef: MatDialogRef<EditCarButonComponent>,
@@ -45,11 +48,9 @@ export class EditCarButonComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.car = new Car();
     this.isLoggedIn =  this.authenticationService.isLoggedIn();
     this.subscriptions.push(
       this.route.params.subscribe(parameters => {
-        debugger;
         this.licensePlate = this.data.car.numberPlate ;
         this.getCarImages();
       })
@@ -94,6 +95,7 @@ export class EditCarButonComponent implements OnInit {
   }
 
   editCar(event, item): void  {
+    debugger;
     console.log(item)
     console.log(this.car)
   }
@@ -102,7 +104,6 @@ export class EditCarButonComponent implements OnInit {
     this.subscriptions.push(
       this.carService.getCarImageIds(this.licensePlate).subscribe(
         response => {
-          debugger;
           this.carImageIds = response;
           this.carImageIds.forEach(imageId => 
             this.carImages.push({path: this.carService.getCarImageUrl(this.licensePlate, imageId)})
