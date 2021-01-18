@@ -11,6 +11,7 @@ import { Fuel } from 'src/app/enums/fuel.enum';
 import { CarBody } from 'src/app/enums/carBody.enum';
 import { AuthService } from 'src/app/services/auth.service';
 import { Location } from '../../models/location.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-car-buton',
@@ -31,7 +32,7 @@ export class EditCarButonComponent implements OnInit {
   isLoggedIn: boolean;
   licensePlate: string;
   location: Location;
-
+  returnUrl: string;
 
   constructor(
     public dialogRef: MatDialogRef<EditCarButonComponent>,
@@ -39,7 +40,8 @@ export class EditCarButonComponent implements OnInit {
     private carService: CarService,
     private authenticationService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,
     
   )
   { 
@@ -56,6 +58,7 @@ export class EditCarButonComponent implements OnInit {
       })
     );
   
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/my-cars';
 
     this.loadData();
     this.makes = this.makes.map(function (make) {
@@ -94,10 +97,25 @@ export class EditCarButonComponent implements OnInit {
     );
   }
 
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate([uri]));
+  }
+
   editCar(event, item): void  {
-    debugger;
     console.log(item)
     console.log(this.car)
+    debugger;
+    this.subscription = this.carService.editCar(item.car).subscribe(
+      response => {
+        debugger;
+        this.toastr.success('Gewijzigd', 'Success');
+        this.redirectTo(this.returnUrl);
+      },
+      error => {
+        this.toastr.error('Wijziging mislukt', 'Error');
+      }
+    )
   }
   
   getCarImages(): void {

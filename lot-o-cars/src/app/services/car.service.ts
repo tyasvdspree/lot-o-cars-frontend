@@ -146,4 +146,7 @@ export class CarService {
     return this.http.get(environment.apiBaseUrl + '/car');
   }
 
+  editCar(car){
+    return this.http.put(environment.apiBaseUrl + "/car/editmycar", car);
+  }
 }
