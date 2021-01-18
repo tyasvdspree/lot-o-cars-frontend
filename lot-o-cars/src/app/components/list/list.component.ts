@@ -44,13 +44,13 @@ export class ListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    if (!this.cars){
+    if (!this.cars) {
       this.carSearchSubscription = this.carService.SearchEvent.subscribe(
         criteria => {
           this.getCarsBySearchCriteria(criteria);
         },
         error => {
-
+          this.toastr.error('Fout bij ophalen autogegevens.');
         }
       );
 
@@ -76,6 +76,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.carServiceSubscription = this.carService.find(searchCriteria).subscribe(
       response => {
         this.cars = response.map(x =>  ({ ...x, imageUrl: this.getImageUrl(x.numberPlate, x.mainCarImageId) }) );
+        // this.carService.cars = this.cars;
         this.initPageItems();
       },
       error => {
@@ -103,7 +104,7 @@ export class ListComponent implements OnInit, OnDestroy {
     if (carImageId > 0)
       return this.carService.getCarImageUrl(numberPlate, carImageId);
     else
-      return "assets/img/app/maincar.jpg";
+      return "assets/img/app/maincar.jpg"; // get standard lot-o-cars car image
   }
 
   onRowClicked(car: Car): void {

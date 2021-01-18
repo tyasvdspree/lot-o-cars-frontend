@@ -85,8 +85,9 @@ export class CarService {
       '&seats=' + searchCriteria.seats +
       '&bootspace=' + searchCriteria.bootspaceInLiters +
       '&nonsmoking=' + searchCriteria.nonSmoking;
+
+    // remove unwanted url paramter values
     url = url.split('undefined').join('');
-    console.log(url);
     return this.http.get(url);
   }
 
