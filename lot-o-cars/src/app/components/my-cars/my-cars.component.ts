@@ -48,7 +48,9 @@ export class MyCarsComponent implements OnInit, OnDestroy {
 
   editCar(car: Car): void {
     const dialogRef = this.dialog.open(EditCarComponent, {
-      width: '550px',
+      autoFocus: false,
+      maxHeight: '2000vh',
+      width: '1000px',
       data: {car}
     });
   } 

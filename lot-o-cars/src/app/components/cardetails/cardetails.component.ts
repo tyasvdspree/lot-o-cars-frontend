@@ -81,7 +81,6 @@ export class CardetailsComponent implements OnInit, OnDestroy {
       this.carService.getCarImageIds(this.licensePlate).subscribe(
         response => {
           this.carImageIds = response;
-
           this.carImageIds.forEach(imageId => 
             this.carImages.push({path: this.carService.getCarImageUrl(this.licensePlate, imageId)})
           );

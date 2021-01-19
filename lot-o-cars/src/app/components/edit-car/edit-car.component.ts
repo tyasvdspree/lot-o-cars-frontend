@@ -49,6 +49,7 @@ export class EditCarComponent implements OnInit {
     this.subscriptions.push(
       this.route.params.subscribe(parameters => {
         this.car = this.data.car;
+        this.licensePlate = this.data.car.numberPlate;
         this.getCarImages();
       })
     );
@@ -121,8 +122,7 @@ export class EditCarComponent implements OnInit {
           this.carImageIds = response;
           this.carImageIds.forEach(imageId =>
             this.carImages.push({ path: this.carService.getCarImageUrl(this.licensePlate, imageId) })
-          );
-
+          );         
         },
         error => {
           console.log(error);

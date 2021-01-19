@@ -1,3 +1,4 @@
+<h1>{{this.data.car.make}} - {{this.data.car.numberPlate}}</h1>
 <form>
     <table style="border-spacing: 50px 15px; width: 500px;">
         <tr>
@@ -71,6 +72,27 @@
                     <input required type="text" placeholder="Postcode" matInput
                         [(ngModel)]="this.data.car.location.zipcode" name="zipcode">
                 </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="container-fluid" style="margin-top: 15px;">
+                    <div class="col-md-4">
+                        <mat-card class="mb-3" style="width: 500px;">
+                            <mat-card-header>
+                            <mat-card-title>foto's</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <ng-container *ngIf="carImages.length == 0">
+                                    <img src="assets/img/app/maincar.jpg" alt="car" width="100%" />
+                                    <p class="text-center">Geen foto's van deze auto beschikbaar</p>
+                                </ng-container>
+                                <carousel objectFit="scale-down" [images]="carImages" cellsToShow="1" dots="true" *ngIf="carImages.length > 0">
+                                </carousel>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
             </td>
         </tr>
     </table>
