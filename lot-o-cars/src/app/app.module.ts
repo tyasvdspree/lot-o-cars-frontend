@@ -41,7 +41,7 @@ import { AgreementDetailsComponent } from './components/agreementdetails/agreeme
 import { DatePipe } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LocationComponent } from './components/location/location.component';
-import { EditCarButonComponent } from './components/edit-car-buton/edit-car-buton.component';
+import { EditCarComponent } from './components/edit-car/edit-car.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +71,7 @@ import { EditCarButonComponent } from './components/edit-car-buton/edit-car-buto
     AgreementDetailsComponent,
     DashboardComponent,
     LocationComponent,
-    EditCarButonComponent
+    EditCarComponent
   ],
   imports: [
     BrowserModule,

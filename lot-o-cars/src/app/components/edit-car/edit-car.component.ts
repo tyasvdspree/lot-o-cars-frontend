@@ -14,11 +14,11 @@ import { Location } from '../../models/location.model';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-edit-car-buton',
-  templateUrl: './edit-car-buton.component.html',
-  styleUrls: ['./edit-car-buton.component.scss']
+  selector: 'app-edit-car',
+  templateUrl: './edit-car.component.html',
+  styleUrls: ['./edit-car.component.scss']
 })
-export class EditCarButonComponent implements OnInit {
+export class EditCarComponent implements OnInit {
   subscription: Subscription;
   car: Car;
   carImageIds = [];
@@ -35,29 +35,24 @@ export class EditCarButonComponent implements OnInit {
   returnUrl: string;
 
   constructor(
-    public dialogRef: MatDialogRef<EditCarButonComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {car: Car, subscription: Subscription},
+    public dialogRef: MatDialogRef<EditCarComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { car: Car, subscription: Subscription },
     private carService: CarService,
     private authenticationService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
-    
-  )
-  { 
-    
-    
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.isLoggedIn =  this.authenticationService.isLoggedIn();
+    this.isLoggedIn = this.authenticationService.isLoggedIn();
     this.subscriptions.push(
       this.route.params.subscribe(parameters => {
-        this.licensePlate = this.data.car.numberPlate ;
+        this.car = this.data.car;
         this.getCarImages();
       })
     );
-  
+
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/my-cars';
 
     this.loadData();
@@ -76,6 +71,8 @@ export class EditCarButonComponent implements OnInit {
     this.carBodies = this.carBodies.map(function (body) {
       return { key: Object.keys(CarBody).filter(x => CarBody[x] == body), value: body }
     });
+
+
   }
 
   private loadData(): void {
@@ -102,29 +99,28 @@ export class EditCarButonComponent implements OnInit {
       this.router.navigate([uri]));
   }
 
-  editCar(event, item): void  {
-    console.log(item)
-    console.log(this.car)
-    debugger;
+  editCar(event, item): void {
     this.subscription = this.carService.editCar(item.car).subscribe(
       response => {
-        debugger;
         this.toastr.success('Gewijzigd', 'Success');
-        this.redirectTo(this.returnUrl);
+        this.dialogRef.close();
       },
       error => {
         this.toastr.error('Wijziging mislukt', 'Error');
+        this.dialogRef.close();
       }
     )
   }
-  
+
+
+
   getCarImages(): void {
     this.subscriptions.push(
       this.carService.getCarImageIds(this.licensePlate).subscribe(
         response => {
           this.carImageIds = response;
-          this.carImageIds.forEach(imageId => 
-            this.carImages.push({path: this.carService.getCarImageUrl(this.licensePlate, imageId)})
+          this.carImageIds.forEach(imageId =>
+            this.carImages.push({ path: this.carService.getCarImageUrl(this.licensePlate, imageId) })
           );
 
         },

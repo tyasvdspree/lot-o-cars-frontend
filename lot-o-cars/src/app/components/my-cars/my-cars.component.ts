@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
 import { CarService } from 'src/app/services/car.service';
 import { DeactivateCarDialogComponent } from '../deactivate-car-dialog/deactivate-car-dialog.component';
-import { EditCarButonComponent } from '../edit-car-buton/edit-car-buton.component'
+import { EditCarComponent } from '../edit-car/edit-car.component'
 
 @Component({
   selector: 'app-my-cars',
@@ -47,7 +47,7 @@ export class MyCarsComponent implements OnInit, OnDestroy {
   }
 
   editCar(car: Car): void {
-    const dialogRef = this.dialog.open(EditCarButonComponent, {
+    const dialogRef = this.dialog.open(EditCarComponent, {
       width: '550px',
       data: {car}
     });
