@@ -34,7 +34,11 @@ export class AgreementService {
 
   getDashboardAgreements(userName: string, startYear: number, endYear: number): Observable<any> {
     const url = `${environment.apiBaseUrl}/agreement/rentee_years/${userName}/${startYear}/${endYear}`;
-    console.log('url: ', url);
+    return this.http.get(url);
+  }
+
+  getDashboardBrokerFeeTotals(startYear: number, endYear: number): Observable<any> {
+    const url = `${environment.apiBaseUrl}/agreement/brokerfee_totals/${startYear}/${endYear}`;
     return this.http.get(url);
   }
 }

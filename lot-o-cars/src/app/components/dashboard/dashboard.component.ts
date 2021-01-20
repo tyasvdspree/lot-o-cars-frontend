@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class DashboardComponent implements OnInit {
 
+  isAdminDashboard: boolean = true;
   userName = '';
   years = [];
   startYear: number;
@@ -18,7 +19,7 @@ export class DashboardComponent implements OnInit {
   includePending: boolean = true;
   includeUnpayed: boolean = true;
 
-  agreements: [];
+  data: [];
 
   chartRevenue: any;
   chartProfitAndCosts: any;
@@ -62,7 +63,7 @@ export class DashboardComponent implements OnInit {
 
   loadDashboardData(): void {
     this.initYearFilter();
-    this.getCurrentUserIdAndLoadAgreements();
+    this.getCurrentUserIdAndLoadData();
   }
 
   initYearFilter() {
@@ -84,11 +85,16 @@ export class DashboardComponent implements OnInit {
     return new Date().getFullYear();
   }
 
-  getCurrentUserIdAndLoadAgreements(): void {
+  getCurrentUserIdAndLoadData(): void {
     this.userService.getUser().subscribe(
       user => {
         this.userName = user.username;
-        this.getAgreementDataFromApi();
+
+        if (this.isAdminDashboard) {
+          this.getBrokerFeeTotalsFromApi();
+        } else {
+          this.getAgreementDataFromApi();
+        }
       },
       error => {
         this.toastrService.error('Fout bij ophalen gebruikersgegevens.');
@@ -99,8 +105,21 @@ export class DashboardComponent implements OnInit {
   getAgreementDataFromApi(): void {
     this.agreementService.getDashboardAgreements(this.userName, this.startYear, this.endYear).subscribe(
       data => {
-        this.agreements = data;
+        this.data = data;
         console.log('dashboard data: ', data);
+        this.initChartData();
+      },
+      error => {
+        this.toastrService.error('Fout bij ophalen van gegevens.');
+      }
+    );
+  }
+
+  getBrokerFeeTotalsFromApi(): void {
+    this.agreementService.getDashboardBrokerFeeTotals(this.startYear, this.endYear).subscribe(
+      data => {
+        this.data = data;
+        console.log('brokerfee totals: ', data);
         this.initChartData();
       },
       error => {
@@ -111,8 +130,10 @@ export class DashboardComponent implements OnInit {
 
   initChartData(): void {
     this.initChartRevenueData();
-    this.initChartProfitAndCostsData();
-    this.initChartCarRevenuePart();
+    if (!this.isAdminDashboard) {
+      this.initChartProfitAndCostsData();
+      this.initChartCarRevenuePart();
+    }
     this.initYearTotalsData();
     this.initSpecialData();
   }
@@ -142,7 +163,7 @@ export class DashboardComponent implements OnInit {
 
       this.years.forEach(yearItem => {
         if (yearItem.checked) {
-          carRevenueTotal += this.getCarYearTotal(carPlate, yearItem.year, 'totalPrice');
+          carRevenueTotal += this.getCarYearTotal(carPlate, yearItem.year, 'total');
         }
       });
 
@@ -161,7 +182,7 @@ export class DashboardComponent implements OnInit {
     this.years.forEach(item => {
       this.yearTotals.push({
         year: item.year, 
-        revenueTotal: this.getYearTotal(item.year, 'totalPrice'),
+        revenueTotal: this.getYearTotal(item.year, 'total'),
         costsTotal: this.getYearTotal(item.year, 'brokerCosts'),
         profitTotal: this.getYearTotal(item.year, 'profit')
       });
@@ -182,7 +203,7 @@ export class DashboardComponent implements OnInit {
 
 
   addRevenueYear(year: number) {
-    const prop = 'totalPrice';
+    const prop = 'total';
     const yearTotals = this.getYearTotals(year, prop);
     this.chartRevenue.load({
       columns: [yearTotals]
@@ -217,54 +238,60 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  getYearTotals(year: number, agreementPropertyToSum: string): Array<any> {
+
+  getYearTotals(year: number, dataPropertyToSum: string): Array<any> {
     let array = new Array<any>();
     array.push(year.toString());
 
     for (let month = 1; month <= 12; month++) {
-      array.push(this.getMonthTotal(year, month, agreementPropertyToSum));
+      array.push(this.getMonthTotal(year, month, dataPropertyToSum));
     }
 
     return array;
   }
 
-  getMonthTotal(year: number, month: number, agreementPropertyToSum: string): number {
-
-    return this.agreements.reduce((sum, a) => 
-      a['year'] === year && a['month'] === month 
-      && (this.includeUnpayed || a['payed']) 
-      && (this.includePending || a['status'] != 'PENDING')
-        ? sum + a[agreementPropertyToSum] 
-        : sum + 0, 0
+  getMonthTotal(year: number, month: number, dataPropertyToSum: string): number {
+    let initialValue = 0;
+    return this.data.reduce((sum, dataItem) => 
+      dataItem['year'] === year && dataItem['month'] === month 
+      && (this.includeUnpayed || dataItem['payed']) 
+      && (this.includePending || dataItem['status'] != 'PENDING')
+        ? sum + dataItem[dataPropertyToSum] 
+        : sum + 0,
+        initialValue
     );
   }
 
-  getYearTotal(year: number, agreementPropertyToSum: string): number {
-    return this.agreements.reduce((sum, a) => 
-      a['year'] === year 
-      && (this.includeUnpayed === true || a['payed'] === true) 
-      && (this.includePending || a['status'] != 'PENDING')
-        ? sum + a[agreementPropertyToSum] 
-        : sum + 0, 0
+  getYearTotal(year: number, dataPropertyToSum: string): number {
+    let initialValue = 0;
+    return this.data.reduce((sum, dataItem) => 
+      dataItem['year'] === year 
+      && (this.includeUnpayed === true || dataItem['payed'] === true) 
+      && (this.includePending || dataItem['status'] != 'PENDING')
+        ? sum + dataItem[dataPropertyToSum] 
+        : sum + 0,
+        initialValue
     );
   }
 
-  getCarYearTotal(numberplate: string, year: number, agreementPropertyToSum: string): number {
-    return this.agreements.reduce((sum, a) => 
-      a['numberPlate'] === numberplate && a['year'] === year 
-      && (this.includeUnpayed === true || a['payed'] === true) 
-      && (this.includePending || a['status'] != 'PENDING')
-        ? sum + a[agreementPropertyToSum] 
-        : sum + 0, 0
+  getCarYearTotal(numberplate: string, year: number, dataPropertyToSum: string): number {
+    let initialValue = 0;
+    return this.data.reduce((sum, dataItem) => 
+      dataItem['numberPlate'] === numberplate && dataItem['year'] === year 
+      && (this.includeUnpayed === true || dataItem['payed'] === true) 
+      && (this.includePending || dataItem['status'] != 'PENDING')
+        ? sum + dataItem[dataPropertyToSum] 
+        : sum + 0,
+        initialValue
     );
   }
 
   getUniqueCarPlates(): Array<any> {
     const plates = [];
 
-    this.agreements.forEach(a => {
-      if (plates.indexOf(a['numberPlate']) === -1) {
-        plates.push(a['numberPlate']);
+    this.data.forEach(dataItem => {
+      if (plates.indexOf(dataItem['numberPlate']) === -1) {
+        plates.push(dataItem['numberPlate']);
       }
     });
     
@@ -272,14 +299,22 @@ export class DashboardComponent implements OnInit {
   }
 
   getUnpaidTotal(): number {
-    return this.agreements.reduce((sum, a) => 
-      a['payed'] === false && a['status'] != 'PENDING' ? sum + 1 : sum + 0, 0
+    let initialValue = 0;
+    return this.data.reduce((sum, dataItem) => 
+      dataItem['payed'] === false && dataItem['status'] != 'PENDING' 
+      ? sum + 1 
+      : sum + 0, 
+      initialValue
     );
   }
 
   getPendingTotal(): number {
-    return this.agreements.reduce((sum, a) => 
-      a['status'] === "PENDING" ? sum + 1 : sum + 0, 0
+    let initialValue = 0;
+    return this.data.reduce((sum, dataItem) => 
+      dataItem['status'] === "PENDING" 
+      ? sum + 1 
+      : sum + 0, 
+      initialValue
     );
   }
 
@@ -289,7 +324,7 @@ export class DashboardComponent implements OnInit {
 
     this.years.forEach(item => {
       if (item.year != currentYear) {
-        const total = this.getYearTotal(item.year, 'totalPrice');
+        const total = this.getYearTotal(item.year, 'total');
         if (total > 0) {
           yearTotals.push(total);
         }
@@ -304,8 +339,10 @@ export class DashboardComponent implements OnInit {
 
   clearCharts() {
     this.chartRevenue.unload();
-    this.chartProfitAndCosts.unload();
-    this.chartCarRevenuePart.unload();
+    if (!this.isAdminDashboard) {
+      this.chartProfitAndCosts.unload();
+      this.chartCarRevenuePart.unload();
+    }
     this.yearTotals = [];
     this.revenueTotal = 0;
     this.costsTotal = 0;
@@ -314,8 +351,11 @@ export class DashboardComponent implements OnInit {
 
   showCharts() {
     this.showChartRevenue();
-    this.showChartProfitAndCosts();
-    this.showChartCarRevenuePart();
+
+    if (!this.isAdminDashboard) {
+      this.showChartProfitAndCosts();
+      this.showChartCarRevenuePart();
+    }
   }
 
   showChartRevenue() {
