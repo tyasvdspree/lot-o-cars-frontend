@@ -135,7 +135,6 @@ export class CarService {
     const formData: FormData = new FormData();
     formData.append('imagefile', imageFile);
     const url = environment.apiBaseUrl + this.carImageController + '/' + entityId;
-    // console.log(url);
 
     this.http.post<any>(url, formData).subscribe(
       (res) => console.log(res),
@@ -151,5 +150,13 @@ export class CarService {
 
   editCar(car){
     return this.http.put(environment.apiBaseUrl + "/car/editmycar", car);
+  }
+
+  addImagesToCar(car: Car, newCarImages: FileList){
+    if (newCarImages) {
+      Array.from(newCarImages).forEach(image => {
+        this.addImageFileToCar(car.numberPlate, image);
+      });
+    }
   }
 }

@@ -54,5 +54,4 @@ export class MyCarsComponent implements OnInit, OnDestroy {
       data: {car}
     });
   } 
-
 }

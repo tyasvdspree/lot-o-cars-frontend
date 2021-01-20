@@ -88,6 +88,27 @@
             >Delete</button>
         </li>
     </ul>
+
+    <mat-card class="mb-3">
+        <mat-card-header>
+            <mat-card-title>Foto's toevoegen</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <app-imageupload #imageFiles (onFilesSelected)="receiveSelectedImageFiles($event)">
+            </app-imageupload>
+        </mat-card-content>
+        
+        <button 
+        style="margin-left: 20px;"
+        mat-flat-button color="accent"
+        type="button" 
+        class="add" 
+        (click)="addImage()"
+        >Voeg toe
+    </button>
+
+    </mat-card>
+
     <button mat-flat-button type="submit" color="primary" style="float: right;"
         (click)="editCar($event, this.data)">Wijzig</button>
 </form>

@@ -14,6 +14,7 @@ import { Location } from '../../models/location.model';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-edit-car',
@@ -37,6 +38,8 @@ export class EditCarComponent implements OnInit {
   licensePlate: string;
   location: Location;
   returnUrl: string;
+  imageFiles: FileList;
+  imageUrls;
 
   constructor(
     public dialogRef: MatDialogRef<EditCarComponent>,
@@ -139,5 +142,27 @@ export class EditCarComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  receiveSelectedImageFiles(images: FileList) {
+    this.imageFiles = images;
+    this.readImageFile(images);
+  }
+
+  readImageFile(images: FileList){
+    if(!this.imageUrls){
+      this.imageUrls = [];
+    }
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      this.imageUrls.push({path: fileReader.result})
+    }
+    Array.from(images).forEach(image => {
+      fileReader.readAsDataURL(image);
+    });
+  }
+
+  addImage(){
+   this.carService.addImagesToCar(this.car, this.imageFiles)
   }
 }
