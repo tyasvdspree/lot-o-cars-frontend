@@ -108,6 +108,9 @@ export class CarService {
     return environment.apiBaseUrl + '/carimage/' + plate + '/' + imageid;
   }
 
+  deleteCarImage(imageId: string): Observable<any>  {
+    return this.http.delete(environment.apiBaseUrl + '/carimage/deleteImage?imageId=' + imageId);
+  }
 
   createNewCar(newCar: Car, newCarImages: FileList): void {
     const url = environment.apiBaseUrl + this.carController;

@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarService } from 'src/app/services/car.service';
@@ -12,6 +12,8 @@ import { CarBody } from 'src/app/enums/carBody.enum';
 import { AuthService } from 'src/app/services/auth.service';
 import { Location } from '../../models/location.model';
 import { ToastrService } from 'ngx-toastr';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-car',
@@ -19,6 +21,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./edit-car.component.scss']
 })
 export class EditCarComponent implements OnInit {
+  @ViewChild('file') file;
+  @Output() onFilesSelected = new EventEmitter<FileList>();
   subscription: Subscription;
   car: Car;
   carImageIds = [];
@@ -42,6 +46,8 @@ export class EditCarComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
+  private http: HttpClient, 
+
   ) { }
 
   ngOnInit(): void {
@@ -72,8 +78,6 @@ export class EditCarComponent implements OnInit {
     this.carBodies = this.carBodies.map(function (body) {
       return { key: Object.keys(CarBody).filter(x => CarBody[x] == body), value: body }
     });
-
-
   }
 
   private loadData(): void {
@@ -82,7 +86,6 @@ export class EditCarComponent implements OnInit {
     this.loadSelectionList(this.carService.getTransmissions, this.carService, 'transmissions');
     this.loadSelectionList(this.carService.getFuelTypes, this.carService, 'fuelTypes');
     this.loadSelectionList(this.carService.getCarBody, this.carService, 'carBodies');
-
   }
 
   private loadSelectionList(serviceMethod: any, service: any, localProp: any): void {
@@ -113,21 +116,28 @@ export class EditCarComponent implements OnInit {
     )
   }
 
-
-
   getCarImages(): void {
-    this.subscriptions.push(
-      this.carService.getCarImageIds(this.licensePlate).subscribe(
-        response => {
-          this.carImageIds = response;
-          this.carImageIds.forEach(imageId =>
-            this.carImages.push({ path: this.carService.getCarImageUrl(this.licensePlate, imageId) })
-          );         
-        },
-        error => {
-          console.log(error);
-        }
-      )
-    );
+    this.subscription = this.carService.getCarImageIds(this.licensePlate).subscribe(
+      response => {
+        this.carImageIds = response;
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
+  deleteImage(imageId: string): void {
+    this.subscription = this.carService.deleteCarImage(imageId).subscribe(
+      response => {
+        const index: number = this.carImageIds.indexOf(imageId);
+        if (index !== -1) {
+          this.carImageIds.splice(index, 1);
+        }  
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 }
