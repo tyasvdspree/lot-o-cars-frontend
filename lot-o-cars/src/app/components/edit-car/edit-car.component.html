@@ -1,114 +1,111 @@
 <h1>{{this.data.car.make}} - {{this.data.car.numberPlate}}</h1>
-<form>
-    <table style="border-spacing: 50px 15px; width: 500px;">
-        <tr>
-            <td>
-                <mat-form-field>
-                    <input required type="number" placeholder="Prijs per uur" matInput
-                        [(ngModel)]="this.data.car.rentPricePerHour" name="rentPricePerHour">
-                </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div>
-                    <mat-slide-toggle [(ngModel)]='this.data.car.navigation' name="navigation">navigatie
-                    </mat-slide-toggle>
+<div class="container-fluid" style="overflow-x:hidden">
+    <div class="row">
+        <form>
+            <div style="float: left;">
+                <table style="border-spacing: 50px 15px; width: 500px;">
+                    <tr>
+                        <td>
+                            <mat-form-field>
+                                <input required type="number" placeholder="Prijs per uur" matInput
+                                    [(ngModel)]="this.data.car.rentPricePerHour" name="rentPricePerHour">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                <mat-slide-toggle [(ngModel)]='this.data.car.navigation' name="navigation">navigatie
+                                </mat-slide-toggle>
 
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div>
-                    <mat-slide-toggle [(ngModel)]='this.data.car.airco' name="airco">airco</mat-slide-toggle>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div>
-                    <mat-slide-toggle [(ngModel)]='this.data.car.smokingIsAllowed' name="smokingIsAllowed">rookvrij
-                    </mat-slide-toggle>
-                </div>
-            </td>
-        </tr>
-        <h1 style="margin-top: 20px;">Ophaallocatie</h1>
-        <tr>
-            <td>
-                <mat-form-field>
-                    <input required type="text" placeholder="Adres" matInput
-                        [(ngModel)]="this.data.car.location.addressLine1" name="addressLine1">
-                </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <mat-form-field>
-                    <input type="text" placeholder="Adresregel 2" matInput
-                        [(ngModel)]="this.data.car.location.addressLine2" name="addressLine2">
-                </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <mat-form-field>
-                    <input required type="text" placeholder="Stad" matInput [(ngModel)]="this.data.car.location.city"
-                        name="city">
-                </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <mat-form-field>
-                    <input required type="text" placeholder="Gemeente" matInput
-                        [(ngModel)]="this.data.car.location.municipality" name="municipality">
-                </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <mat-form-field>
-                    <input required type="text" placeholder="Postcode" matInput
-                        [(ngModel)]="this.data.car.location.zipcode" name="zipcode">
-                </mat-form-field>
-            </td>
-        </tr>
-    </table>
-    <h1>Foto's</h1>
-    <ul class="carImageIds">
-        <li *ngFor="let carImageId of carImageIds" style="margin: 10px">
-            <span class="badge"></span> {{carImageId}}
-            <button 
-            style="margin-left: 20px;"
-            mat-flat-button color="warn"
-            type="button" 
-            class="delete" 
-            (click)="deleteImage(carImageId)"
-            >Delete</button>
-        </li>
-    </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                <mat-slide-toggle [(ngModel)]='this.data.car.airco' name="airco">airco
+                                </mat-slide-toggle>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                <mat-slide-toggle [(ngModel)]='this.data.car.smokingIsAllowed' name="smokingIsAllowed">
+                                    rookvrij
+                                </mat-slide-toggle>
+                            </div>
+                        </td>
+                    </tr>
+                    <h1 style="margin-top: 20px;">Ophaallocatie</h1>
+                    <tr>
+                        <td>
+                            <mat-form-field>
+                                <input required type="text" placeholder="Adres" matInput
+                                    [(ngModel)]="this.data.car.location.addressLine1" name="addressLine1">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field>
+                                <input type="text" placeholder="Adresregel 2" matInput
+                                    [(ngModel)]="this.data.car.location.addressLine2" name="addressLine2">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field>
+                                <input required type="text" placeholder="Stad" matInput
+                                    [(ngModel)]="this.data.car.location.city" name="city">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field>
+                                <input required type="text" placeholder="Gemeente" matInput
+                                    [(ngModel)]="this.data.car.location.municipality" name="municipality">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field>
+                                <input required type="text" placeholder="Postcode" matInput
+                                    [(ngModel)]="this.data.car.location.zipcode" name="zipcode">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-    <mat-card class="mb-3">
-        <mat-card-header>
-            <mat-card-title>Foto's toevoegen</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <app-imageupload #imageFiles (onFilesSelected)="receiveSelectedImageFiles($event)">
-            </app-imageupload>
-        </mat-card-content>
+            <div style="float: right;">
+                <h1>Foto's</h1>
+                <ul class="carImageIds">
+                    <li *ngFor="let carImageId of carImageIds" style="margin: 10px">
+                        <span class="badge"></span> {{carImageId}}
+                        <button style="margin-left: 20px;" mat-flat-button color="warn" type="button" class="delete"
+                            (click)="deleteImage(carImageId)">Delete</button>
+                    </li>
+                </ul>
+
+                <mat-card class="mb-3" style="margin-top: 50px;">
+                    <mat-card-header>
+                        <mat-card-title>Foto's toevoegen</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <app-imageupload #imageFiles (onFilesSelected)="receiveSelectedImageFiles($event)">
+                        </app-imageupload>
+                    </mat-card-content>
+                </mat-card>
+
+            </div>
+            
         
-        <button 
-        style="margin-left: 20px;"
-        mat-flat-button color="accent"
-        type="button" 
-        class="add" 
-        (click)="addImage()"
-        >Voeg toe
-    </button>
-
-    </mat-card>
-
-    <button mat-flat-button type="submit" color="primary" style="float: right;"
-        (click)="editCar($event, this.data)">Wijzig</button>
-</form>
+        </form>
+    </div>
+    <button mat-flat-button type="submit" color="primary" style="float: right;"(click)="editCar($event, this.data)">Wijzig</button>
+</div>

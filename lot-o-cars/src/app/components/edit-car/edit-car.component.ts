@@ -109,6 +109,7 @@ export class EditCarComponent implements OnInit {
   editCar(event, item): void {
     this.subscription = this.carService.editCar(item.car).subscribe(
       response => {
+        this.addImage()
         this.toastr.success('Gewijzigd', 'Success');
         this.dialogRef.close();
       },
