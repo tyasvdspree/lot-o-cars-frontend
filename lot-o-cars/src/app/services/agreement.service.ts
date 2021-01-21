@@ -41,4 +41,9 @@ export class AgreementService {
     const url = `${environment.apiBaseUrl}/agreement/brokerfee_totals/${startYear}/${endYear}`;
     return this.http.get(url);
   }
+
+  getGeneralCounts(): Observable<any> {
+    const url = `${environment.apiBaseUrl}/agreement/general_counts`;
+    return this.http.get(url);
+  }
 }

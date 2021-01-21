@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as c3 from 'c3';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { AgreementService } from 'src/app/services/agreement.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,9 +10,10 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
-  isAdminDashboard: boolean = true;
+  subscriptions: Subscription[] = [];
+  isAdminDashboard: boolean = false;
   userName = '';
   years = [];
   startYear: number;
@@ -20,6 +22,7 @@ export class DashboardComponent implements OnInit {
   includeUnpayed: boolean = true;
 
   data: [];
+  keyValuePairs: [];
 
   chartRevenue: any;
   chartProfitAndCosts: any;
@@ -45,6 +48,13 @@ export class DashboardComponent implements OnInit {
     this.loadDashboardData();
   }
 
+  ngOnDestroy(): void {
+    if (this.subscriptions) {
+      this.subscriptions.forEach(x => x.unsubscribe());
+    }
+  }
+
+
   yearFilterChanged(yearItem: any) {
     if (yearItem.checked) {
       this.addRevenueYear(yearItem.year);
@@ -60,6 +70,7 @@ export class DashboardComponent implements OnInit {
     this.clearCharts();
     this.initChartData();
   }
+
 
   loadDashboardData(): void {
     this.initYearFilter();
@@ -86,45 +97,74 @@ export class DashboardComponent implements OnInit {
   }
 
   getCurrentUserIdAndLoadData(): void {
-    this.userService.getUser().subscribe(
-      user => {
-        this.userName = user.username;
+    this.subscriptions.push(
+      this.userService.getUser().subscribe(
+        user => {
+          this.userName = user.username;
 
-        if (this.isAdminDashboard) {
-          this.getBrokerFeeTotalsFromApi();
-        } else {
-          this.getAgreementDataFromApi();
+          if (this.isAdminDashboard) {
+            this.getBrokerFeeTotalsFromApi();
+            this.getGeneralCountsFromApi();
+          } else {
+            this.getAgreementDataFromApi();
+          }
+        },
+        error => {
+          this.toastrService.error('Fout bij ophalen gebruikersgegevens.');
         }
-      },
-      error => {
-        this.toastrService.error('Fout bij ophalen gebruikersgegevens.');
-      }
+      )
     );
   }
 
   getAgreementDataFromApi(): void {
-    this.agreementService.getDashboardAgreements(this.userName, this.startYear, this.endYear).subscribe(
-      data => {
-        this.data = data;
-        console.log('dashboard data: ', data);
-        this.initChartData();
-      },
-      error => {
-        this.toastrService.error('Fout bij ophalen van gegevens.');
-      }
+    this.subscriptions.push(
+      this.agreementService.getDashboardAgreements(this.userName, this.startYear, this.endYear).subscribe(
+        data => {
+          this.data = data;
+          console.log('dashboard data: ', data);
+          this.initChartData();
+        },
+        error => {
+          this.toastrService.error('Fout bij ophalen van gegevens.');
+        }
+      )
     );
   }
 
   getBrokerFeeTotalsFromApi(): void {
-    this.agreementService.getDashboardBrokerFeeTotals(this.startYear, this.endYear).subscribe(
-      data => {
-        this.data = data;
-        console.log('brokerfee totals: ', data);
-        this.initChartData();
-      },
-      error => {
-        this.toastrService.error('Fout bij ophalen van gegevens.');
-      }
+    this.subscriptions.push(
+      this.agreementService.getDashboardBrokerFeeTotals(this.startYear, this.endYear).subscribe(
+        data => {
+          this.data = data;
+          console.log('brokerfee totals: ', data);
+          this.initChartData();
+        },
+        error => {
+          this.toastrService.error('Fout bij ophalen van gegevens.');
+        }
+      )
+    );
+  }
+
+  getGeneralCountsFromApi(): void {
+    this.subscriptions.push(
+      this.agreementService.getGeneralCounts().subscribe(
+        data => {
+          this.keyValuePairs = data.map(pair => {
+            return { 
+              key: pair['key']
+                .replace('Rentees', 'verhuurders')
+                .replace('Renters', 'huurders'), 
+              value: pair['value'] 
+            }
+          });
+
+          console.log('general counts: ', this.keyValuePairs);
+        },
+        error => {
+          this.toastrService.error('Fout bij ophalen van algemene aantallen.');
+        }
+      )
     );
   }
 
