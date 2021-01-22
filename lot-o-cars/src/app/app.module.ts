@@ -41,6 +41,7 @@ import { AgreementDetailsComponent } from './components/agreementdetails/agreeme
 import { DatePipe } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LocationComponent } from './components/location/location.component';
+import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { LocationComponent } from './components/location/location.component';
     RenthistoryComponent,
     AgreementDetailsComponent,
     DashboardComponent,
-    LocationComponent
+    LocationComponent,
+    PaymentDialogComponent,
   ],
   imports: [
     BrowserModule,
