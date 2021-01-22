@@ -1,8 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Bank} from '../../enums/bank.enum';
 import {AgreementService} from '../../services/agreement.service';
 import {Subscription} from 'rxjs';
+import {Agreement} from '../../models/agreement.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-payment-dialog',
@@ -13,11 +15,13 @@ export class PaymentDialogComponent implements OnInit {
   banks: any[] = [];
   bank: any;
   subscriptions: Subscription[] = [];
+  // @Input() agreement: Agreement;
 
   constructor(
     public dialogRef: MatDialogRef<PaymentDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {agreementId: number},
-    private agreementService: AgreementService
+    @Inject(MAT_DIALOG_DATA) public data: {agreement: Agreement},
+    private agreementService: AgreementService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -47,4 +51,10 @@ export class PaymentDialogComponent implements OnInit {
   }
 
   //todo ondestroy
+  checkout() {
+    this.router.navigateByUrl('/checkout', {
+      state: {agreement: this.data.agreement}
+    });
+
+  }
 }

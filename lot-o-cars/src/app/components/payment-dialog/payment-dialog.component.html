@@ -7,4 +7,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <div class="mt-3" *ngIf="bank">
+    <button mat-flat-button color="primary" (click)="checkout()">VERDER</button>
+  </div>
 </div>

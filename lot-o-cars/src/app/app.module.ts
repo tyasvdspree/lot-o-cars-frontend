@@ -42,6 +42,7 @@ import { DatePipe } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LocationComponent } from './components/location/location.component';
 import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { PaymentDialogComponent } from './components/payment-dialog/payment-dial
     AgreementDetailsComponent,
     DashboardComponent,
     LocationComponent,
-    PaymentDialogComponent
+    PaymentDialogComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

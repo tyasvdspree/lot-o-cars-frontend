@@ -16,6 +16,7 @@ import { HirehistoryComponent } from './components/hirehistory/hirehistory.compo
 import { RenthistoryComponent } from './components/renthistory/renthistory.component';
 import { AgreementDetailsComponent } from './components/agreementdetails/agreementdetails.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import {CheckoutComponent} from './components/checkout/checkout.component';
 
 const routes: Routes = [
   { path: 'my-cars', component: MyCarsComponent, canActivate: [AuthGuard] },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'hirehistory', component: HirehistoryComponent, canActivate: [AuthGuard]  },
   { path: 'renthistory', component: RenthistoryComponent, canActivate: [AuthGuard]  },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]  },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard]  },
   { path: '**', component: LandingspageComponent }
 ];
 

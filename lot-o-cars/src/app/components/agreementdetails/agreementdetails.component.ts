@@ -168,10 +168,10 @@ export class AgreementDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  payAgreement(agreementId: number): void {
+  payAgreement(agreement: Agreement): void {
     const dialogRef = this.dialog.open(PaymentDialogComponent, {
       width: '550px',
-      data: {agreementId}
+      data: {agreement}
     });
   }
 
