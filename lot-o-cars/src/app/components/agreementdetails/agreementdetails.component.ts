@@ -8,8 +8,6 @@ import { Agreement } from 'src/app/models/agreement.model';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { isPending, getStatusText, Status } from 'src/app/enums/status.enum';
-import {Car} from '../../models/car.model';
-import {DeactivateCarDialogComponent} from '../deactivate-car-dialog/deactivate-car-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {PaymentDialogComponent} from '../payment-dialog/payment-dialog.component';
 
@@ -45,7 +43,6 @@ export class AgreementDetailsComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private route: ActivatedRoute,
     private toastr: ToastrService,
-    private router: Router,
     public dialog: MatDialog
   ) { }
 
@@ -173,6 +170,8 @@ export class AgreementDetailsComponent implements OnInit, OnDestroy {
       width: '550px',
       data: {agreement}
     });
+    dialogRef.afterClosed().subscribe((data: any) => {
+        this.agreement = data;
+      });
   }
-
 }

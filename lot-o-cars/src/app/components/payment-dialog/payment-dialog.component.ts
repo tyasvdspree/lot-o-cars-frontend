@@ -1,35 +1,45 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Bank} from '../../enums/bank.enum';
 import {AgreementService} from '../../services/agreement.service';
 import {Subscription} from 'rxjs';
 import {Agreement} from '../../models/agreement.model';
 import {Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-payment-dialog',
   templateUrl: './payment-dialog.component.html',
   styleUrls: ['./payment-dialog.component.scss']
 })
-export class PaymentDialogComponent implements OnInit {
+export class PaymentDialogComponent implements OnInit, OnDestroy {
   banks: any[] = [];
-  bank: any;
+  bank: Bank;
   subscriptions: Subscription[] = [];
-  // @Input() agreement: Agreement;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  agreement: Agreement;
 
   constructor(
     public dialogRef: MatDialogRef<PaymentDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {agreement: Agreement},
     private agreementService: AgreementService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
-    this.loadData();
-    this.banks = this.banks.map(function (bank) {
-      return { key: Object.keys(Bank).filter(x => Bank[x] == bank), value: bank }
+    this.agreement = this.data.agreement
+    this.firstFormGroup = this.formBuilder.group({
+      firstCtrl: ['', Validators.required]
     });
-    console.log(this.banks);
+    this.secondFormGroup = this.formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+    this.loadData();
+    this.banks = this.banks.map(bank => ({key: Object.keys(Bank).filter(x => Bank[x] === bank), value: bank}));
   }
 
   onNoClick(): void {
@@ -50,11 +60,25 @@ export class PaymentDialogComponent implements OnInit {
     );
   }
 
-  //todo ondestroy
-  checkout() {
-    this.router.navigateByUrl('/checkout', {
-      state: {agreement: this.data.agreement}
-    });
+  ngOnDestroy(): void {
+    if (this.subscriptions) {
+      this.subscriptions.forEach(x => x.unsubscribe());
+    }
+  }
 
+  changeBank() {
+    this.bank = this.firstFormGroup.controls.firstCtrl.value;
+  }
+
+  finishPayment() {
+    this.agreementService.setAgreementPayment(this.agreement).subscribe(
+      data => {
+        this.dialogRef.close(data);
+        this.toastr.success('Bedankt voor uw betaling');
+      },
+      error => {
+        this.toastr.error('Fout bij ophalen van gegevens');
+      }
+    );
   }
 }

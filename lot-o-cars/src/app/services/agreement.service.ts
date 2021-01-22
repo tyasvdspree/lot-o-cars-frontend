@@ -45,4 +45,12 @@ export class AgreementService {
     console.log('url: ', url);
     return this.http.get(url);
   }
+
+  setAgreementPayment(agreement: Agreement): Observable<any>{
+    const url = `${environment.apiBaseUrl}/agreement/payment`;
+    const reqBody = agreement;
+    console.log(url);
+    console.log(reqBody);
+    return this.http.put(url, reqBody);
+  }
 }

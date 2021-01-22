@@ -108,8 +108,12 @@
                             <button mat-flat-button color="primary" (click)="cancelAgreement()">huurovereenkomst annuleren</button>
                         </div>
                     </div>
-                    <div class="mt-3" *ngIf="!isPending&&isRenter">
-                      <button mat-flat-button color="primary" (click)="payAgreement(this.agreement)">BETALEN</button>
+                    <div *ngIf="!isPending">
+                      <div class="mt-3 label">betaald</div>
+                      <div>{{this.agreement.payed ? 'ja' : 'nee'}}</div>
+                      <div class="mt-3" *ngIf="!this.agreement.payed&&isRenter">
+                        <button mat-flat-button color="primary" (click)="payAgreement(this.agreement)">BETALEN</button>
+                      </div>
                     </div>
                 </mat-card-content>
             </mat-card>
