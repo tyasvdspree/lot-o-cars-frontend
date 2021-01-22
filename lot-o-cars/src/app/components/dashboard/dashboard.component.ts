@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as c3 from 'c3';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { isAdminUser } from 'src/app/models/user.model';
 import { AgreementService } from 'src/app/services/agreement.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 export class DashboardComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
-  isAdminDashboard: boolean = false;
+  isAdminDashboard: boolean;
   userName = '';
   years = [];
   startYear: number;
@@ -100,7 +101,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.userService.getUser().subscribe(
         user => {
+          console.log(user);
           this.userName = user.username;
+          this.isAdminDashboard = isAdminUser(user);
+          console.log('is admin', this.isAdminDashboard);
 
           if (this.isAdminDashboard) {
             this.getBrokerFeeTotalsFromApi();
