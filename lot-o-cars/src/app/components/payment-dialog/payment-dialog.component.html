@@ -1,0 +1,10 @@
+<h1>Selecteer uw bank</h1>
+<div>
+  <mat-form-field>
+    <mat-select [(ngModel)]='bank' name="bank">
+      <mat-option *ngFor="let bank of banks" value={{bank.key}}>
+        {{bank.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
