@@ -27,6 +27,7 @@ export class EditCarComponent implements OnInit {
   subscription: Subscription;
   car: Car;
   carImageIds = [];
+  deletedCarImageIds = [];
   carImages = [];
   makes: any[] = [];
   colors: any[] = [];
@@ -49,7 +50,7 @@ export class EditCarComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
-  private http: HttpClient, 
+    private http: HttpClient,
 
   ) { }
 
@@ -109,7 +110,10 @@ export class EditCarComponent implements OnInit {
   editCar(event, item): void {
     this.subscription = this.carService.editCar(item.car).subscribe(
       response => {
-        this.addImage()
+        this.addImage();
+        Array.from(this.deletedCarImageIds).forEach(image => {
+          this.deleteImageApi(image);
+        });
         this.toastr.success('Gewijzigd', 'Success');
         this.dialogRef.close();
       },
@@ -132,17 +136,26 @@ export class EditCarComponent implements OnInit {
   }
 
   deleteImage(imageId: string): void {
+    const index: number = this.carImageIds.indexOf(imageId);
+    debugger;
+    if (index !== -1) {
+      this.carImageIds.splice(index, 1);
+    }
+    this.deletedCarImageIds.push(imageId);
+  }
+
+
+  deleteImageApi(imageId: string): void {
+
     this.subscription = this.carService.deleteCarImage(imageId).subscribe(
       response => {
-        const index: number = this.carImageIds.indexOf(imageId);
-        if (index !== -1) {
-          this.carImageIds.splice(index, 1);
-        }  
+        console.log("deleted " + imageId)
       },
       error => {
-        console.log(error);
+        console.log("error")
       }
-    )
+
+    );
   }
 
   receiveSelectedImageFiles(images: FileList) {
@@ -150,20 +163,24 @@ export class EditCarComponent implements OnInit {
     this.readImageFile(images);
   }
 
-  readImageFile(images: FileList){
-    if(!this.imageUrls){
+  readImageFile(images: FileList) {
+    if (!this.imageUrls) {
       this.imageUrls = [];
     }
     let fileReader = new FileReader();
     fileReader.onload = (e) => {
-      this.imageUrls.push({path: fileReader.result})
+      this.imageUrls.push({ path: fileReader.result })
     }
     Array.from(images).forEach(image => {
       fileReader.readAsDataURL(image);
     });
   }
 
-  addImage(){
-   this.carService.addImagesToCar(this.car, this.imageFiles)
+  addImage() {
+    this.carService.addImagesToCar(this.car, this.imageFiles)
+  }
+
+  closeDialog(){
+    this.dialogRef.close();
   }
 }
