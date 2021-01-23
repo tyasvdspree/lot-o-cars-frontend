@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarService } from 'src/app/services/car.service';
@@ -13,8 +13,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Location } from '../../models/location.model';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { error } from 'protractor';
 
 @Component({
   selector: 'app-edit-car',
@@ -50,8 +48,6 @@ export class EditCarComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
-    private http: HttpClient,
-
   ) { }
 
   ngOnInit(): void {
