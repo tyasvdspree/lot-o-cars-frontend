@@ -44,6 +44,13 @@
                                 </mat-checkbox>
                             </li>
                         </ul>
+                        <div class="mt-lg-5 pl-2" [hidden]="!isAdminUser">
+                            <label>Dashboard view</label>
+                            <mat-radio-group  [(ngModel)]="isAdminDashboard">
+                                <mat-radio-button [value]="true" (change)="switchDashboardView($event)">lot-o-cars</mat-radio-button>
+                                <mat-radio-button [value]="false" (change)="switchDashboardView($event)">verhuurder</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -56,14 +63,14 @@
             </div>
         </div>
 
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3" [hidden]="isAdminDashboard">
             <div class="dash-item border rounded p-2">
                 <h2 class="text-center">winst en kosten per periode</h2>
                 <div id="chartProfitAndCosts"></div>
             </div>
         </div>
 
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3" [hidden]="isAdminDashboard">
             <div class="dash-item border rounded p-2">
                 <h2 class="text-center">aandeel omzet per auto</h2>
                 <div id="chartCarRevenuePart"></div>
@@ -79,24 +86,24 @@
                             <tr>
                                 <th>jaar</th>
                                 <th>omzet</th>
-                                <th>kosten</th>
-                                <th>winst</th>
+                                <th *ngIf="!isAdminDashboard">kosten</th>
+                                <th *ngIf="!isAdminDashboard">winst</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="yearTotals">
                             <tr *ngFor="let item of yearTotals">
                                 <td>{{item.year}}</td>
                                 <td>{{item.revenueTotal | currency: 'EUR'}}</td>
-                                <td>{{item.costsTotal | currency: 'EUR'}}</td>
-                                <td>{{item.profitTotal | currency: 'EUR'}}</td>
+                                <td *ngIf="!isAdminDashboard">{{item.costsTotal | currency: 'EUR'}}</td>
+                                <td *ngIf="!isAdminDashboard">{{item.profitTotal | currency: 'EUR'}}</td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td>TOTAAL</td>
                                 <td>{{revenueTotal | currency: 'EUR'}}</td>
-                                <td>{{costsTotal | currency: 'EUR'}}</td>
-                                <td>{{profitTotal | currency: 'EUR'}}</td>
+                                <td *ngIf="!isAdminDashboard">{{costsTotal | currency: 'EUR'}}</td>
+                                <td *ngIf="!isAdminDashboard">{{profitTotal | currency: 'EUR'}}</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -110,9 +117,13 @@
                 <div id="tableRevenue" class="p-3 text-center">
                     <table class="data mt-4">
                         <tbody>
-                            <tr><td>huurovereenkomsten met status ingediend</td><td>{{numOfPendingAgreements}}</td></tr>
-                            <tr><td>onbetaalde huurovereenkomsten</td><td>{{numOfUnpaidAgreements}}</td></tr>
-                            <tr><td>gemiddelde jaaromzet</td><td>{{avgYearRevenue | currency: 'EUR'}}</td></tr>
+                            <tr *ngFor="let item of keyValuePairs">
+                                <td>{{item.key}}</td>
+                                <td>{{item.value | number:'1.0-2':'nl'}}</td>
+                            </tr>
+                            <tr *ngIf="!isAdminDashboard"><td>huurovereenkomsten met status ingediend</td><td>{{numOfPendingAgreements}}</td></tr>
+                            <tr *ngIf="!isAdminDashboard"><td>onbetaalde huurovereenkomsten</td><td>{{numOfUnpaidAgreements}}</td></tr>
+                            <tr><td>omzet (gemiddeld per jaar)</td><td>{{avgYearRevenue | currency: 'EUR'}}</td></tr>
                         </tbody>
                     </table>
                 </div>
