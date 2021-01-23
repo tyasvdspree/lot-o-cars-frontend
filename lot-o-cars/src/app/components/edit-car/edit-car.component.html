@@ -45,7 +45,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            <h1 style="margin-top: 20px;">Ophaallocatie</h1>
+                            <mat-card-header style="margin-top: 30px;">
+                                <mat-card-title>Ophaallocatie</mat-card-title>
+                            </mat-card-header>
                             <tr>
                                 <td>
                                     <mat-form-field>
@@ -86,12 +88,10 @@
                                     </mat-form-field>
                                 </td>
                             </tr>
-
                         </table>
                     </mat-card-content>
                 </mat-card>
             </div>
-
             <div style="float: right; margin-left: 50px; margin-top: 2px;">
                 <mat-card class="mb-3">
                     <mat-card-header>
@@ -102,32 +102,23 @@
                         </app-imageupload>
                     </mat-card-content>
                 </mat-card>
-
                 <mat-card class="mb-3" style="margin-top: 50px;">
                     <mat-card-header>
                         <mat-card-title>Foto's</mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
-                        <ul class="carImageIds">
-                            <li *ngFor="let carImageId of carImageIds" style="margin: 10px">
-                                <span class="badge"></span> {{carImageId}}
-                                <mat-icon color="warn" style="margin-left: 20px;" mat-flat-button type="button"
-                                    class="delete" (click)="deleteImage(carImageId)">delete</mat-icon>
-
-                                <!-- <mat-icon color="warn" style="margin-left: 20px;" mat-flat-button type="button"
-                                class="delete" (click)="deleteImage(carImageId)">clear</mat-icon>
-                                
-                                <button style="margin-left: 20px;" mat-flat-button color="warn" type="button"
-                                    class="delete" (click)="deleteImage(carImageId)">Delete</button> -->
-                            </li>
-                        </ul>
+                        <div *ngFor="let carImageId of carImageIds; let i = index" style="margin: 10px">
+                            <img style="margin-right: 5px;" width="120" height="80" [src]="imageUrls[i]" alt="car" />
+                            <mat-icon style="vertical-align: middle; margin-left: 20px;" color="warn" mat-flat-button type="button"
+                                class="delete" (click)="deleteImage(carImageId)">delete</mat-icon>
+                        </div>
                     </mat-card-content>
                 </mat-card>
             </div>
         </form>
     </div>
-    <button mat-flat-button type="submit" color="primary" style="float: right; width: 90px;"
+    <button mat-flat-button type="submit" color="primary" style="float: right; width: 90px;  background-color: green"
         (click)="editCar($event, this.data)">Wijzig</button>
-    <button mat-flat-button type="submit" color="warn"
-        (click)="closeDialog()" style="float: right; margin-right: 15px; width: 90px;">Annuleer</button>
+    <button mat-flat-button type="submit" color="warn" (click)="closeDialog()"
+        style="float: right; margin-right: 15px; width: 90px;">Annuleer</button>
 </div>

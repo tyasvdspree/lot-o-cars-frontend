@@ -40,7 +40,7 @@ export class EditCarComponent implements OnInit {
   location: Location;
   returnUrl: string;
   imageFiles: FileList;
-  imageUrls;
+  imageUrls = [];
 
   constructor(
     public dialogRef: MatDialogRef<EditCarComponent>,
@@ -128,6 +128,7 @@ export class EditCarComponent implements OnInit {
     this.subscription = this.carService.getCarImageIds(this.licensePlate).subscribe(
       response => {
         this.carImageIds = response;
+        this.getImageUrls();
       },
       error => {
         console.log(error);
@@ -135,18 +136,29 @@ export class EditCarComponent implements OnInit {
     )
   }
 
+  getImageUrls(): string {
+    let numberPlate = this.car.numberPlate;
+    if (this.carImageIds.length > 0) {
+      for (var i = 0; i < this.carImageIds.length; i++) {
+        this.imageUrls[i] = this.carService.getCarImageUrl(numberPlate, this.carImageIds[i]);
+      }
+    }
+    else {
+      return "assets/img/app/maincar.jpg";
+    }
+  }
+
   deleteImage(imageId: string): void {
     const index: number = this.carImageIds.indexOf(imageId);
-    debugger;
     if (index !== -1) {
+      debugger;
       this.carImageIds.splice(index, 1);
+      this.imageUrls.splice(index, 1);
     }
     this.deletedCarImageIds.push(imageId);
   }
 
-
   deleteImageApi(imageId: string): void {
-
     this.subscription = this.carService.deleteCarImage(imageId).subscribe(
       response => {
         console.log("deleted " + imageId)
@@ -154,33 +166,18 @@ export class EditCarComponent implements OnInit {
       error => {
         console.log("error")
       }
-
     );
   }
 
   receiveSelectedImageFiles(images: FileList) {
     this.imageFiles = images;
-    this.readImageFile(images);
-  }
-
-  readImageFile(images: FileList) {
-    if (!this.imageUrls) {
-      this.imageUrls = [];
-    }
-    let fileReader = new FileReader();
-    fileReader.onload = (e) => {
-      this.imageUrls.push({ path: fileReader.result })
-    }
-    Array.from(images).forEach(image => {
-      fileReader.readAsDataURL(image);
-    });
   }
 
   addImage() {
     this.carService.addImagesToCar(this.car, this.imageFiles)
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialogRef.close();
   }
 }

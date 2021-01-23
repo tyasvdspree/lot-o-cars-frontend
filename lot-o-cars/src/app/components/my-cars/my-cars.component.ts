@@ -51,7 +51,8 @@ export class MyCarsComponent implements OnInit, OnDestroy {
       width: '800px',
       data: { car },
       autoFocus: false,
-      maxHeight: '95vh'
+      maxHeight: '95vh',
+      disableClose: true
     });
   }
 }
