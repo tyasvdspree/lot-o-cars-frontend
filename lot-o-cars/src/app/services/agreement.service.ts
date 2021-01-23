@@ -1,16 +1,24 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Agreement} from '../models/agreement.model';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {environment} from '../../environments/environment';
+import {Bank} from '../enums/bank.enum';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgreementService {
+  bank:Bank[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.bank = Object.values(Bank);
+  }
+
+  getBanks(): Observable<Bank[]> {
+    return of(this.bank);
+  }
 
   createAgreement(agreement: Agreement): Observable<any> {
     return this.http.post(environment.apiBaseUrl + '/agreement', agreement);
@@ -45,5 +53,13 @@ export class AgreementService {
   getGeneralCounts(): Observable<any> {
     const url = `${environment.apiBaseUrl}/agreement/general_counts`;
     return this.http.get(url);
+  }
+
+  setAgreementPayment(agreement: Agreement): Observable<any>{
+    const url = `${environment.apiBaseUrl}/agreement/payment`;
+    const reqBody = agreement;
+    console.log(url);
+    console.log(reqBody);
+    return this.http.put(url, reqBody);
   }
 }
