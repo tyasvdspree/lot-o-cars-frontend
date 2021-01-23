@@ -44,6 +44,13 @@
                                 </mat-checkbox>
                             </li>
                         </ul>
+                        <div class="mt-lg-5 pl-2" [hidden]="!isAdminUser">
+                            <label>Dashboard view</label>
+                            <mat-radio-group  [(ngModel)]="isAdminDashboard">
+                                <mat-radio-button [value]="true" (change)="switchDashboardView($event)">lot-o-cars</mat-radio-button>
+                                <mat-radio-button [value]="false" (change)="switchDashboardView($event)">verhuurder</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -112,11 +119,11 @@
                         <tbody>
                             <tr *ngFor="let item of keyValuePairs">
                                 <td>{{item.key}}</td>
-                                <td>{{item.value}}</td>
+                                <td>{{item.value | number:'1.0-2':'nl'}}</td>
                             </tr>
                             <tr *ngIf="!isAdminDashboard"><td>huurovereenkomsten met status ingediend</td><td>{{numOfPendingAgreements}}</td></tr>
                             <tr *ngIf="!isAdminDashboard"><td>onbetaalde huurovereenkomsten</td><td>{{numOfUnpaidAgreements}}</td></tr>
-                            <tr><td>gemiddelde jaaromzet</td><td>{{avgYearRevenue | currency: 'EUR'}}</td></tr>
+                            <tr><td>omzet (gemiddeld per jaar)</td><td>{{avgYearRevenue | currency: 'EUR'}}</td></tr>
                         </tbody>
                     </table>
                 </div>
