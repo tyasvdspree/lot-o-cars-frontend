@@ -28,7 +28,7 @@ export class AgreementlistComponent implements OnInit {
   ngOnInit(): void {
     this.agreementSubscription = this.agreementService.getAgreements(this.renterPerspective).subscribe(
       response => {
-        this.agreements.data = response;
+        this.agreements.data = response.sort(this.compareAgreementsByStartDateDesc);
         this.agreements.filterPredicate = (data, filter: string)  => {
           const accumulator = (currentTerm, key) => {
             return this.nestedFilterCheck(currentTerm, data, key);
@@ -45,8 +45,15 @@ export class AgreementlistComponent implements OnInit {
     );
   }
 
+  compareAgreementsByStartDateDesc(a: Agreement, b: Agreement) {
+    if (a.startDate < b.startDate)
+      return 1;
+    if (a.startDate > b.startDate)
+      return -1;
+    return 0;
+  }
+
   onRowClicked(agreement: Agreement): void {
-    console.log('Row clicked: ', agreement);
     this.router.navigateByUrl(`/agreementdetails/${agreement.id}`);
   }
 
