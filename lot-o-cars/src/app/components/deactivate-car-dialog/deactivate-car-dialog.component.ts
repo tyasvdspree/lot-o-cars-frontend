@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Car } from 'src/app/models/car.model';
 import {AgreementService} from '../../services/agreement.service';
@@ -24,6 +24,9 @@ export class DeactivateCarDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (!this.data.car) {
+      this.data.car = new Car();
+    }
   }
 
   onNoClick(): void {
@@ -40,10 +43,18 @@ export class DeactivateCarDialogComponent implements OnInit {
       this.agreement.endDate = this.endDate;
       this.agreementService.createAgreement(this.agreement).subscribe(
         response => {
-          this.toastr.success(this.data.car.make + ' ' + this.data.car.model + ' gedeactiveerd');
+          this.toastr.success(this.getCarDescription(this.data.car));
           this.dialogRef.close();
         }
       );
+    }
+  }
+
+  getCarDescription(car: Car) {
+    if (car && car.make && car.model) {
+      return `${car.make} ${car.model} gedeactiveerd`;
+    } else {
+      return 'auto gedeactiveerd';
     }
   }
 

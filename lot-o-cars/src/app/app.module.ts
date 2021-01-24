@@ -21,9 +21,9 @@ import { TermsComponent } from './components/terms/terms.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { RegisterService } from './services/register.service'
+import { RegisterService } from './services/register.service';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { LoginComponent } from './components/login/login.component';
-import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AgreementComponent } from './components/agreement/agreement.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { UserpageComponent } from './components/userpage/userpage.component';
@@ -95,6 +95,8 @@ registerLocaleData(localeNl, 'nl');
     CarService,
     DatePipe,
     RegisterService,
+    HttpClient,
+    HttpClientModule,
     { provide: LOCALE_ID, useValue: 'nl-NL'},
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],

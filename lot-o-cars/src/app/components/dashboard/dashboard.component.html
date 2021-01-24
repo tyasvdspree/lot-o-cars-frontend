@@ -21,7 +21,7 @@
                     <div class="col-md">
                         <ul>
                             <li *ngFor="let item of years">
-                                <mat-checkbox [(ngModel)]="item.checked" 
+                                <mat-checkbox name="yearFilter" [(ngModel)]="item.checked" 
                                     (change)="yearFilterChanged(item)" 
                                     title="filter huurovereenkomsten op dit jaar">
                                         {{item.text}}
@@ -32,12 +32,12 @@
                     <div class="col-md">
                         <ul>
                             <li>
-                                <mat-checkbox [(ngModel)]="includePending" 
+                                <mat-checkbox name="includePending" [(ngModel)]="includePending" 
                                     (change)="filterChanged()" 
                                     title="inclusief ingediende huurovereenkomsten">
                                         Inclusief ingediend
                                 </mat-checkbox>
-                                <mat-checkbox [(ngModel)]="includeUnpayed" 
+                                <mat-checkbox name="includeUnpayed" [(ngModel)]="includeUnpayed" 
                                     (change)="filterChanged()" 
                                     title="inclusief onbetaalde huurovereenkomsten">
                                         Inclusief onbetaald
@@ -46,7 +46,7 @@
                         </ul>
                         <div class="mt-lg-5 pl-2" [hidden]="!isAdminUser">
                             <label>Dashboard view</label>
-                            <mat-radio-group  [(ngModel)]="isAdminDashboard">
+                            <mat-radio-group name="isAdminDashboard"  [(ngModel)]="isAdminDashboard">
                                 <mat-radio-button [value]="true" (change)="switchDashboardView($event)">lot-o-cars</mat-radio-button>
                                 <mat-radio-button [value]="false" (change)="switchDashboardView($event)">verhuurder</mat-radio-button>
                             </mat-radio-group>

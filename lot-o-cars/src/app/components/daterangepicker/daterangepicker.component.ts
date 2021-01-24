@@ -29,17 +29,20 @@ export class DaterangepickerComponent implements OnInit, OnDestroy {
         end: new FormControl(),
       }),
     });
-    this.subscriptions.push(
-      this.carService.getBlockedDates(this.car.numberPlate).subscribe(
-        response => {
-          if (response) {
-            this.blockedDates = response.map(x => new Date(x + ' 00:00:00'));
+
+    if (this.car) {
+      this.subscriptions.push(
+        this.carService.getBlockedDates(this.car.numberPlate).subscribe(
+          response => {
+            if (response) {
+              this.blockedDates = response.map(x => new Date(x + ' 00:00:00'));
+            }
+          },
+          error => {
+            console.log(error);
           }
-        },
-        error => {
-          console.log(error);
-        }
-      ));
+        ));
+      }
   }
 
   ngOnDestroy(): void {
