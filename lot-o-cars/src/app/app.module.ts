@@ -8,19 +8,19 @@ import { HeadermenuComponent } from './components/headermenu/headermenu.componen
 import { FootermenuComponent } from './components/footermenu/footermenu.component';
 import { MaterialModule } from './modules/material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LandingspageComponent } from './components/landingspage/landingspage.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { HireComponent } from './components/hire/hire.component';
 import { RentComponent } from './components/rent/rent.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ListComponent } from './components/list/list.component';
 import { CardetailsComponent } from './components/cardetails/cardetails.component';
-import { CarService } from './services/car.service';
+import { CarService } from './services/car-service/car.service';
 import { TermsComponent } from './components/terms/terms.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { RegisterService } from './services/register.service';
+import { RegisterService } from './services/register-service/register.service';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { LoginComponent } from './components/login/login.component';
 import { AgreementComponent } from './components/agreement/agreement.component';
@@ -54,7 +54,7 @@ registerLocaleData(localeNl, 'nl');
     AppComponent,
     HeadermenuComponent,
     FootermenuComponent,
-    LandingspageComponent,
+    HomePageComponent,
     ContactComponent,
     HireComponent,
     RentComponent,

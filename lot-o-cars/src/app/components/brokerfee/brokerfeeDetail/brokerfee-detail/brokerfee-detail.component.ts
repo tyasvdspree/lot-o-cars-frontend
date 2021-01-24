@@ -4,9 +4,9 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BrokerfeeRequest } from 'src/app/models/brokerfee.model';
-import { BrokerfeeService } from 'src/app/services/brokerfee.service';
+import { BrokerfeeService } from 'src/app/services/brokerfee-service/brokerfee.service';
 import { User } from 'src/app/models/user.model';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user-service/user.service';
 import { isPending, getStatusText, Status } from 'src/app/enums/status.enum';
 
 @Component({

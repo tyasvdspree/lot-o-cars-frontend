@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {BrokerfeeService} from 'src/app/services/brokerfee.service';
+import {BrokerfeeService} from 'src/app/services/brokerfee-service/brokerfee.service';
 import {Router} from '@angular/router';
 import {BrokerfeeRequest} from 'src/app/models/brokerfee.model';
 import {MatPaginator} from '@angular/material/paginator';

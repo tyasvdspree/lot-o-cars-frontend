@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { LoginRequestPayload } from './login-request.payload';
 import { Router, ActivatedRoute } from '@angular/router';
 import {ToastrService} from 'ngx-toastr';

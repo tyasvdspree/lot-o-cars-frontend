@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CardetailsComponent } from './components/cardetails/cardetails.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { HireComponent } from './components/hire/hire.component';
-import { LandingspageComponent } from './components/landingspage/landingspage.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
@@ -26,14 +26,14 @@ const routes: Routes = [
   { path: 'agreementdetails/:id', component: AgreementDetailsComponent, canActivate: [AuthGuard] },
   { path: 'hire', component: HireComponent },
   { path: 'rent', component: RentComponent, canActivate: [AuthGuard]},
-  { path: 'home', component: LandingspageComponent },
+  { path: 'home', component: HomePageComponent },
   { path: 'terms', component: TermsComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'userpage', component: UserpageComponent, canActivate: [AuthGuard] },
   { path: 'hirehistory', component: HirehistoryComponent, canActivate: [AuthGuard]  },
   { path: 'renthistory', component: RenthistoryComponent, canActivate: [AuthGuard]  },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]  },
-  { path: '**', component: LandingspageComponent }
+  { path: '**', component: HomePageComponent }
 ];
 
 @NgModule({

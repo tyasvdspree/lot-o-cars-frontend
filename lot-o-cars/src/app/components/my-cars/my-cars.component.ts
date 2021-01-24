@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
-import { CarService } from 'src/app/services/car.service';
+import { CarService } from 'src/app/services/car-service/car.service';
 import { DeactivateCarDialogComponent } from '../deactivate-car-dialog/deactivate-car-dialog.component';
 import { EditCarComponent } from '../edit-car/edit-car.component'
 

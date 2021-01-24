@@ -3,10 +3,10 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, throwError } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { LoginRequestPayload } from '../components/login/login-request.payload';
-import { LoginResponse } from '../components/login/login-response.payload';
+import { LoginRequestPayload } from '../../components/login/login-request.payload';
+import { LoginResponse } from '../../components/login/login-response.payload';
 import {ToastrService} from 'ngx-toastr';
-import {environment} from '../../environments/environment';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CarService } from 'src/app/services/car.service';
+import { CarService } from 'src/app/services/car-service/car.service';
 import { Subscription } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
 import { Make } from 'src/app/enums/make.enum';
@@ -9,7 +9,7 @@ import { Color } from 'src/app/enums/color.enum';
 import { Transmission } from 'src/app/enums/transmission.enum';
 import { Fuel } from 'src/app/enums/fuel.enum';
 import { CarBody } from 'src/app/enums/carBody.enum';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { Location } from '../../models/location.model';
 import { ToastrService } from 'ngx-toastr';
 

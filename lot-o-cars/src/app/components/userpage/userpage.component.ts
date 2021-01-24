@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user-service/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { error } from 'protractor';
 
 @Component({

@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { BrokerfeeRequest } from 'src/app/models/brokerfee.model';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BrokerfeeService } from 'src/app/services/brokerfee.service';
+import { BrokerfeeService } from 'src/app/services/brokerfee-service/brokerfee.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

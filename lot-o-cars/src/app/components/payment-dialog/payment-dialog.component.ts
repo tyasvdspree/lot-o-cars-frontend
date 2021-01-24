@@ -1,7 +1,7 @@
 import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Bank} from '../../enums/bank.enum';
-import {AgreementService} from '../../services/agreement.service';
+import {AgreementService} from '../../services/agreement-service/agreement.service';
 import {Subscription} from 'rxjs';
 import {Agreement} from '../../models/agreement.model';
 import {Router} from '@angular/router';

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {AgreementService} from '../../services/agreement.service';
+import {AgreementService} from '../../services/agreement-service/agreement.service';
 import {Router} from '@angular/router';
 import {Agreement} from '../../models/agreement.model';
 import {MatPaginator} from '@angular/material/paginator';

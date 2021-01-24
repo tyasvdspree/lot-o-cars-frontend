@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Agreement} from '../models/agreement.model';
+import {Agreement} from '../../models/agreement.model';
 import {Observable, of} from 'rxjs';
-import {environment} from '../../environments/environment';
-import {Bank} from '../enums/bank.enum';
+import {environment} from '../../../environments/environment';
+import {Bank} from '../../enums/bank.enum';
 
 
 @Injectable({

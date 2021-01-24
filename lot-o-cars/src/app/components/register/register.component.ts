@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
-import { RegisterService } from 'src/app/services/register.service';
+import { RegisterService } from 'src/app/services/register-service/register.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';

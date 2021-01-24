@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
-import { CarService } from 'src/app/services/car.service';
+import { CarService } from 'src/app/services/car-service/car.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({

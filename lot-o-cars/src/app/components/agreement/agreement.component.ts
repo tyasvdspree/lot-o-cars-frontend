@@ -1,11 +1,11 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Agreement} from '../../models/agreement.model';
-import {CarService} from '../../services/car.service';
+import {CarService} from '../../services/car-service/car.service';
 import {Car} from '../../models/car.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {AgreementService} from '../../services/agreement.service';
+import {AgreementService} from '../../services/agreement-service/agreement.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({

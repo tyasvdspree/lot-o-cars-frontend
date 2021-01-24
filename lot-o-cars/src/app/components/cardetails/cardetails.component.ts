@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
-import { AuthService } from 'src/app/services/auth.service';
-import { CarService } from 'src/app/services/car.service';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { CarService } from 'src/app/services/car-service/car.service';
 
 @Component({
   selector: 'app-cardetails',

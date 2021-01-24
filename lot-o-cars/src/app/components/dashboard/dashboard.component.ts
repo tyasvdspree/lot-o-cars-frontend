@@ -4,8 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { throwIfEmpty } from 'rxjs/operators';
 import { isAdminUser } from 'src/app/models/user.model';
-import { AgreementService } from 'src/app/services/agreement.service';
-import { UserService } from 'src/app/services/user.service';
+import { AgreementService } from 'src/app/services/agreement-service/agreement.service';
+import { UserService } from 'src/app/services/user-service/user.service';
 
 @Component({
   selector: 'app-dashboard',

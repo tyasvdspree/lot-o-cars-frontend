@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CarService } from 'src/app/services/car.service';
+import { CarService } from 'src/app/services/car-service/car.service';
 import { CarSearchCriteria } from 'src/app/models/carSearchCriteria.model';
 import { Make } from 'src/app/enums/make.enum';
 import { Color } from 'src/app/enums/color.enum';

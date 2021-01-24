@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Car } from 'src/app/models/car.model';
-import {AgreementService} from '../../services/agreement.service';
+import {AgreementService} from '../../services/agreement-service/agreement.service';
 import {Agreement} from '../../models/agreement.model';
 import {ToastrService} from 'ngx-toastr';
 
