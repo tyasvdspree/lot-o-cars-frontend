@@ -30,6 +30,7 @@ export class ListComponent implements OnInit, OnDestroy {
   ];
 
   @Output() deactivateCarEvent = new EventEmitter<Car>();
+  @Output() editCarEvent = new EventEmitter<Car>();
   isLoadingResults = false;
 
   // MatPaginator Inputs
@@ -123,5 +124,9 @@ export class ListComponent implements OnInit, OnDestroy {
 
   deactivateCar(car: Car): void {
     this.deactivateCarEvent.emit(car);
+  }
+
+  editCar(car: Car): void {
+    this.editCarEvent.emit(car);
   }
 }

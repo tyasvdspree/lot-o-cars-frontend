@@ -26,14 +26,13 @@ export class UserpageComponent implements OnInit {
     private route: ActivatedRoute,
     private _userService: UserService,
     private toastr: ToastrService
-    ) 
-    {}
-    
+  ) { }
+
   ngOnInit(): void {
     if (this.authenticationService.isLoggedIn() == false) {
       this.redirectTo('/');
     };
-    
+
     this._userService.getUser()
       .subscribe(data => {
         this.user = data;
@@ -52,7 +51,7 @@ export class UserpageComponent implements OnInit {
   public editUser(): void {
     this.subscription = this._userService.checkIfEmailAddressExists(this.user.id, this.user.emailaddress).subscribe(
       response => {
-        if (response === false){
+        if (response === false) {
           this.subscription = this._userService.editUser(this.user).subscribe(
             response => {
               this.toastr.success('Gewijzigd', 'Success');
@@ -63,7 +62,7 @@ export class UserpageComponent implements OnInit {
             }
           )
         }
-        else{
+        else {
           this.toastr.error('Emailadres bestaat al', 'Error');
         }
       },

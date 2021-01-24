@@ -41,6 +41,7 @@ import { AgreementDetailsComponent } from './components/agreementdetails/agreeme
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LocationComponent } from './components/location/location.component';
+import { EditCarComponent } from './components/edit-car/edit-car.component';
 import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
 import localeNl from '@angular/common/locales/nl';
 
@@ -73,6 +74,7 @@ registerLocaleData(localeNl, 'nl');
     RenthistoryComponent,
     AgreementDetailsComponent,
     DashboardComponent,
+    EditCarComponent,
     LocationComponent,
     PaymentDialogComponent,
   ],

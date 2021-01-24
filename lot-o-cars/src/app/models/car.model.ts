@@ -12,7 +12,7 @@ export class Car {
     make: string;
     model: string;
     body: string;
-    transmission: Transmission;
+    transmission: string;
     color: string;
     fuel: string;
     fuelUsage: number;

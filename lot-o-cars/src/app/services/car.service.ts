@@ -114,6 +114,9 @@ export class CarService {
     return environment.apiBaseUrl + '/carimage/' + plate + '/' + imageid;
   }
 
+  deleteCarImage(imageId: string): Observable<any>  {
+    return this.http.delete(environment.apiBaseUrl + '/carimage/deleteImage?imageId=' + imageId);
+  }
 
   createNewCar(newCar: Car, newCarImages: FileList): void {
     const url = environment.apiBaseUrl + this.carController;
@@ -138,7 +141,6 @@ export class CarService {
     const formData: FormData = new FormData();
     formData.append('imagefile', imageFile);
     const url = environment.apiBaseUrl + this.carImageController + '/' + entityId;
-    // console.log(url);
 
     this.http.post<any>(url, formData).subscribe(
       (res) => console.log(res),
@@ -152,4 +154,15 @@ export class CarService {
     return this.http.get(environment.apiBaseUrl + '/car');
   }
 
+  editCar(car){
+    return this.http.put(environment.apiBaseUrl + "/car/editmycar", car);
+  }
+
+  addImagesToCar(car: Car, newCarImages: FileList){
+    if (newCarImages) {
+      Array.from(newCarImages).forEach(image => {
+        this.addImageFileToCar(car.numberPlate, image);
+      });
+    }
+  }
 }
