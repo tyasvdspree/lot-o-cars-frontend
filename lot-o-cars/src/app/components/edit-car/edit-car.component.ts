@@ -61,23 +61,7 @@ export class EditCarComponent implements OnInit {
     );
 
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/my-cars';
-
     this.loadData();
-    this.makes = this.makes.map(function (make) {
-      return { key: Object.keys(Make).filter(x => Make[x] == make), value: make }
-    });
-    this.colors = this.colors.map(function (color) {
-      return { key: Object.keys(Color).filter(x => Color[x] == color), value: color }
-    });
-    this.transmissions = this.transmissions.map(function (transmission) {
-      return { key: Object.keys(Transmission).filter(x => Transmission[x] == transmission), value: transmission }
-    });
-    this.fuelTypes = this.fuelTypes.map(function (fuel) {
-      return { key: Object.keys(Fuel).filter(x => Fuel[x] == fuel), value: fuel }
-    });
-    this.carBodies = this.carBodies.map(function (body) {
-      return { key: Object.keys(CarBody).filter(x => CarBody[x] == body), value: body }
-    });
   }
 
   private loadData(): void {
@@ -103,9 +87,22 @@ export class EditCarComponent implements OnInit {
       this.router.navigate([uri]));
   }
 
-  editCar(event, item): void {
-    this.subscription = this.carService.editCar(item.car).subscribe(
+  editCar(): void {
+    debugger;
+    this.car.make = Object.keys(Make).filter(x => Make[x] == this.car.make)[0];  
+    this.car.color = Object.keys(Color).filter(x => Color[x] == this.car.color)[0];
+    this.car.transmission = Object.keys(Transmission).filter(x => Transmission[x] == this.car.transmission)[0];
+    this.car.fuel = Object.keys(Fuel).filter(x => Fuel[x] == this.car.fuel)[0];
+    this.car.body = Object.keys(CarBody).filter(x => CarBody[x] == this.car.body)[0]
+
+    this.subscription = this.carService.editCar(this.car).subscribe(
       response => {
+        this.car.make = Make[this.car.make];  
+        this.car.color = Make[this.car.color];  
+        this.car.transmission = Make[this.car.transmission];  
+        this.car.fuel = Make[this.car.fuel];  
+        this.car.body = Make[this.car.body];  
+
         this.addImage();
         Array.from(this.deletedCarImageIds).forEach(image => {
           this.deleteImageApi(image);
@@ -114,6 +111,11 @@ export class EditCarComponent implements OnInit {
         this.dialogRef.close();
       },
       error => {
+        this.car.make = Make[this.car.make];  
+        this.car.color = Make[this.car.color];  
+        this.car.transmission = Make[this.car.transmission];  
+        this.car.fuel = Make[this.car.fuel];  
+        this.car.body = Make[this.car.body];  
         this.toastr.error('Wijziging mislukt', 'Error');
         this.dialogRef.close();
       }

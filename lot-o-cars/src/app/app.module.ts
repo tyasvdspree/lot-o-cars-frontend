@@ -74,7 +74,7 @@ registerLocaleData(localeNl, 'nl');
     RenthistoryComponent,
     AgreementDetailsComponent,
     DashboardComponent,
-    EditCarComponent
+    EditCarComponent,
     LocationComponent,
     PaymentDialogComponent,
   ],
