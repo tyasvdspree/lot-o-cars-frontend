@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -38,10 +38,14 @@ import { AgreementlistComponent } from './components/agreementlist/agreementlist
 import { HirehistoryComponent } from './components/hirehistory/hirehistory.component';
 import { RenthistoryComponent } from './components/renthistory/renthistory.component';
 import { AgreementDetailsComponent } from './components/agreementdetails/agreementdetails.component';
-import { DatePipe } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LocationComponent } from './components/location/location.component';
 import { EditCarComponent } from './components/edit-car/edit-car.component';
+import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
+import localeNl from '@angular/common/locales/nl';
+
+registerLocaleData(localeNl, 'nl');
 
 @NgModule({
   declarations: [
@@ -70,8 +74,9 @@ import { EditCarComponent } from './components/edit-car/edit-car.component';
     RenthistoryComponent,
     AgreementDetailsComponent,
     DashboardComponent,
-    LocationComponent,
     EditCarComponent
+    LocationComponent,
+    PaymentDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,6 +95,7 @@ import { EditCarComponent } from './components/edit-car/edit-car.component';
     CarService,
     DatePipe,
     RegisterService,
+    { provide: LOCALE_ID, useValue: 'nl-NL'},
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],

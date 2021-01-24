@@ -6,6 +6,10 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Fuel } from 'src/app/enums/fuel.enum';
+import { Transmission } from 'src/app/enums/transmission.enum';
+import { CarBody } from 'src/app/enums/carBody.enum';
+import { Make } from 'src/app/enums/make.enum';
 
 @Component({
   selector: 'app-list',
@@ -45,13 +49,13 @@ export class ListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    if (!this.cars){
+    if (!this.cars) {
       this.carSearchSubscription = this.carService.SearchEvent.subscribe(
         criteria => {
           this.getCarsBySearchCriteria(criteria);
         },
         error => {
-
+          this.toastr.error('Fout bij ophalen autogegevens.');
         }
       );
 
@@ -91,6 +95,12 @@ export class ListComponent implements OnInit, OnDestroy {
   initPageItems() {
     this.length = this.cars.length;
     this.pageOfCars = this.cars.slice(0, this.pageSize);
+    this.pageOfCars.forEach(x => {
+      x.make = Make[x.make];
+      x.fuel = Fuel[x.fuel];
+      x.transmission = Transmission[x.transmission];
+      x.body = CarBody[x.body];
+    });
   }
 
   loadPageItems(pageEvent) {
@@ -104,7 +114,7 @@ export class ListComponent implements OnInit, OnDestroy {
     if (carImageId > 0)
       return this.carService.getCarImageUrl(numberPlate, carImageId);
     else
-      return "assets/img/app/maincar.jpg";
+      return "assets/img/app/maincar.jpg"; // get standard lot-o-cars car image
   }
 
   onRowClicked(car: Car): void {
