@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -21,9 +21,9 @@ import { TermsComponent } from './components/terms/terms.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { RegisterService } from './services/register.service'
+import { RegisterService } from './services/register.service';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { LoginComponent } from './components/login/login.component';
-import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AgreementComponent } from './components/agreement/agreement.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { UserpageComponent } from './components/userpage/userpage.component';
@@ -38,12 +38,17 @@ import { AgreementlistComponent } from './components/agreementlist/agreementlist
 import { HirehistoryComponent } from './components/hirehistory/hirehistory.component';
 import { RenthistoryComponent } from './components/renthistory/renthistory.component';
 import { AgreementDetailsComponent } from './components/agreementdetails/agreementdetails.component';
-import { DatePipe } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LocationComponent } from './components/location/location.component';
 import { BrokerfeeDetailComponent } from './components/brokerfee/brokerfeeDetail/brokerfee-detail/brokerfee-detail.component';
 import { BrokerfeeListComponent } from './components/brokerfee/brokerfeeList/brokerfee-list/brokerfee-list.component';
 import { BrokerfeeRequestComponent } from './components/brokerfee/brokerfeeRequest/brokerfee-request/brokerfee-request.component';
+import { EditCarComponent } from './components/edit-car/edit-car.component';
+import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
+import localeNl from '@angular/common/locales/nl';
+
+registerLocaleData(localeNl, 'nl');
 
 @NgModule({
   declarations: [
@@ -75,7 +80,10 @@ import { BrokerfeeRequestComponent } from './components/brokerfee/brokerfeeReque
     LocationComponent,
     BrokerfeeDetailComponent,
     BrokerfeeListComponent,
-    BrokerfeeRequestComponent
+    BrokerfeeRequestComponent,
+    EditCarComponent,
+    LocationComponent,
+    PaymentDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,6 +102,9 @@ import { BrokerfeeRequestComponent } from './components/brokerfee/brokerfeeReque
     CarService,
     DatePipe,
     RegisterService,
+    HttpClient,
+    HttpClientModule,
+    { provide: LOCALE_ID, useValue: 'nl-NL'},
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],

@@ -8,6 +8,8 @@ import { Agreement } from 'src/app/models/agreement.model';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { isPending, getStatusText, Status } from 'src/app/enums/status.enum';
+import {MatDialog} from '@angular/material/dialog';
+import {PaymentDialogComponent} from '../payment-dialog/payment-dialog.component';
 
 @Component({
   selector: 'app-agreementdetails',
@@ -41,7 +43,7 @@ export class AgreementDetailsComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private route: ActivatedRoute,
     private toastr: ToastrService,
-    private router: Router
+    public dialog: MatDialog
   ) { }
 
 
@@ -163,4 +165,17 @@ export class AgreementDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
+  payAgreement(agreement: Agreement): void {
+    const dialogRef = this.dialog.open(PaymentDialogComponent, {
+      width: '550px',
+      data: {agreement}
+    });
+    this.subscriptions.push(
+      dialogRef.afterClosed().subscribe((data: any) => {
+        if (data) {
+          this.agreement = data;
+        }
+      })
+    );
+  }
 }

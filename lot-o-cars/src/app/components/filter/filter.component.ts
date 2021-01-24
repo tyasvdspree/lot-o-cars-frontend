@@ -7,29 +7,13 @@ import { Transmission } from 'src/app/enums/transmission.enum';
 import { Fuel } from 'src/app/enums/fuel.enum';
 import { CarBody } from 'src/app/enums/carBody.enum';
 import { Subscription } from 'rxjs';
-import { DateAdapter, MatDateFormats, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS } from '@angular/material/core';
-
-
-export const GRI_DATE_FORMATS: MatDateFormats = {
-  ...MAT_NATIVE_DATE_FORMATS,
-  display: {
-    ...MAT_NATIVE_DATE_FORMATS.display,
-    dateInput: {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    } as Intl.DateTimeFormatOptions,
-  }
-};
+import { DateAdapter } from '@angular/material/core';
 
 
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss'],
-  providers: [
-    { provide: MAT_DATE_FORMATS, useValue: GRI_DATE_FORMATS },
-  ]
+  styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit, OnDestroy {
   panelOpenState = false;
@@ -52,7 +36,8 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.adapter.setLocale('nl-NL');
-    this.loadData();
+    this.loadSelectionLists();
+
     this.makes = this.makes.map(function(make) {
       return {key:Object.keys(Make).filter(x => Make[x] == make), value:make}
     });
@@ -69,13 +54,12 @@ export class FilterComponent implements OnInit, OnDestroy {
       return {key:Object.keys(CarBody).filter(x => CarBody[x] == body), value:body}
     });
 
-
     this.simpleSearchMode = this.carService.simpleSearchMode;
 
     if (this.carService.searchCriteria.pickUpDate) {
       this.searchCriteria = this.carService.searchCriteria;
     } else {
-      this.setDefaultData();
+      this.setDefaultSearchData();
     }
   }
 
@@ -93,7 +77,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.simpleSearchMode = !this.simpleSearchMode;
   }
 
-  private loadData(): void {
+  private loadSelectionLists(): void {
     this.loadSelectionList(this.carService.getMakes, this.carService, 'makes');
     this.loadSelectionList(this.carService.getColors, this.carService, 'colors');
     this.loadSelectionList(this.carService.getTransmissions, this.carService, 'transmissions');
@@ -111,23 +95,22 @@ export class FilterComponent implements OnInit, OnDestroy {
     );
   }
 
-  public setDefaultData(): void {
+  public setDefaultSearchData(): void {
     this.searchCriteria = new CarSearchCriteria();
-    // set pickup date to noon tomorrow
+    // set pickup date to tomorrow
     const tomorrow = new Date();
-    const dayAfterTomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    // tomorrow.setHours(13, 0, 0, 0);
-    // this.searchCriteria.pickUpDate = tomorrow.toISOString().slice(0, 16);
     this.searchCriteria.pickUpDate = tomorrow;
-    // set drop off date to noon a day after tomorrow
+    // set drop off date to day after tomorrow
+    const dayAfterTomorrow = new Date();
     dayAfterTomorrow.setDate(tomorrow.getDate() + 2);
-    // this.searchCriteria.dropOffDate = tomorrow.toISOString().slice(0, 16);
     this.searchCriteria.dropOffDate = dayAfterTomorrow;
   }
 
   searchClick(): void {
+    // remember settings for returning from car details to the list
     this.carService.simpleSearchMode = this.simpleSearchMode;
+    this.carService.searchCriteria = this.searchCriteria;
     console.log(this.searchCriteria);
     this.carService.SearchEvent.emit(this.searchCriteria);
   }

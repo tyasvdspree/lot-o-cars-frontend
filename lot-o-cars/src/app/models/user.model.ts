@@ -37,3 +37,13 @@ export class User {
         return false;
     }
 }
+
+export function isAdminUser(user: User): boolean {
+    let result = false;
+    user.roles.forEach(role => {
+        if (role.name.toLowerCase().startsWith('admin') || role.name.toLowerCase().endsWith('admin')) {
+            result = true;
+        }
+    });
+    return result;
+}

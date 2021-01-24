@@ -1,0 +1,124 @@
+<h1>{{carDescription}}</h1>
+<div class="container-fluid" style="overflow-x:hidden">
+    <div class="row" *ngIf="this.data.car">
+        <form>
+            <div style="float: left; width: 400px; margin-left: 5px; margin-top: 2px;">
+                <mat-card class="mb-3">
+                    <mat-card-header>
+                        <mat-card-title>Foto's</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <table style="border-spacing: 50px 15px; width: 500px;">
+                            <tr>
+                                <td>
+                                    <mat-form-field>
+                                        <input required type="number" placeholder="Prijs per dag" matInput
+                                            [(ngModel)]="this.data.car.rentPricePerHour" name="rentPricePerHour">
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <mat-slide-toggle [(ngModel)]='this.data.car.navigation' name="navigation">
+                                            navigatie
+                                        </mat-slide-toggle>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <mat-slide-toggle [(ngModel)]='this.data.car.airco' name="airco">airco
+                                        </mat-slide-toggle>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <mat-slide-toggle [(ngModel)]='this.data.car.smokingIsAllowed'
+                                            name="smokingIsAllowed">
+                                            rookvrij
+                                        </mat-slide-toggle>
+                                    </div>
+                                </td>
+                            </tr>
+                            <mat-card-header style="margin-top: 30px;">
+                                <mat-card-title>Ophaallocatie</mat-card-title>
+                            </mat-card-header>
+                            <tr>
+                                <td>
+                                    <mat-form-field>
+                                        <input required type="text" placeholder="Adres" matInput
+                                            [(ngModel)]="this.data.car.location.addressLine1" name="addressLine1">
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <mat-form-field>
+                                        <input type="text" placeholder="Adresregel 2" matInput
+                                            [(ngModel)]="this.data.car.location.addressLine2" name="addressLine2">
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <mat-form-field>
+                                        <input required type="text" placeholder="Stad" matInput
+                                            [(ngModel)]="this.data.car.location.city" name="city">
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <mat-form-field>
+                                        <input required type="text" placeholder="Gemeente" matInput
+                                            [(ngModel)]="this.data.car.location.municipality" name="municipality">
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <mat-form-field>
+                                        <input required type="text" placeholder="Postcode" matInput
+                                            [(ngModel)]="this.data.car.location.zipcode" name="zipcode">
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                        </table>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div style="float: right; margin-left: 50px; margin-top: 2px;">
+                <mat-card class="mb-3">
+                    <mat-card-header>
+                        <mat-card-title>Foto's toevoegen</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <app-imageupload #imageFiles (onFilesSelected)="receiveSelectedImageFiles($event)">
+                        </app-imageupload>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card class="mb-3" style="margin-top: 50px;">
+                    <mat-card-header>
+                        <mat-card-title>Foto's</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div *ngFor="let carImageId of carImageIds; let i = index" style="margin: 10px">
+                            <img style="margin-right: 5px;" width="120" height="80" [src]="imageUrls[i]" alt="car" />
+                            <mat-icon style="vertical-align: middle; margin-left: 20px;" color="warn" mat-flat-button type="button"
+                                class="delete" (click)="deleteImage(carImageId)">delete</mat-icon>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </form>
+    </div>
+    <button mat-flat-button type="submit" color="primary" style="float: right; width: 90px;  background-color: green"
+        (click)="editCar()">Wijzig</button>
+    <button mat-flat-button type="reset" color="warn" (click)="closeDialog()"
+        style="float: right; margin-right: 15px; width: 90px;">Annuleer</button>
+</div>

@@ -1,0 +1,42 @@
+<div>
+  <img src="assets/img/app/idealLogo.png" width="102" height="90">
+</div>
+<mat-vertical-stepper #stepper>
+  <mat-step [stepControl]="firstFormGroup" editable="true">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Selecteer uw bank</ng-template>
+      <mat-form-field>
+        <mat-select formControlName="firstCtrl" required>
+          <mat-option *ngFor="let bank of banks" value={{bank.value}}>
+            {{bank.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext [disabled]="!firstFormGroup.valid" (click)="changeBank()">Volgende</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Voer uw {{this.bank}} rekeningnummer in</ng-template>
+      <mat-form-field>
+        <mat-label>Rekeningnummer</mat-label>
+        <input matInput formControlName="secondCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Terug</button>
+        <button mat-button matStepperNext [disabled]="!secondFormGroup.valid" >Volgende</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Afronden</ng-template>
+    <p>Bedankt voor uw bestelling bij lot-o-cars.</p>
+    <p>Veel plezier met de auto.</p><br><br>
+    <div>
+      <button mat-button matStepperPrevious class="mr-2">Terug</button>
+      <button mat-flat-button color="primary" (click)="finishPayment()">BETALING AFRONDEN</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>

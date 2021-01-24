@@ -45,7 +45,12 @@ export class AuthService {
   }
 
   getJwtToken(): any {
-    return this.localStorage.retrieve('authenticationToken');
+    try {
+      return this.localStorage.retrieve('authenticationToken');
+    }
+    catch(error) {
+      console.log(error);
+    }
   }
 
   refreshToken(): Observable<LoginResponse> {
@@ -76,10 +81,20 @@ export class AuthService {
   }
 
   getUserName(): any {
-    return this.localStorage.retrieve('username');
+    try {
+      return this.localStorage.retrieve('username');
+    }
+    catch(error) {
+      console.log(error);
+    }
   }
   getRefreshToken(): any {
-    return this.localStorage.retrieve('refreshToken');
+    try {
+      return this.localStorage.retrieve('refreshToken');
+    }
+    catch(error) {
+      console.log(error);
+    }
   }
 
   isLoggedIn(): boolean {

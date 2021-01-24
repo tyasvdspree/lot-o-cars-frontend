@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -71,23 +71,29 @@ export class CarService {
 
   // get a list of cars based on the provided search criteria
   find(searchCriteria: CarSearchCriteria): Observable<any> {
-    let url = environment.apiBaseUrl + '/renting/search' +
-      '?city=' + searchCriteria.pickUpLocation +
-      '&pickupdate=' + this.datePipe.transform(searchCriteria.pickUpDate, 'yyyy-MM-dd') +
-      '&dropoffdate=' + this.datePipe.transform(searchCriteria.dropOffDate, 'yyyy-MM-dd') +
-      '&make=' + searchCriteria.make +
-      '&model=' + searchCriteria.model +
-      '&color=' + searchCriteria.color +
-      '&transmission=' + searchCriteria.transmission +
-      '&fuel=' + searchCriteria.fuel +
-      '&modelyear=' + searchCriteria.modelYear +
-      '&doors=' + searchCriteria.doors +
-      '&seats=' + searchCriteria.seats +
-      '&bootspace=' + searchCriteria.bootspaceInLiters +
-      '&nonsmoking=' + searchCriteria.nonSmoking;
-    url = url.split('undefined').join('');
-    console.log(url);
-    return this.http.get(url);
+    let httpParams = new HttpParams()
+        .set('city', this.getParamString(searchCriteria.pickUpLocation)) 
+        .set('pickupdate', this.datePipe.transform(searchCriteria.pickUpDate, 'yyyy-MM-dd'))
+        .set('dropoffdate', this.datePipe.transform(searchCriteria.dropOffDate, 'yyyy-MM-dd'))
+        .set('make', this.getParamString(searchCriteria.make))
+        .set('model', this.getParamString(searchCriteria.model))
+        .set('color', this.getParamString(searchCriteria.color))
+        .set('transmission', this.getParamString(searchCriteria.transmission))
+        .set('fuel', this.getParamString(searchCriteria.fuel))
+        .set('modelyear', this.getParamString(searchCriteria.modelYear))
+        .set('doors', this.getParamString(searchCriteria.doors))
+        .set('seats', this.getParamString(searchCriteria.seats))
+        .set('bootspace', this.getParamString(searchCriteria.bootspaceInLiters))
+        .set('nonsmoking', this.getParamString(searchCriteria.nonSmoking));
+    return this.http.get(environment.apiBaseUrl + '/renting/search', { params: httpParams });
+  }
+
+  getParamString(paramValue: any): string {
+    if (paramValue) {
+      return paramValue.toString();
+    } else {
+      return '';
+    }
   }
 
   // get car details by number plate
@@ -108,6 +114,9 @@ export class CarService {
     return environment.apiBaseUrl + '/carimage/' + plate + '/' + imageid;
   }
 
+  deleteCarImage(imageId: string): Observable<any>  {
+    return this.http.delete(environment.apiBaseUrl + '/carimage/deleteImage?imageId=' + imageId);
+  }
 
   createNewCar(newCar: Car, newCarImages: FileList): void {
     const url = environment.apiBaseUrl + this.carController;
@@ -132,7 +141,6 @@ export class CarService {
     const formData: FormData = new FormData();
     formData.append('imagefile', imageFile);
     const url = environment.apiBaseUrl + this.carImageController + '/' + entityId;
-    // console.log(url);
 
     this.http.post<any>(url, formData).subscribe(
       (res) => console.log(res),
@@ -146,4 +154,15 @@ export class CarService {
     return this.http.get(environment.apiBaseUrl + '/car');
   }
 
+  editCar(car){
+    return this.http.put(environment.apiBaseUrl + "/car/editmycar", car);
+  }
+
+  addImagesToCar(car: Car, newCarImages: FileList){
+    if (newCarImages) {
+      Array.from(newCarImages).forEach(image => {
+        this.addImageFileToCar(car.numberPlate, image);
+      });
+    }
+  }
 }

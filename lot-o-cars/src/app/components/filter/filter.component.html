@@ -9,8 +9,8 @@
         <mat-form-field>
             <mat-label>Gewenste huurperiode</mat-label>
             <mat-date-range-input [rangePicker]="picker">
-                <input type="datetime-local" matStartDate placeholder="ophaaldatum"  [(ngModel)]='searchCriteria.pickUpDate'>
-                <input type="datetime-local" matEndDate   placeholder="inleverdatum" [(ngModel)]='searchCriteria.dropOffDate'>
+                <input type="datetime" matStartDate placeholder="ophaaldatum"  [(ngModel)]='searchCriteria.pickUpDate'>
+                <input type="datetime" matEndDate   placeholder="inleverdatum" [(ngModel)]='searchCriteria.dropOffDate'>
             </mat-date-range-input>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
@@ -20,7 +20,7 @@
         <a (click)="toggleMoreSearchFields()">{{ simpleSearchMode ? 'meer zoekvelden' : 'minder zoekvelden'}}</a>
 
         <span class="example-spacer"></span>
-        <a (click)="setDefaultData()">reset zoekvelden</a>
+        <a (click)="setDefaultSearchData()">reset zoekvelden</a>
 
         <span class="example-spacer"></span>
         <button mat-raised-button color="primary" (click)="searchClick()"> bekijk aanbod </button>
