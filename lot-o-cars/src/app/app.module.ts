@@ -41,6 +41,9 @@ import { AgreementDetailsComponent } from './components/agreementdetails/agreeme
 import { DatePipe } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LocationComponent } from './components/location/location.component';
+import { BrokerfeeDetailComponent } from './components/brokerfee/brokerfeeDetail/brokerfee-detail/brokerfee-detail.component';
+import { BrokerfeeListComponent } from './components/brokerfee/brokerfeeList/brokerfee-list/brokerfee-list.component';
+import { BrokerfeeRequestComponent } from './components/brokerfee/brokerfeeRequest/brokerfee-request/brokerfee-request.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +72,10 @@ import { LocationComponent } from './components/location/location.component';
     RenthistoryComponent,
     AgreementDetailsComponent,
     DashboardComponent,
-    LocationComponent
+    LocationComponent,
+    BrokerfeeDetailComponent,
+    BrokerfeeListComponent,
+    BrokerfeeRequestComponent
   ],
   imports: [
     BrowserModule,

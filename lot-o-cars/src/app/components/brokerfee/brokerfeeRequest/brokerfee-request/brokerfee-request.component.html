@@ -1,0 +1,44 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4 m-4">
+            <a (click)="navigateBack()">
+                <span class="material-icons">
+                    arrow_back_ios
+                </span>
+                <span style="position:relative;top:-7px">
+                    terug naar profiel pagina
+                </span>
+            </a>
+        </div>
+        <div class="col-md-4 text-center">
+            <h1></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>brokerfee request</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="label">brokerfee</div>
+                    <div>
+                        {{brokerfeeRequest.user.username | titlecase}}
+                        {{brokerfeeRequest.user.firstname}} {{brokerfeeRequest.user.lastname}}
+                    </div>
+                    <div class="mt-3 label">brokerfee detail</div>
+                    <div>van {{brokerfeeRequest.originalFee}} naar
+                        <mat-form-field>
+                            <mat-label>gewenste hoeveelheid</mat-label>
+                            <input [value]="brokerfeeRequest.proposedFee" name="proposedFee"
+                                (input)="brokerfeeRequest.proposedFee = $event.target.value" required type="number"
+                                matInput ngModel>
+                        </mat-form-field>
+                    </div>
+                    <div class="mt-3 label"></div>
+                    <button mat-flat-button color="primary" (click)="createBrokerfeeRequest()">Doe verzoek</button>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
