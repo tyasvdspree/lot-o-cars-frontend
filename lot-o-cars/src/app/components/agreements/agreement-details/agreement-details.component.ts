@@ -2,19 +2,19 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { AgreementService } from 'src/app/services/agreement-service/agreement.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Agreement } from 'src/app/models/agreement.model';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { User } from 'src/app/models/user.model';
 import { isPending, getStatusText, Status } from 'src/app/enums/status.enum';
 import {MatDialog} from '@angular/material/dialog';
-import {PaymentDialogComponent} from '../payment-dialog/payment-dialog.component';
+import {PaymentDialogComponent} from '../../payment-dialog/payment-dialog.component';
 
 @Component({
   selector: 'app-agreementdetails',
-  templateUrl: './agreementdetails.component.html',
-  styleUrls: ['./agreementdetails.component.scss']
+  templateUrl: './agreement-details.component.html',
+  styleUrls: ['./agreement-details.component.scss']
 })
 export class AgreementDetailsComponent implements OnInit, OnDestroy {
 

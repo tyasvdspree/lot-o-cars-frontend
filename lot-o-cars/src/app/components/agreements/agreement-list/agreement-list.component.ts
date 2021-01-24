@@ -1,16 +1,16 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {AgreementService} from '../../services/agreement-service/agreement.service';
+import {AgreementService} from '../../../services/agreement-service/agreement.service';
 import {Router} from '@angular/router';
-import {Agreement} from '../../models/agreement.model';
+import {Agreement} from '../../../models/agreement.model';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {getStatusText, Status} from '../../enums/status.enum';
+import {getStatusText, Status} from '../../../enums/status.enum';
 
 @Component({
   selector: 'app-agreementlist',
-  templateUrl: './agreementlist.component.html',
-  styleUrls: ['./agreementlist.component.scss']
+  templateUrl: './agreement-list.component.html',
+  styleUrls: ['./agreement-list.component.scss']
 })
 export class AgreementlistComponent implements OnInit {
   agreementSubscription: Subscription;

@@ -9,12 +9,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './security/authguard';
 import { RentComponent } from './components/rent/rent.component';
-import { AgreementComponent } from './components/agreement/agreement.component';
+import { AgreementComponent } from './components/agreements/agreement/agreement.component';
 import { MyCarsComponent } from './components/my-cars/my-cars.component';
 import { UserpageComponent } from './components/userpage/userpage.component';
 import { HirehistoryComponent } from './components/hirehistory/hirehistory.component';
 import { RenthistoryComponent } from './components/renthistory/renthistory.component';
-import { AgreementDetailsComponent } from './components/agreementdetails/agreementdetails.component';
+import { AgreementDetailsComponent } from './components/agreements/agreement-details/agreement-details.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
