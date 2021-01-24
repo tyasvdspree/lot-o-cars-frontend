@@ -1,6 +1,5 @@
 import { User } from './user.model';
 import { Location } from './location.model';
-import { Transmission } from '../enums/transmission.enum';
 
 export class Car {
     id: number;

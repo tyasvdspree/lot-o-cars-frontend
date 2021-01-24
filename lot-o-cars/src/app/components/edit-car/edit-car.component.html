@@ -1,6 +1,6 @@
-<h1>{{this.data.car.make}} - {{this.data.car.numberPlate}}</h1>
+<h1>{{carDescription}}</h1>
 <div class="container-fluid" style="overflow-x:hidden">
-    <div class="row">
+    <div class="row" *ngIf="this.data.car">
         <form>
             <div style="float: left; width: 400px; margin-left: 5px; margin-top: 2px;">
                 <mat-card class="mb-3">

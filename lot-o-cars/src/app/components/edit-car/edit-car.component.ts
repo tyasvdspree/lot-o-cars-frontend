@@ -12,7 +12,6 @@ import { CarBody } from 'src/app/enums/carBody.enum';
 import { AuthService } from 'src/app/services/auth.service';
 import { Location } from '../../models/location.model';
 import { ToastrService } from 'ngx-toastr';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-car',
@@ -23,8 +22,9 @@ export class EditCarComponent implements OnInit {
   @ViewChild('file') file;
   @Output() onFilesSelected = new EventEmitter<FileList>();
   subscription: Subscription;
-  car: Car;
+  car: Car = new Car();
   carImageIds = [];
+  carDescription: string = '';
   deletedCarImageIds = [];
   carImages = [];
   makes: any[] = [];
@@ -55,7 +55,10 @@ export class EditCarComponent implements OnInit {
     this.subscriptions.push(
       this.route.params.subscribe(parameters => {
         this.car = this.data.car;
-        this.licensePlate = this.data.car.numberPlate;
+        if (this.data.car) {
+          this.licensePlate = this.data.car.numberPlate;
+          this.carDescription = `${this.data.car.make} - ${this.data.car.numberPlate}`
+        }
         this.getCarImages();
       })
     );
@@ -98,10 +101,10 @@ export class EditCarComponent implements OnInit {
     this.subscription = this.carService.editCar(this.car).subscribe(
       response => {
         this.car.make = Make[this.car.make];  
-        this.car.color = Make[this.car.color];  
-        this.car.transmission = Make[this.car.transmission];  
-        this.car.fuel = Make[this.car.fuel];  
-        this.car.body = Make[this.car.body];  
+        this.car.color = Color[this.car.color];  
+        this.car.transmission = Transmission[this.car.transmission];  
+        this.car.fuel = Fuel[this.car.fuel];  
+        this.car.body = CarBody[this.car.body];  
 
         this.addImage();
         Array.from(this.deletedCarImageIds).forEach(image => {

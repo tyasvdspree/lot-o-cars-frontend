@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditCarComponent } from './edit-car.component';
 
-describe('EditCarButonComponent', () => {
+describe('EditCarComponent', () => {
   let component: EditCarComponent;
   let fixture: ComponentFixture<EditCarComponent>;
 
