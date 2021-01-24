@@ -2,10 +2,14 @@ import { Status } from '../enums/status.enum';
 import {User} from './user.model';
 
 export class BrokerfeeRequest {
-    id : Number;
-    originalFee : Number;
-    proposedFee : Number;
+    id : number;
+    originalFee : number;
+    proposedFee : number;
     user : User;
     status : Status;
-    reason : String;
+    reason : string;
+
+    constructor() {
+      this.user = new User('', '', '', '', '', '');
+    }
   }

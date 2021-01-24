@@ -20,7 +20,7 @@ export class BrokerfeeDetailComponent implements OnInit, OnDestroy {
 
   // model objects
   user: User;
-  brokerfeeRequest: BrokerfeeRequest;
+  brokerfeeRequest: BrokerfeeRequest = new BrokerfeeRequest();
   currentStatus: string;
   brokerfeeRequestId: number;
   reason: string;

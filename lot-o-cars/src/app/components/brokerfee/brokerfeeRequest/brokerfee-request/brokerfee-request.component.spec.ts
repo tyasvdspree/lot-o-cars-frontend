@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Observable, of } from 'rxjs';
 import { BrokerfeeRequest } from 'src/app/models/brokerfee.model';
 import { User } from 'src/app/models/user.model';
 
@@ -32,10 +33,25 @@ describe('BrokerfeeRequestComponent', () => {
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });
 
 class BrokerfeeServiceStub {
+  createBrokerFeeRequest(brokerfeeRequest: BrokerfeeRequest): Observable<any> {
+    return of(BrokerfeeRequest);
+  }
 
+  getBrokerFeeRequests(isAdmin: boolean): Observable<any> {
+    return of(BrokerfeeRequest);
+  }
+
+  getBrokerFeeRequestById(id: number): Observable<any> {
+    return of(BrokerfeeRequest);
+  }
+
+  setBrokerFeeRequestStatus(id: number, status: string, reason: string): Observable<any> {
+    return of(BrokerfeeRequest);
+  }
 }

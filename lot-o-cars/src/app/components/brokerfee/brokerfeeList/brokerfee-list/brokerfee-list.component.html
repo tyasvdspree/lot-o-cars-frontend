@@ -6,17 +6,17 @@
     <mat-table #table *ngIf="brokerfeeRequests" [dataSource]="brokerfeeRequests">
   
         <ng-container matColumnDef="originalFee">
-          <mat-header-cell id="originalFee" *matHeaderCellDef> Kenteken </mat-header-cell>
+          <mat-header-cell id="originalFee" *matHeaderCellDef> Originele tarief </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{ element.originalFee }} </mat-cell>
         </ng-container>
   
-        <ng-container matColumnDef="startDate">
-          <mat-header-cell id="startDate" *matHeaderCellDef> Start datum </mat-header-cell>
+        <ng-container matColumnDef="proposedFee">
+          <mat-header-cell id="proposedFee" *matHeaderCellDef> Tariefvoorstel </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{ element.proposedFee | date }} </mat-cell>
         </ng-container>
   
-        <ng-container matColumnDef="endDate">
-          <mat-header-cell id="endDate" *matHeaderCellDef> Eind datum </mat-header-cell>
+        <ng-container matColumnDef="userName">
+          <mat-header-cell id="userName" *matHeaderCellDef> Verhuurder </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{ element.user.username}} </mat-cell>
         </ng-container>
   
