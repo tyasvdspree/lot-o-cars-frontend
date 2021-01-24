@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as c3 from 'c3';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { throwIfEmpty } from 'rxjs/operators';
 import { isAdminUser } from 'src/app/models/user.model';
 import { AgreementService } from 'src/app/services/agreement.service';
 import { UserService } from 'src/app/services/user.service';
