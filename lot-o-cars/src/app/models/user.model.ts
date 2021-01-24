@@ -28,6 +28,14 @@ export class User {
     location: Location;
     roles: any[];
     active: boolean;
+
+    isAdmin() : Boolean {
+        let admin = this.roles.filter(role => 'ADMIN');
+        if(admin.length > 0){
+            return true;
+        }
+        return false;
+    }
 }
 
 export function isAdminUser(user: User): boolean {
