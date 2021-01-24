@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +21,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RegisterService } from './services/register.service';
-import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 import { LoginComponent } from './components/login/login.component';
 import { AgreementComponent } from './components/agreement/agreement.component';
 import { CalendarComponent } from './components/calendar/calendar.component';

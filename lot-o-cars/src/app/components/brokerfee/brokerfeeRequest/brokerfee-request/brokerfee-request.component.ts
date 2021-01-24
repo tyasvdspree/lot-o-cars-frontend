@@ -1,11 +1,11 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import {FormControl, FormGroup} from '@angular/forms';
-import {BrokerfeeRequest} from 'src/app/models/brokerfee.model';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {BokerfeeService} from 'src/app/services/brokerfee.service';
-import {ToastrService} from 'ngx-toastr';
+import { FormGroup } from '@angular/forms';
+import { BrokerfeeRequest } from 'src/app/models/brokerfee.model';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { BrokerfeeService } from 'src/app/services/brokerfee.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-brokerfee-request',
@@ -20,7 +20,7 @@ export class BrokerfeeRequestComponent implements OnInit {
 
   constructor(
     private location: Location,
-    private brokerfeeService: BokerfeeService,
+    private brokerfeeService: BrokerfeeService,
     private toastr: ToastrService,
     private router: Router
   ) { }

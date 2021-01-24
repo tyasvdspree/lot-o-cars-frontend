@@ -4,10 +4,9 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BrokerfeeRequest } from 'src/app/models/brokerfee.model';
-import { BokerfeeService } from 'src/app/services/brokerfee.service';
+import { BrokerfeeService } from 'src/app/services/brokerfee.service';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
-import { from } from 'rxjs';
 import { isPending, getStatusText, Status } from 'src/app/enums/status.enum';
 
 @Component({
@@ -23,15 +22,15 @@ export class BrokerfeeDetailComponent implements OnInit, OnDestroy {
   user: User;
   brokerfeeRequest: BrokerfeeRequest;
   currentStatus: string;
-  brokerfeeRequestId: Number;
-  reason: String;
+  brokerfeeRequestId: number;
+  reason: string;
 
   // mode dependent variables
   isPending: boolean;
 
   constructor(
     private location: Location,
-    private service: BokerfeeService,
+    private service: BrokerfeeService,
     private userService: UserService,
     private route: ActivatedRoute,
     private toastr: ToastrService,

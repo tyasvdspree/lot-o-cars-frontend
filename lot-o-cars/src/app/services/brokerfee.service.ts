@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment';
 @Injectable({
     providedIn: 'root'
   })
-export class BokerfeeService{
+export class BrokerfeeService{
     
   constructor(private http: HttpClient){
 
@@ -17,17 +17,17 @@ export class BokerfeeService{
     return this.http.post(environment.apiBaseUrl + '/brokerfee', brokerfeeRequest);
   }
 
-  getBrokerFeeRequests(isAdmin: Boolean): Observable<any> {
+  getBrokerFeeRequests(isAdmin: boolean): Observable<any> {
     const path = isAdmin ? '/brokerfee' : '/brokerfee/myBrokerfeeRequests' ;
     return this.http.get(environment.apiBaseUrl + path);
   }
 
-  getBrokerFeeRequestById(id: Number): Observable<any> {
+  getBrokerFeeRequestById(id: number): Observable<any> {
     const path = '/brokerfee/' + id ;
     return this.http.get(environment.apiBaseUrl + path);
   }
 
-  setBrokerFeeRequestStatus(id: Number, status: String, reason: String): Observable<any> {
+  setBrokerFeeRequestStatus(id: number, status: string, reason: string): Observable<any> {
     const url = environment.apiBaseUrl + '/brokerfee/status';
     const reqBody = { id: id, status: status, reason: reason };
     return this.http.put(url, reqBody);

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {BokerfeeService} from 'src/app/services/brokerfee.service';
+import {BrokerfeeService} from 'src/app/services/brokerfee.service';
 import {Router} from '@angular/router';
 import {BrokerfeeRequest} from 'src/app/models/brokerfee.model';
 import {MatPaginator} from '@angular/material/paginator';
@@ -21,7 +21,7 @@ export class BrokerfeeListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private brokerFeeService: BokerfeeService,
+    private brokerFeeService: BrokerfeeService,
     private router: Router
     ) { }
 
