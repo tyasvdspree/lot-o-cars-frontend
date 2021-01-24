@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user-service/user.service';
 import { User } from 'src/app/models/user.model';
 import { isPending, getStatusText, Status } from 'src/app/enums/status.enum';
 import {MatDialog} from '@angular/material/dialog';
-import {PaymentDialogComponent} from '../../payment-dialog/payment-dialog.component';
+import {PaymentDialogComponent} from '../payment-dialog/payment-dialog.component';
 
 @Component({
   selector: 'app-agreementdetails',

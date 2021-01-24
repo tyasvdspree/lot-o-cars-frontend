@@ -1,6 +1,0 @@
-<div class="p-5">
-    <!-- <app-filter></app-filter> -->
-    <app-list *ngIf="ownCars" [displayedColumns]="displayedColumns" [cars]="ownCars" (deactivateCarEvent)="deactivateCar($event)" (editCarEvent)="editCar($event)"></app-list>
-
-    <a mat-flat-button color="primary" style="float: right; margin-top: 16px;" routerLink="/rent">Nieuwe auto registreren</a>
-</div>
