@@ -19,7 +19,7 @@
                 <h2 class="text-center">filters</h2>
                 <div class="filter-container mt-3 row">
                     <div class="col-md">
-                        <ul>
+                        <ul id="yearFilterList">
                             <li *ngFor="let item of years">
                                 <mat-checkbox name="yearFilter" [(ngModel)]="item.checked" 
                                     (change)="yearFilterChanged(item)" 
