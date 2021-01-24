@@ -170,8 +170,12 @@ export class AgreementDetailsComponent implements OnInit, OnDestroy {
       width: '550px',
       data: {agreement}
     });
-    dialogRef.afterClosed().subscribe((data: any) => {
-        this.agreement = data;
-      });
+    this.subscriptions.push(
+      dialogRef.afterClosed().subscribe((data: any) => {
+        if (data) {
+          this.agreement = data;
+        }
+      })
+    );
   }
 }
