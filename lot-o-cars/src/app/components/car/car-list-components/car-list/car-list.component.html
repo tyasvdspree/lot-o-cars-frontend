@@ -1,0 +1,95 @@
+<div class="example-container mat-elevation-z8">
+    <div class="example-loading-shade" *ngIf="isLoadingResults">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+
+    <div class="example-table-container">
+        <ng-container *ngIf="cars">
+            <mat-table #table [dataSource]="pageOfCars">
+
+                <ng-container matColumnDef="image">
+                    <th id="imageHeader" mat-header-cell *matHeaderCellDef> Foto </th>
+                    <td mat-cell *matCellDef="let element"><img [src]="element.imageUrl" alt="car" /></td>
+                </ng-container>
+
+                <ng-container matColumnDef="numberPlate">
+                    <th id="numberPlateHeader" mat-header-cell *matHeaderCellDef> Kenteken </th>
+                    <td mat-cell *matCellDef="let element"> {{element.numberPlate}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="make">
+                    <th id="makeHeader" mat-header-cell *matHeaderCellDef> Merk </th>
+                    <td mat-cell *matCellDef="let element"> {{element.make}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="model">
+                    <th id="modelHeader" mat-header-cell *matHeaderCellDef> Model </th>
+                    <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="modelYear">
+                    <th id="modelYearHeader" mat-header-cell *matHeaderCellDef> Bouwjaar </th>
+                    <td mat-cell *matCellDef="let element"> {{element.modelYear}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="transmission">
+                    <th id="transmissionHeader" mat-header-cell *matHeaderCellDef> Transmissie </th>
+                    <td mat-cell *matCellDef="let element"> {{element.transmission | lowercase}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fuel">
+                    <th id="fuelHeader" mat-header-cell *matHeaderCellDef> Brandstof </th>
+                    <td mat-cell *matCellDef="let element"> {{element.fuel | lowercase}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="body">
+                    <th id="bodyHeader" mat-header-cell *matHeaderCellDef> Carrosserie </th>
+                    <td mat-cell *matCellDef="let element"> {{element.body | lowercase}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="navigation">
+                    <th id="navigationHeader" mat-header-cell *matHeaderCellDef> Navigatie </th>
+                    <td mat-cell *matCellDef="let element"> {{element.navigation ? 'ja' : 'nee'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="airco">
+                    <th id="aircoHeader" mat-header-cell *matHeaderCellDef> Airco </th>
+                    <td mat-cell *matCellDef="let element"> {{element.airco ? 'ja' : 'nee'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="smokingIsAllowed">
+                    <th id="smokingIsAllowedHeader" mat-header-cell *matHeaderCellDef> Rookvrij </th>
+                    <td mat-cell *matCellDef="let element"> {{element.smokingIsAllowed ? 'nee' : 'ja'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="deactivateCar" stickyEnd>
+                    <th mat-header-cell *matHeaderCellDef>Deactiveer</th>
+                    <td mat-cell *matCellDef="let element">
+                        <span class="material-icons cursor-pointer" (click)="$event.stopPropagation();deactivateCar(element)">event_busy</span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="editCar" stickyEnd>
+                    <th mat-header-cell *matHeaderCellDef>Wijzig</th>
+                    <td mat-cell *matCellDef="let element">
+                        <span class="material-icons cursor-pointer" (click)="$event.stopPropagation();editCar(element)">edit</span>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"
+                    (click)="onRowClicked(row)">
+                </tr>
+            </mat-table>
+
+            <div class="m-3" *ngIf="cars.length === 0">Geen auto's gevonden</div>
+        </ng-container>
+    </div>
+
+    <mat-paginator [length]="length"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="loadPageItems($event)">
+    </mat-paginator>
+  </div>

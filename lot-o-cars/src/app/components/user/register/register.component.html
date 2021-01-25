@@ -1,0 +1,75 @@
+<div class="flexContainer flexCol p-5">
+    <div style="margin-top: 5%;">
+        <form>
+            <div style="width: 500px; float:left; width:50%; margin-top: 15%;">
+                <img src="assets/img/app/maincar.jpg" alt="car" width="90%">
+            </div>
+
+            <div style="width: 500px; float:left; width:50%">
+                <div>
+                    <h1>Registreren</h1>
+                    <p>U bent nog niet bekend in ons systeem en wilt een auto huren of verhuren.</p>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <mat-form-field>
+                        <input required type="text" placeholder="Gebruiksernaam" matInput [(ngModel)]="user.username" name="username">
+                    </mat-form-field>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <mat-form-field>
+                        <input minlength="5" required type="password" placeholder="Wachtwoord" matInput [(ngModel)]="user.password"  name="password">
+                        <mat-error>
+                            Wachtwoord moet minimaal 5 karakters bevatten.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <mat-form-field>
+                        <input required type="text" placeholder="Voornaam" matInput [(ngModel)]="user.firstname"  name="firstname">
+                    </mat-form-field>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <mat-form-field>
+                        <input required type="text" placeholder="Achternaam" matInput [(ngModel)]="user.lastname"  name="lastname">
+                    </mat-form-field>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <mat-form-field>
+                        <input required pattern="[0-9]{9,14}" type="phone" placeholder="Telefoonnummer" matInput [(ngModel)]="user.phonenumber"  name="phonenumber">
+                        <mat-error>
+                            Telefoonnummer moet tussen de 9 en 14 cijfers bestaan.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <mat-form-field>
+                        <input #emailaddress required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" email="true" type="email" placeholder="E-mail" matInput [(ngModel)]="user.emailaddress"  name="emailaddress">
+                        <mat-error>
+                            Voorbeeld van emailadres: gebruiker@lotocars.nl
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <app-location (outputLocation)="this.location=$event"></app-location>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <mat-checkbox (change)="changeCheck($event)">U gaat akkoord met onze voorwaarden</mat-checkbox>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <button mat-flat-button type="submit" color="primary" style="float: left;"
+                        [disabled]="disabledAgreement || (!user.password || user.password.length < 5) || !user.username || !user.firstname || !user.lastname || !user.phonenumber || !emailaddress.validity.valid || user.phonenumber.length < 9 || user.phonenumber.length > 14" mat-button class="NxtBtnWrap"
+                        (click)="register()">Registreren</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

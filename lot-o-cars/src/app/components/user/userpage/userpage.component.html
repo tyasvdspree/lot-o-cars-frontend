@@ -1,0 +1,81 @@
+<div class="container mt-5">
+    <h1>Mijn gegevens</h1>
+    <form *ngIf="user">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <mat-form-field>
+            <input type="text" placeholder="Voornaam" matInput name="firstnameInput" [(ngModel)]="user.firstname">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input type="text" placeholder="Achternaam" matInput name="lastnameInput" [(ngModel)]="user.lastname">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input pattern="[0-9]{9,14}" type="phone" placeholder="Telefoonnummer" matInput name="phonenumberInput" [(ngModel)]="user.phonenumber">
+            <mat-error>
+                Telefoonnummer moet tussen de 9 en 14 cijfers bestaan.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input #emailaddress pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" email="true" type="email" placeholder="Emailaddres" matInput name="emailaddressInput" [(ngModel)]="user.emailaddress" required>
+            <mat-error>
+                Voorbeeld van emailadres: gebruiker@lotocars.nl
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input required minlength="5" type="password" placeholder="Wachtwoord" matInput name="passwordInput" [(ngModel)]="user.password">
+            <mat-error>
+                Wachtwoord moet minimaal 5 karakters bevatten.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mt-4" *ngIf="user.location">
+        <div class="col-md-6">
+          <mat-form-field>
+            <input type="text" placeholder="Adres" matInput name="addressLine1" [(ngModel)]="user.location.addressLine1">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input type="text" placeholder="Adresregel 2" matInput name="addressLine2" [(ngModel)]="user.location.addressLine2">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input type="text" placeholder="Stad" matInput name="city" [(ngModel)]="user.location.city">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input type="text" placeholder="Gemeente" matInput name="municipality" [(ngModel)]="user.location.municipality">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input type="text" placeholder="Postcode" matInput name="zipcode" [(ngModel)]="user.location.zipcode">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <a mat-flat-button routerLink="/brokerfee-requests" color="primary">
+            mijn tarief
+          </a>
+        </div>
+        <div class="col-md-6 text-right">
+          <button mat-flat-button type="submit" color="primary"
+            (click)="editUser()" mat-button class="NxtBtnWrap"
+            [disabled]="!emailaddress.validity.valid || (!user.password || user.password.length < 5) || user.phonenumber.length < 9 || user.phonenumber.length > 14"
+            >wijzig</button>
+        </div>
+      </div> 
+  </form> 
+</div>

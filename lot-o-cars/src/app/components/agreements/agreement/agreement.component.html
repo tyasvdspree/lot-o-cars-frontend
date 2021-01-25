@@ -1,0 +1,59 @@
+<div class="flex-container">
+  <div class="flex-items">
+    <div>
+      <img src="assets/img/app/maincar.jpg" alt="car" width="80%">
+    </div>
+  </div>
+  <div class="flex-items">
+
+  <mat-card *ngIf="car">
+    <mat-card-header>
+      <h1>Overeenkomst {{car.make}} {{car.model}}</h1>
+
+    </mat-card-header>
+    <mat-card-content>
+      <div><label class="label">merk</label> {{ car.make }}</div>
+      <div><label class="label">model</label> {{ car.model }}</div>
+      <br>
+      <div *ngIf="car.location">
+      <div><label class="label">straat</label> {{ car.location.addressLine1 }}</div>
+      <div><label class="label">postcode</label> {{ car.location.zipcode }}</div>
+      <div><label class="label">plaats</label> {{ car.location.city }}</div>
+      <div><label class="label">gemeente</label> {{ car.location.municipality }}</div>
+      </div>
+      <br>
+      <br>
+      <app-daterangepicker
+        [car]="car"
+        (startDate)="startDate=$event"
+        (endDate)="endDate=$event">
+      </app-daterangepicker>
+      <br>
+      <br>
+      <br>
+      <br>
+      <h1>Details</h1>
+
+      <br>
+      <div *ngIf="car.user">
+      <div><label class="label">naam</label> {{ car.user.firstname + ' ' + car.user.lastname }}</div>
+      <div><label class="label">telefoon</label> {{ car.user.phonenumber }}</div>
+      <div><label class="label">e-mail</label> <a href="mailto:{{ car.user.emailaddress }}">{{ car.user.emailaddress }}</a></div>
+      </div>
+      <br>
+      <p *ngIf="this.car">Prijs per dag: €{{ car.rentPricePerHour }}</p>
+
+      <p *ngIf="daysBetween">Aantal dagen geselecteerd: {{ daysBetween }}</p>
+      <br>
+      <br>
+      <mat-card-title *ngIf="daysBetween">Totale prijs: €{{ totalPrice }}</mat-card-title>
+      <br>
+      <mat-card-actions style="text-align:center;">
+        <button mat-flat-button color="primary" (click)="createAgreement()"> MAAK OVEREENKOMST </button>
+      </mat-card-actions>
+
+
+    </mat-card-content>
+  </mat-card>
+</div>
+</div>

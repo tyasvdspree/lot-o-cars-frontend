@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { catchError, switchMap, take, filter } from 'rxjs/operators';
-import { AuthService } from './services/auth.service';
-import { LoginResponse } from './components/login/login-response.payload';
+import { AuthService } from './services/auth-service/auth.service';
+import { LoginResponse } from './components/user/login/login-response.payload';
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +18,10 @@ export class TokenInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler):
         Observable<HttpEvent<any>> {
 
+        req = req.clone({
+            withCredentials: true
+            });
+        
         if (req.url.indexOf('refresh') !== -1 || req.url.indexOf('login') !== -1) {
             return next.handle(req);
         }

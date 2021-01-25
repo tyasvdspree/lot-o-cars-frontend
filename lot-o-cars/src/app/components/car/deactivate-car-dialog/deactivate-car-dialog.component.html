@@ -1,0 +1,8 @@
+<h1>Deactiveer uw {{ this.data.car.make }} {{ this.data.car.model }} ({{ this.data.car.numberPlate }})</h1>
+<app-daterangepicker
+  [car]="this.data.car"
+  (startDate)="startDate=($event)"
+  (endDate)="endDate=($event)">
+</app-daterangepicker>
+
+<button mat-flat-button color="primary" (click)="createDeactivationAgreement()">DEACTIVEER</button>

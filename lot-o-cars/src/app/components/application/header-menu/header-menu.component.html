@@ -1,0 +1,50 @@
+<mat-toolbar >
+    <h1>
+        <a routerLink="/home">
+            lot-o-cars
+        </a>
+    </h1>
+    <span class="flexExpand"></span>
+    <span>
+        <a mat-button routerLink="/hire"> huren </a>
+        <a mat-button href="/my-cars"> mijn auto's </a>
+    </span>
+    <span class="flexExpand"></span>
+    <span *ngIf="!isLoggedIn">
+        <a mat-button routerLink="/login"> aanmelden </a>
+        <a mat-button routerLink="/register"> registreren </a>
+    </span>
+    <span *ngIf="isLoggedIn">
+        <button mat-button class="mat-button-wrapper" [matMenuTriggerFor]="userMenu">
+            {{ username }}
+            <span class="material-icons">account_circle</span>
+        </button>
+        <mat-menu #userMenu="matMenu" xPosition="before">
+            <button mat-menu-item routerLink="/user-profile">
+                <span class="material-icons">settings</span>
+                <span class="title">profiel</span>
+            </button>
+            <button mat-menu-item routerLink="/my-cars">
+                <span class="material-icons">directions_car</span>
+                <span class="title">mijn auto's</span>
+            </button>
+            <button mat-menu-item routerLink="/hirehistory">
+                <span class="material-icons">history</span>
+                <span class="title">huurhistorie</span>
+            </button>
+            <button mat-menu-item routerLink="/renthistory">
+                <span class="material-icons">settings_backup_restore</span>
+                <span class="title">verhuurhistorie</span>
+            </button>
+            <button mat-menu-item routerLink="/dashboard">
+                <span class="material-icons">speed</span>
+                <span class="title">dashboard</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="logout()">
+                <span class="material-icons">power_settings_new</span>
+                <span class="title">afmelden</span>
+            </button>
+        </mat-menu>
+    </span>
+</mat-toolbar>

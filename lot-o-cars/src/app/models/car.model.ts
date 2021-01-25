@@ -1,6 +1,5 @@
 import { User } from './user.model';
 import { Location } from './location.model';
-import { Transmission } from '../enums/transmission.enum';
 
 export class Car {
     id: number;
@@ -12,7 +11,7 @@ export class Car {
     make: string;
     model: string;
     body: string;
-    transmission: Transmission;
+    transmission: string;
     color: string;
     fuel: string;
     fuelUsage: number;
