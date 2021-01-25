@@ -14,11 +14,11 @@ export class RegisterService {
     return this.http.post(environment.apiBaseUrl + '/user', user);
   }
 
-  checkIfUsernameExists(username){
-    return this.http.get(environment.apiBaseUrl + "/user/checkUsername" + "?username=" + username);
+  public checkIfUsernameExists(username): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + '/user/checkUsername' + '?username=' + username);
   }
 
-  checkIfEmailAddressExistsAtRegistration(userEmailAddress){
-    return this.http.get(environment.apiBaseUrl + "/user/checkIfEmailAddressExistsAtRegistration" + "?userEmailAddress=" + userEmailAddress);
+  public checkIfEmailAddressExistsAtRegistration(userEmailAddress): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + '/user/checkIfEmailAddressExistsAtRegistration' + '?userEmailAddress=' + userEmailAddress);
   }
 }
