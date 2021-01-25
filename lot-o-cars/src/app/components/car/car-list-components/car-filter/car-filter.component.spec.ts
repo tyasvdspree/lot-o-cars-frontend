@@ -41,4 +41,19 @@ describe('CarFilterComponent', () => {
     expect(criteria.dropOffDate.getDay()).toEqual(dayAfterTomorrow.getDay());
   });
 
+  it('should have no other defaults besides the pickup and dropoff dates', () => {
+    const criteria = component.searchCriteria;
+    expect(criteria.pickUpLocation).toBeFalsy;
+    expect(criteria.make).toBeFalsy;
+    expect(criteria.model).toBeFalsy;
+    expect(criteria.color).toBeFalsy;
+    expect(criteria.transmission).toBeFalsy;
+    expect(criteria.fuel).toBeFalsy;
+    expect(criteria.modelYear).toBeFalsy;
+    expect(criteria.doors).toBeFalsy;
+    expect(criteria.seats).toBeFalsy;
+    expect(criteria.bootspaceInLiters).toBeFalsy;
+    expect(criteria.nonSmoking).toBeFalsy;
+  });
+
 });
