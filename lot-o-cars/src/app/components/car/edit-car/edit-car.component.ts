@@ -56,8 +56,8 @@ export class EditCarComponent implements OnInit {
       this.route.params.subscribe(parameters => {
         this.car = this.data.car;
         if (this.data.car) {
-          this.licensePlate = this.data.car.numberPlate;
-          this.carDescription = `${this.data.car.make} - ${this.data.car.numberPlate}`
+          this.licensePlate = this.car.numberPlate;
+          this.setCarDescription(this.car);
         }
         this.getCarImages();
       })
@@ -65,6 +65,10 @@ export class EditCarComponent implements OnInit {
 
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/my-cars';
     this.loadData();
+  }
+
+  setCarDescription(car: Car): void {
+    this.carDescription = `${this.car.make} - ${this.car.numberPlate}`;
   }
 
   private loadData(): void {
