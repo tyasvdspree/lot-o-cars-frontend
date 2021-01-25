@@ -11,15 +11,15 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUser(): Observable<User>{
-    return this.http.get<User>(environment.apiBaseUrl + "/user/me");
+  public getUser(): Observable<User> {
+    return this.http.get<User>(environment.apiBaseUrl + '/user/me');
   }
 
-  editUser(user){
-    return this.http.put(environment.apiBaseUrl + "/user/editme", user);
+  public editUser(user): Observable<any> {
+    return this.http.put(environment.apiBaseUrl + '/user/editme', user);
   }
 
-  checkIfEmailAddressExists(userId, userEmailAddress){
-    return this.http.get(environment.apiBaseUrl + "/user/checkUserEmailAddress" + "?userId=" + userId + "&userEmailAddress=" + userEmailAddress);
+  public checkIfEmailAddressExists(userId, userEmailAddress): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + '/user/checkUserEmailAddress' + '?userId=' + userId + '&userEmailAddress=' + userEmailAddress);
   }
 }
