@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { By } from '@angular/platform-browser';
 
 import { DashboardComponent } from './dashboard.component';
