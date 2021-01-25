@@ -3,7 +3,7 @@ import { FootermenuComponent } from './footer-menu.component';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 describe('FootermenuComponent', () => {
   let component: FootermenuComponent;
@@ -57,7 +57,7 @@ describe('FootermenuComponent', () => {
   });
 
   it('should navigate to /contact on anchor contact click', () => {
-    const location = TestBed.get(Location);
+    const location = TestBed.inject(Location);
     const links = fixture.debugElement.queryAll(By.css('a'));
     const contactAnchor = links[0].nativeElement;
     contactAnchor.click();
@@ -68,7 +68,7 @@ describe('FootermenuComponent', () => {
   });
 
   it('should navigate to /terms on anchor voorwaarden click', () => {
-    const location = TestBed.get(Location);
+    const location = TestBed.inject(Location);
     const links = fixture.debugElement.queryAll(By.css('a'));
     const termsAnchor = links[1].nativeElement;
     termsAnchor.click();

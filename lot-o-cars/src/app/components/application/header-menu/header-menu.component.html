@@ -1,22 +1,16 @@
 <mat-toolbar >
-    <button mat-icon-button>
-        <mat-icon>menu</mat-icon>
-    </button>
-
     <h1>
         <a routerLink="/home">
             lot-o-cars
         </a>
     </h1>
-
     <span class="flexExpand"></span>
     <span>
         <a mat-button routerLink="/hire"> huren </a>
-        <a mat-button href="/my-cars"> mijn autos </a>
+        <a mat-button href="/my-cars"> mijn auto's </a>
     </span>
     <span class="flexExpand"></span>
     <span *ngIf="!isLoggedIn">
-<!--        <a mat-button href="#"> English </a>-->
         <a mat-button routerLink="/login"> aanmelden </a>
         <a mat-button routerLink="/register"> registreren </a>
     </span>
@@ -32,7 +26,7 @@
             </button>
             <button mat-menu-item routerLink="/my-cars">
                 <span class="material-icons">directions_car</span>
-                <span class="title">auto's</span>
+                <span class="title">mijn auto's</span>
             </button>
             <button mat-menu-item routerLink="/hirehistory">
                 <span class="material-icons">history</span>
