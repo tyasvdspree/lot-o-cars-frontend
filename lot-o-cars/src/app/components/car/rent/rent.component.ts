@@ -7,7 +7,7 @@ import { Make } from 'src/app/enums/make.enum';
 import { Color } from 'src/app/enums/color.enum';
 import { Transmission } from 'src/app/enums/transmission.enum';
 import { Fuel } from 'src/app/enums/fuel.enum';
-import { CarBody } from 'src/app/enums/carBody.enum';
+import { CarBody } from 'src/app/enums/car-body.enum';
 import { Router } from '@angular/router';
 import {Location} from '../../../models/location.model';
 

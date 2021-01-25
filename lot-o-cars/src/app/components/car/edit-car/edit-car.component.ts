@@ -8,7 +8,7 @@ import { Make } from 'src/app/enums/make.enum';
 import { Color } from 'src/app/enums/color.enum';
 import { Transmission } from 'src/app/enums/transmission.enum';
 import { Fuel } from 'src/app/enums/fuel.enum';
-import { CarBody } from 'src/app/enums/carBody.enum';
+import { CarBody } from 'src/app/enums/car-body.enum';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { Location } from '../../../models/location.model';
 import { ToastrService } from 'ngx-toastr';
@@ -92,7 +92,7 @@ export class EditCarComponent implements OnInit {
 
   editCar(): void {
     debugger;
-    this.car.make = Object.keys(Make).filter(x => Make[x] == this.car.make)[0];  
+    this.car.make = Object.keys(Make).filter(x => Make[x] == this.car.make)[0];
     this.car.color = Object.keys(Color).filter(x => Color[x] == this.car.color)[0];
     this.car.transmission = Object.keys(Transmission).filter(x => Transmission[x] == this.car.transmission)[0];
     this.car.fuel = Object.keys(Fuel).filter(x => Fuel[x] == this.car.fuel)[0];
@@ -100,11 +100,11 @@ export class EditCarComponent implements OnInit {
 
     this.subscription = this.carService.editCar(this.car).subscribe(
       response => {
-        this.car.make = Make[this.car.make];  
-        this.car.color = Color[this.car.color];  
-        this.car.transmission = Transmission[this.car.transmission];  
-        this.car.fuel = Fuel[this.car.fuel];  
-        this.car.body = CarBody[this.car.body];  
+        this.car.make = Make[this.car.make];
+        this.car.color = Color[this.car.color];
+        this.car.transmission = Transmission[this.car.transmission];
+        this.car.fuel = Fuel[this.car.fuel];
+        this.car.body = CarBody[this.car.body];
 
         this.addImage();
         Array.from(this.deletedCarImageIds).forEach(image => {
@@ -114,11 +114,11 @@ export class EditCarComponent implements OnInit {
         this.dialogRef.close();
       },
       error => {
-        this.car.make = Make[this.car.make];  
-        this.car.color = Make[this.car.color];  
-        this.car.transmission = Make[this.car.transmission];  
-        this.car.fuel = Make[this.car.fuel];  
-        this.car.body = Make[this.car.body];  
+        this.car.make = Make[this.car.make];
+        this.car.color = Make[this.car.color];
+        this.car.transmission = Make[this.car.transmission];
+        this.car.fuel = Make[this.car.fuel];
+        this.car.body = Make[this.car.body];
         this.toastr.error('Wijziging mislukt', 'Error');
         this.dialogRef.close();
       }

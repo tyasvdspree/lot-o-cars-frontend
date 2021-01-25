@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CarService } from 'src/app/services/car-service/car.service';
-import { CarSearchCriteria } from 'src/app/models/carSearchCriteria.model';
+import { CarSearchCriteria } from 'src/app/models/car-search-criteria.model';
 import { Make } from 'src/app/enums/make.enum';
 import { Color } from 'src/app/enums/color.enum';
 import { Transmission } from 'src/app/enums/transmission.enum';
 import { Fuel } from 'src/app/enums/fuel.enum';
-import { CarBody } from 'src/app/enums/carBody.enum';
+import { CarBody } from 'src/app/enums/car-body.enum';
 import { Subscription } from 'rxjs';
 import { DateAdapter } from '@angular/material/core';
 
