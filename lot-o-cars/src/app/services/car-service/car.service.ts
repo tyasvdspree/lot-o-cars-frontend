@@ -3,12 +3,12 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Car } from '../../models/car.model';
-import { CarSearchCriteria } from '../../models/carSearchCriteria.model';
+import { CarSearchCriteria } from '../../models/car-search-criteria.model';
 import { Transmission} from 'src/app/enums/transmission.enum';
 import { Fuel} from 'src/app/enums/fuel.enum';
 import { Make } from 'src/app/enums/make.enum';
 import { Color } from 'src/app/enums/color.enum';
-import { CarBody } from 'src/app/enums/carBody.enum';
+import { CarBody } from 'src/app/enums/car-body.enum';
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 
@@ -32,7 +32,7 @@ export class CarService {
   public SearchEvent: EventEmitter<CarSearchCriteria> = new EventEmitter<CarSearchCriteria>();
 
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     private toastr: ToastrService,
     private datePipe: DatePipe
   ) {
@@ -72,7 +72,7 @@ export class CarService {
   // get a list of cars based on the provided search criteria
   find(searchCriteria: CarSearchCriteria): Observable<any> {
     let httpParams = new HttpParams()
-        .set('city', this.getParamString(searchCriteria.pickUpLocation)) 
+        .set('city', this.getParamString(searchCriteria.pickUpLocation))
         .set('pickupdate', this.datePipe.transform(searchCriteria.pickUpDate, 'yyyy-MM-dd'))
         .set('dropoffdate', this.datePipe.transform(searchCriteria.dropOffDate, 'yyyy-MM-dd'))
         .set('make', this.getParamString(searchCriteria.make))
@@ -136,7 +136,7 @@ export class CarService {
     )
   }
 
-  addImageFileToCar(entityId: string, imageFile: File): void 
+  addImageFileToCar(entityId: string, imageFile: File): void
   {
     const formData: FormData = new FormData();
     formData.append('imagefile', imageFile);
@@ -146,7 +146,7 @@ export class CarService {
       (res) => console.log(res),
       (err) => console.log(err)
     );
-    
+
   }
 
   // get own cars stored in the database

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Car } from 'src/app/models/car.model';
-import { CarSearchCriteria } from 'src/app/models/carSearchCriteria.model';
+import { CarSearchCriteria } from 'src/app/models/car-search-criteria.model';
 import { CarService } from 'src/app/services/car-service/car.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Fuel } from 'src/app/enums/fuel.enum';
 import { Transmission } from 'src/app/enums/transmission.enum';
-import { CarBody } from 'src/app/enums/carBody.enum';
+import { CarBody } from 'src/app/enums/car-body.enum';
 import { Make } from 'src/app/enums/make.enum';
 
 @Component({
