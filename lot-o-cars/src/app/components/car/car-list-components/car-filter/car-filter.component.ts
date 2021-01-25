@@ -103,7 +103,7 @@ export class CarFilterComponent implements OnInit, OnDestroy {
     this.searchCriteria.pickUpDate = tomorrow;
     // set drop off date to day after tomorrow
     const dayAfterTomorrow = new Date();
-    dayAfterTomorrow.setDate(tomorrow.getDate() + 2);
+    dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
     this.searchCriteria.dropOffDate = dayAfterTomorrow;
   }
 
