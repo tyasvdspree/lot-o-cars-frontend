@@ -1,6 +1,6 @@
 <div class="container mt-5">
-    <h1>Mijn Gegevens</h1>
-    <form>
+    <h1>Mijn gegevens</h1>
+    <form *ngIf="user">
       <div class="row mt-4">
         <div class="col-md-6">
           <mat-form-field>
@@ -79,7 +79,7 @@
           <button mat-flat-button type="submit" color="primary"
             (click)="editUser()" mat-button class="NxtBtnWrap"
             [disabled]="!emailaddress.validity.valid || (!user.password || user.password.length < 5) || user.phonenumber.length < 9 || user.phonenumber.length > 14"
-            >Wijzig</button>
+            >wijzig</button>
         </div>
       </div> 
   </form> 
