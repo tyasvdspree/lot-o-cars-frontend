@@ -101,6 +101,7 @@ export class AgreementDetailsComponent implements OnInit, OnDestroy {
 
   setAgreement(agreement: Agreement) {
     this.agreement = agreement;
+    this.agreement.isPayed = agreement['payed'];
     this.currentStatus = this.getTranslatedStatus(this.agreement.status);
     this.isPending = isPending(this.agreement.status);
     this.numOfDays = this.calcDaysBetweenDates(this.agreement.startDate, this.agreement.endDate);
@@ -173,7 +174,10 @@ export class AgreementDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       dialogRef.afterClosed().subscribe((data: any) => {
         if (data) {
+          console.log(data);
           this.agreement = data;
+          this.agreement.isPayed = data.payed;
+          this.currentStatus = this.getTranslatedStatus(this.agreement.status);
         }
       })
     );

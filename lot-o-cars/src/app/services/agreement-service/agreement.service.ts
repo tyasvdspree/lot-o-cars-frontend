@@ -58,8 +58,6 @@ export class AgreementService {
   setAgreementPayment(agreement: Agreement): Observable<any>{
     const url = `${environment.apiBaseUrl}/agreement/payment`;
     const reqBody = agreement;
-    console.log(url);
-    console.log(reqBody);
     return this.http.put(url, reqBody);
   }
 }
