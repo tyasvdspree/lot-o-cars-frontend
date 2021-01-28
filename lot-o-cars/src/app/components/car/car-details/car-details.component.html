@@ -48,7 +48,7 @@
                         <div><label class="label">bagageruimte</label> {{ car.bootSpaceInLiters }} l</div>
                         <div><label class="label">navigatie</label> {{ car.navigation ? 'ja' : 'nee' }}</div>
                         <div><label class="label">airco</label> {{ car.airco ? 'ja' : 'nee' }}</div>
-                        <div><label class="label">rookvrij</label> {{ !car.smokingIsAllowed ? 'ja' : 'nee' }}</div>
+                        <div><label class="label">rookvrij</label> {{ car.smokingIsAllowed ? 'ja' : 'nee' }}</div>
                     </ng-container>
                 </mat-card-content>
             </mat-card>
