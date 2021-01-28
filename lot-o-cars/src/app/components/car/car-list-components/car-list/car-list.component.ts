@@ -95,12 +95,19 @@ export class CarListComponent implements OnInit, OnDestroy {
   initPageItems() {
     this.length = this.cars.length;
     this.pageOfCars = this.cars.slice(0, this.pageSize);
-    this.pageOfCars.forEach(x => {
-      x.make = Make[x.make];
-      x.fuel = Fuel[x.fuel];
-      x.transmission = Transmission[x.transmission];
-      x.body = CarBody[x.body];
-    });
+  }
+
+  MakeValue(value: string): string {
+    return Make[value];
+  }
+  FuelValue(value: string): string {
+    return Fuel[value];
+  }
+  TransmissionValue(value: string): string {
+    return Transmission[value];
+  }
+  CarBodyValue(value: string): string {
+    return CarBody[value];
   }
 
   loadPageItems(pageEvent) {
