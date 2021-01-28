@@ -40,14 +40,14 @@ export class MyCarsComponent implements OnInit, OnDestroy {
   }
 
   deactivateCar(car: Car): void {
-    const dialogRef = this.dialog.open(DeactivateCarDialogComponent, {
+    this.dialog.open(DeactivateCarDialogComponent, {
       width: '550px',
       data: { car }
     });
   }
 
   editCar(car: Car): void {
-    const dialogRef = this.dialog.open(EditCarComponent, {
+    this.dialog.open(EditCarComponent, {
       width: '800px',
       data: { car },
       autoFocus: false,
