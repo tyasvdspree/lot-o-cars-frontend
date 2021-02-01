@@ -6,7 +6,7 @@
     <mat-table #table *ngIf="brokerfeeRequests" [dataSource]="brokerfeeRequests">
       
         <ng-container matColumnDef="user">
-          <mat-header-cell id="user" *matHeaderCellDef>gebruiker</mat-header-cell>
+          <mat-header-cell id="user" *matHeaderCellDef>Gebruiker</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{ element.user.username}} </mat-cell>
         </ng-container>
         
@@ -21,17 +21,17 @@
         </ng-container>
   
         <ng-container matColumnDef="originalFee">
-          <mat-header-cell id="originalFee" *matHeaderCellDef>huidige fee</mat-header-cell>
+          <mat-header-cell id="originalFee" *matHeaderCellDef>Huidig tarief</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{ element.originalFee }} </mat-cell>
         </ng-container>
   
         <ng-container matColumnDef="proposedFee">
-          <mat-header-cell id="proposedFee" *matHeaderCellDef>verzochte fee</mat-header-cell>
+          <mat-header-cell id="proposedFee" *matHeaderCellDef>Verzocht tarief</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{ element.proposedFee }} </mat-cell>
         </ng-container>
   
         <ng-container matColumnDef="status">
-          <mat-header-cell id="status" *matHeaderCellDef> Status </mat-header-cell>
+          <mat-header-cell id="status" *matHeaderCellDef>Status</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{ getStatusDisplayText(element.status) | lowercase }} </mat-cell>
         </ng-container>
   
