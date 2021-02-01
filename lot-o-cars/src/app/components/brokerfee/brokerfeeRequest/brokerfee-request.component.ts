@@ -63,7 +63,7 @@ export class BrokerfeeRequestComponent implements OnInit {
     this.brokerfeeService.createBrokerFeeRequest(this.brokerfeeRequest).subscribe(
       response => {
         this.toastr.success('Overeenkomst gemaakt');
-        this.router.navigateByUrl(`/hirehistory`); // TODO: navigate to agreement detail
+        this.router.navigateByUrl(`/brokerfeeRequestUserList`);
       }
     );
   }
