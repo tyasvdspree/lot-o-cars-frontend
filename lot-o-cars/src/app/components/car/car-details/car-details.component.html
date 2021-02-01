@@ -34,7 +34,7 @@
                 </mat-card-header>
                 <mat-card-content>
                     <ng-container *ngIf="car">
-                        <div><label class="label">merk</label> {{ car.make }}</div>
+                        <div><label class="label">merk</label> {{ car.make | titlecase }}</div>
                         <div><label class="label">model</label> {{ car.model }}</div>
                         <div><label class="label">carrosserie</label> {{ car.body | lowercase }}</div>
                         <div><label class="label">brandstof</label> {{ car.fuel | lowercase }}</div>

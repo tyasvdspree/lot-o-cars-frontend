@@ -95,20 +95,21 @@ export class EditCarComponent implements OnInit {
   }
 
   editCar(): void {
-    debugger;
-    this.car.make = Object.keys(Make).filter(x => Make[x] == this.car.make)[0];
-    this.car.color = Object.keys(Color).filter(x => Color[x] == this.car.color)[0];
-    this.car.transmission = Object.keys(Transmission).filter(x => Transmission[x] == this.car.transmission)[0];
-    this.car.fuel = Object.keys(Fuel).filter(x => Fuel[x] == this.car.fuel)[0];
-    this.car.body = Object.keys(CarBody).filter(x => CarBody[x] == this.car.body)[0]
+    // debugger;
+    console.log('CAR EDIT: ', JSON.stringify(this.car));
+    // this.car.make = Object.keys(Make).filter(x => Make[x] == this.car.make)[0];
+    // this.car.color = Object.keys(Color).filter(x => Color[x] == this.car.color)[0];
+    // this.car.transmission = Object.keys(Transmission).filter(x => Transmission[x] == this.car.transmission)[0];
+    // this.car.fuel = Object.keys(Fuel).filter(x => Fuel[x] == this.car.fuel)[0];
+    // this.car.body = Object.keys(CarBody).filter(x => CarBody[x] == this.car.body)[0]
 
     this.subscription = this.carService.editCar(this.car).subscribe(
       response => {
-        this.car.make = Make[this.car.make];
-        this.car.color = Color[this.car.color];
-        this.car.transmission = Transmission[this.car.transmission];
-        this.car.fuel = Fuel[this.car.fuel];
-        this.car.body = CarBody[this.car.body];
+        // this.car.make = Make[this.car.make];
+        // this.car.color = Color[this.car.color];
+        // this.car.transmission = Transmission[this.car.transmission];
+        // this.car.fuel = Fuel[this.car.fuel];
+        // this.car.body = CarBody[this.car.body];
 
         this.addImage();
         Array.from(this.deletedCarImageIds).forEach(image => {
