@@ -21,13 +21,12 @@
                     <mat-card-title>brokerfee request</mat-card-title>
                 </mat-card-header>
                 <mat-card-content >
-                    <div class="label">brokerfee</div>
                     <div>
-                        {{brokerfeeRequest.user.username | titlecase}}
-                        {{brokerfeeRequest.user.firstname}} {{brokerfeeRequest.user.lastname}}
+                        <div>
+                            {{brokerfeeRequest.user.firstname | titlecase}} {{brokerfeeRequest.user.lastname | titlecase}}
+                        </div>
                     </div>
-                    <div class="mt-3 label">brokerfee detail</div>
-                    <div>van {{brokerfeeRequest.originalFee}} naar {{brokerfeeRequest.proposedFee}}</div>
+                    <div>Brokerfee van {{brokerfeeRequest.originalFee}} naar {{brokerfeeRequest.proposedFee}}</div>
                     <div class="label">status</div>
                     <div>{{currentStatus | lowercase}}</div>
                     <div class="mt-3 label">toelichting</div>
@@ -36,11 +35,11 @@
                         <mat-form-field>
                             <textarea matInput #reasonInput rows="5" [(ngModel)]="reason"></textarea>
                         </mat-form-field>
-                        <div class="mt-3" *ngIf="isAdmin">
-                            <button class="mr-1" mat-flat-button color="primary" (click)="approveAgreement()">verzoek accepteren</button>
-                            <button mat-flat-button color="primary" (click)="rejectAgreement()">verzoek afwijzen</button>
+                        <div class="mt-3" *ngIf="isAdminUser">
+                            <button class="mr-1" mat-flat-button color="primary" (click)="approveBrokerfeeRequest()">verzoek accepteren</button>
+                            <button mat-flat-button color="primary" (click)="rejectBrokerfeeRequest()">verzoek afwijzen</button>
                         </div>
-                        <div class="mt-3" *ngIf="!isAdmin">
+                        <div class="mt-3" *ngIf="!isAdminUser">
                             <button mat-flat-button color="primary" (click)="cancelAgreement()">verzoek annuleren</button>
                         </div>
                     </div>

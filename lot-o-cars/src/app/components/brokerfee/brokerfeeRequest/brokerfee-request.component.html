@@ -18,18 +18,17 @@
         <div class="col-md-4 offset-md-4">
             <mat-card>
                 <mat-card-header>
-                    <mat-card-title>brokerfee request</mat-card-title>
+                    <mat-card-title>Brokerfee request</mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <div class="label">brokerfee</div>
                     <div>
-                        {{brokerfeeRequest.user.username | titlecase}}
-                        {{brokerfeeRequest.user.firstname}} {{brokerfeeRequest.user.lastname}}
+                        <div>
+                            {{brokerfeeRequest.user.firstname | titlecase}} {{brokerfeeRequest.user.lastname | titlecase}}
+                        </div>
                     </div>
-                    <div class="mt-3 label">brokerfee detail</div>
-                    <div>van {{brokerfeeRequest.originalFee}} naar
-                        <mat-form-field>
-                            <mat-label>gewenste hoeveelheid</mat-label>
+                    <div>Brokerfee van {{brokerfeeRequest.originalFee}} naar
+                        <mat-form-field class="inline">
+                            <mat-label>gewenste fee</mat-label>
                             <input [value]="brokerfeeRequest.proposedFee" name="proposedFee"
                                 (input)="brokerfeeRequest.proposedFee = $event.target.value" required type="number"
                                 matInput ngModel>

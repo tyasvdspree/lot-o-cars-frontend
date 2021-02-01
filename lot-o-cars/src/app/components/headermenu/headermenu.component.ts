@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import {Router} from '@angular/router';
+import { isAdminUser, User } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-headermenu',
@@ -10,10 +12,12 @@ import {Router} from '@angular/router';
 export class HeadermenuComponent implements OnInit {
   isLoggedIn: boolean;
   username: string;
+  isAdminUser: boolean;
 
   constructor(
     private authenticationService: AuthService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -21,6 +25,10 @@ export class HeadermenuComponent implements OnInit {
     this.authenticationService.username.subscribe((data: string) => this.username = data);
     this.isLoggedIn =  this.authenticationService.isLoggedIn();
     this.username = this.authenticationService.getUserName();
+    this.isAdminUser = false;
+    if(this.isLoggedIn){
+      this.userService.getUser().subscribe((data: User) =>{console.log(isAdminUser(data)); this.isAdminUser = isAdminUser(data)});
+    }
   }
 
   logout(): void {

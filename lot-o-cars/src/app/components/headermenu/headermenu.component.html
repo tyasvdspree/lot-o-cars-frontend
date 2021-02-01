@@ -34,6 +34,14 @@
                 <span class="material-icons">directions_car</span>
                 <span class="title">auto's</span>
             </button>
+            <button mat-menu-item routerLink="/brokerfeeRequestUserList">
+                <span class="material-icons">monetization_on</span>
+                <span class="title">brokerfee verzoeken</span>
+            </button>
+            <button mat-menu-item routerLink="/brokerfeeRequestList" *ngIf="isAdminUser">
+                <span class="material-icons">monetization_on</span>
+                <span class="title">admin brokerfee verzoeken</span>
+            </button>
             <button mat-menu-item routerLink="/hirehistory">
                 <span class="material-icons">history</span>
                 <span class="title">huurhistorie</span>

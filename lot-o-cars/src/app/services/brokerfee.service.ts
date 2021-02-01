@@ -14,11 +14,11 @@ export class BokerfeeService{
   }
 
   createBrokerFeeRequest(brokerfeeRequest: BrokerfeeRequest): Observable<any> {
-    return this.http.post(environment.apiBaseUrl + '/brokerfee', brokerfeeRequest);
+    return this.http.post(environment.apiBaseUrl + '/brokerfee/', brokerfeeRequest);
   }
 
   getBrokerFeeRequests(isAdmin: Boolean): Observable<any> {
-    const path = isAdmin ? '/brokerfee' : '/brokerfee/myBrokerfeeRequests' ;
+    const path = isAdmin ? '/brokerfee/' : '/brokerfee/myBrokerfeeRequests' ;
     return this.http.get(environment.apiBaseUrl + path);
   }
 
@@ -28,7 +28,7 @@ export class BokerfeeService{
   }
 
   setBrokerFeeRequestStatus(id: Number, status: String, reason: String): Observable<any> {
-    const url = environment.apiBaseUrl + '/brokerfee/status';
+    const url = environment.apiBaseUrl + '/brokerfee/'+ id + '/status';
     const reqBody = { id: id, status: status, reason: reason };
     return this.http.put(url, reqBody);
   }

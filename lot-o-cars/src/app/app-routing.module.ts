@@ -16,6 +16,11 @@ import { HirehistoryComponent } from './components/hirehistory/hirehistory.compo
 import { RenthistoryComponent } from './components/renthistory/renthistory.component';
 import { AgreementDetailsComponent } from './components/agreementdetails/agreementdetails.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { BrokerfeeDetailComponent } from './components/brokerfee/brokerfeeDetail/brokerfee-detail.component';
+import { AdminListComponent } from './components/brokerfee/admin-list/admin-list.component';
+import { UserListComponent } from './components/brokerfee/user-list/user-list.component';
+import { BrokerfeeRequestComponent } from './components/brokerfee/brokerfeeRequest/brokerfee-request.component'
+
 
 const routes: Routes = [
   { path: 'my-cars', component: MyCarsComponent, canActivate: [AuthGuard] },
@@ -24,6 +29,10 @@ const routes: Routes = [
   { path: 'cardetails/:id', component: CardetailsComponent },
   { path: 'agreement/:id', component: AgreementComponent, canActivate: [AuthGuard] },
   { path: 'agreementdetails/:id', component: AgreementDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'brokerfeeRequestDetail/:id', component: BrokerfeeDetailComponent, canActivate: [AuthGuard]},
+  { path: 'brokerfeeRequestList', component: AdminListComponent, canActivate: [AuthGuard]},
+  { path: 'brokerfeeRequestUserList', component: UserListComponent, canActivate: [AuthGuard]},
+  { path: 'brokerfeeRequest', component: BrokerfeeRequestComponent, canActivate: [AuthGuard]},
   { path: 'hire', component: HireComponent },
   { path: 'rent', component: RentComponent, canActivate: [AuthGuard]},
   { path: 'home', component: LandingspageComponent },

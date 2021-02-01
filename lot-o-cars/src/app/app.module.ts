@@ -41,12 +41,14 @@ import { AgreementDetailsComponent } from './components/agreementdetails/agreeme
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LocationComponent } from './components/location/location.component';
-import { BrokerfeeDetailComponent } from './components/brokerfee/brokerfeeDetail/brokerfee-detail/brokerfee-detail.component';
-import { BrokerfeeListComponent } from './components/brokerfee/brokerfeeList/brokerfee-list/brokerfee-list.component';
-import { BrokerfeeRequestComponent } from './components/brokerfee/brokerfeeRequest/brokerfee-request/brokerfee-request.component';
+import { BrokerfeeDetailComponent } from './components/brokerfee/brokerfeeDetail/brokerfee-detail.component';
+import { BrokerfeeListComponent } from './components/brokerfee/brokerfeeList/brokerfee-list.component';
+import { BrokerfeeRequestComponent } from './components/brokerfee/brokerfeeRequest/brokerfee-request.component';
 import { EditCarComponent } from './components/edit-car/edit-car.component';
 import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
 import localeNl from '@angular/common/locales/nl';
+import { AdminListComponent } from './components/brokerfee/admin-list/admin-list.component';
+import { UserListComponent } from './components/brokerfee/user-list/user-list.component';
 
 registerLocaleData(localeNl, 'nl');
 
@@ -84,6 +86,8 @@ registerLocaleData(localeNl, 'nl');
     EditCarComponent,
     LocationComponent,
     PaymentDialogComponent,
+    AdminListComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,

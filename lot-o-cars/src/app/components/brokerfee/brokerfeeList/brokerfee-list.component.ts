@@ -14,7 +14,7 @@ import {getStatusText, Status} from 'src/app/enums/status.enum';
 })
 export class BrokerfeeListComponent implements OnInit {
   agreementSubscription: Subscription;
-  displayedColumns = ['brokerfeeRequestId', ''];
+  displayedColumns = ['user', 'firstname', 'lastname', 'originalFee', 'proposedFee', 'status'];
   @Input() adminPerspective = false;
   brokerfeeRequests = new MatTableDataSource();
 
@@ -47,7 +47,7 @@ export class BrokerfeeListComponent implements OnInit {
 
   onRowClicked(brokerfeeRequest: BrokerfeeRequest): void {
     console.log('Row clicked: ', brokerfeeRequest);
-    this.router.navigateByUrl(`/agreementdetails/${brokerfeeRequest.id}`);
+    this.router.navigateByUrl(`/brokerfeeRequestDetail/${brokerfeeRequest.id}`);
   }
 
   searchCars(value = ''): void {

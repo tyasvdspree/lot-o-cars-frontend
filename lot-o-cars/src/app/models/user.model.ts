@@ -9,6 +9,8 @@ export class User {
         lastname: string,
         phonenumber: string,
         emailaddress: string,
+        brokerFee: Number,
+        roles: String
     ){
         this.username = username;
         this.password = password;
@@ -16,6 +18,8 @@ export class User {
         this.lastname = lastname;
         this.phonenumber = phonenumber;
         this.emailaddress = emailaddress;
+        this.brokerFee = brokerFee
+        this.role = roles
     }
 
     id: number;
@@ -26,24 +30,15 @@ export class User {
     phonenumber: string;
     emailaddress: string;
     location: Location;
-    roles: any[];
+    role: String;
+    brokerFee: Number;
     active: boolean;
 
     isAdmin() : Boolean {
-        let admin = this.roles.filter(role => 'ADMIN');
-        if(admin.length > 0){
-            return true;
-        }
-        return false;
+        return this.role == "ADMIN";
     }
 }
 
 export function isAdminUser(user: User): boolean {
-    let result = false;
-    user.roles.forEach(role => {
-        if (role.name.toLowerCase().startsWith('admin') || role.name.toLowerCase().endsWith('admin')) {
-            result = true;
-        }
-    });
-    return result;
+    return user.role == "ADMIN";
 }
